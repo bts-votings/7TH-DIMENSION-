@@ -1544,8 +1544,18 @@
 </div>
 
 <script>
+  // Keep the public landing page available even if a remote auth request is slow.
+  window.setTimeout(function() {
+    var loading = document.getElementById("loading-screen");
+    var app = document.getElementById("app");
+    if (loading) loading.classList.add("hide");
+    if (app) app.classList.remove("hide");
+  }, 3500);
+</script>
+<script>
 (function() {
   "use strict";
+
 
   // ============ CONFIG ============
   const SUPABASE_URL = "https://tdzbbhjminyhxxwsmyip.supabase.co";
@@ -4276,4 +4286,7 @@
 
 </body>
 </html>
+
+
+
 
