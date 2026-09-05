@@ -3,28 +3,28 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0B0B0D" />
+  <meta name="theme-color" content="#080B14" />
   <title>7th Dimension — ARMY community space</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --void: #0B0B0D;
-      --void-2: #111113;
-      --panel: #151518;
-      --panel-2: #1C1B19;
-      --line: #302B24;
-      --line-strong: rgba(214, 179, 106, .38);
-      --text: #F5F1E8;
-      --muted: #A9A39A;
-      /* Legacy variable names are retained for the existing component styles.
-         The palette is now obsidian, champagne, and warm ivory. */
-      --purple: #D6B36A;
-      --lilac: #F1D99B;
-      --pink: #D99A8C;
-      --gold: #D6B36A;
-      --green: #D6B36A;
+      --void: #080B14;
+      --void-2: #0D111B;
+      --panel: #101522;
+      --panel-2: #151B28;
+      --line: #252B38;
+      --line-strong: rgba(198, 40, 61, .55);
+      --text: #F1F3F6;
+      --muted: #9299A8;
+      /* Semantic aliases keep the existing components consistent with the
+         Midnight Navy + Crimson + Silver visual system. */
+      --purple: #C6283D;
+      --lilac: #E85B6B;
+      --pink: #E85B6B;
+      --gold: #C5CBD5;
+      --green: #C6283D;
       --shadow: 0 24px 70px rgba(0, 0, 0, .35);
       --radius-lg: 24px;
       --radius-md: 16px;
@@ -38,8 +38,8 @@
       min-height: 100vh;
       color: var(--text);
       background:
-        radial-gradient(circle at 75% 8%, rgba(214, 179, 106, .08), transparent 27rem),
-        radial-gradient(circle at 8% 88%, rgba(241, 217, 155, .035), transparent 25rem),
+        radial-gradient(circle at 75% 8%, rgba(198, 40, 61, .13), transparent 27rem),
+        radial-gradient(circle at 8% 88%, rgba(197, 203, 213, .045), transparent 25rem),
         var(--void);
       font: 14px/1.5 Inter, system-ui, sans-serif;
       overflow-x: hidden;
@@ -52,16 +52,16 @@
       width: 3px;
       height: 3px;
       border-radius: 99px;
-      background: rgba(241, 217, 155, .75);
+       background: rgba(197, 203, 213, .75);
       box-shadow:
-        7vw 12vh rgba(241, 217, 155, .32),
-        19vw 71vh rgba(241, 217, 155, .34),
-        31vw 21vh rgba(214, 179, 106, .22),
-        43vw 84vh rgba(241, 217, 155, .28),
-        59vw 11vh rgba(214, 179, 106, .24),
-        68vw 64vh rgba(241, 217, 155, .28),
-        84vw 23vh rgba(214, 179, 106, .24),
-        91vw 82vh rgba(241, 217, 155, .25);
+         7vw 12vh rgba(197, 203, 213, .32),
+         19vw 71vh rgba(232, 91, 107, .34),
+         31vw 21vh rgba(198, 40, 61, .22),
+         43vw 84vh rgba(197, 203, 213, .28),
+         59vw 11vh rgba(198, 40, 61, .24),
+         68vw 64vh rgba(197, 203, 213, .28),
+         84vw 23vh rgba(198, 40, 61, .24),
+         91vw 82vh rgba(197, 203, 213, .25);
       opacity: .42;
       pointer-events: none;
     }
@@ -422,6 +422,29 @@
     @keyframes toastIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
     .footer-credit { margin-top: 35px; color: #756E63; text-align: center; font-size: 11px; }
 
+    /* Midnight Navy + Crimson + Silver finishing pass */
+    .btn-primary {
+      color: #F1F3F6;
+      background: linear-gradient(135deg, #E85B6B, #C6283D);
+      box-shadow: 0 9px 28px rgba(198, 40, 61, .24);
+    }
+    .btn-primary:hover { box-shadow: 0 12px 34px rgba(232, 91, 107, .30); }
+    .btn-danger, .report-actions .danger { color: #E85B6B; border-color: rgba(232, 91, 107, .30); }
+    .stage-card { background: linear-gradient(130deg, rgba(198,40,61,.27), rgba(16,21,34,.96) 60%); }
+    .stage-card::after, .profile-hero::after { border-color: rgba(232,91,107,.24); box-shadow: inset 0 0 70px rgba(198,40,61,.10), 0 0 70px rgba(198,40,61,.07); }
+    .card, .modal, .toast { background-color: #101522; }
+    .sidebar, .portal-form, .chat-list { background-color: rgba(8,11,20,.94); }
+    .nav-item:hover, .nav-item.active, .chat-channel.active, .chat-channel:hover { background: rgba(198,40,61,.14); border-color: rgba(232,91,107,.40); }
+    .nav-item.active .nav-icon, .chat-channel .hash, .link-btn, .text-btn { color: #E85B6B; }
+    .live-pill, .tag, .status, .badge { color: #C5CBD5; border-color: rgba(197,203,213,.24); background: rgba(197,203,213,.08); }
+    .pinned-item { border-color: rgba(232,91,107,.28); color: #F1B0B7; background: rgba(198,40,61,.10); }
+    .notice { color: #E8A6AE; border-color: rgba(198,40,61,.34); background: rgba(198,40,61,.10); }
+    .admin-banner { color: #F1B0B7; border-color: rgba(232,91,107,.30); background: rgba(198,40,61,.10); }
+    .admin-banner strong, .admin-door .crown, .brand-mark { color: #C5CBD5; }
+    .filter-pill.active, .filter-pill:hover { border-color: #E85B6B; background: rgba(198,40,61,.16); }
+    .reaction:hover { border-color: #E85B6B; color: #E85B6B; }
+    .stat-label i, .stat-label i.gold, .stat-label i.green { background: #C6283D; box-shadow: 0 0 10px #C6283D; }
+
     @media (max-width: 1040px) {
       .community-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .dashboard-grid, .profile-page, .reports-grid { grid-template-columns: 1fr; }
@@ -619,7 +642,7 @@
           <div class="chat-layout">
               <aside class="chat-list">
               <h3>Channels</h3>
-              <button class="chat-channel" data-channel="personal"><span class="hash">#</span><span><b>my-orbit</b><small>Your personal channel</small></span></button>
+              <button class="chat-channel" data-channel="personal"><span class="hash">#</span><span><b id="personal-channel-name">my-orbit</b><small>Your personal channel</small></span></button>
               <button class="chat-channel active" data-channel="main"><span class="hash">#</span><span><b id="main-channel-name">main-stage</b><small>Everyone joins · read-only for members</small></span></button>
             </aside>
             <section class="chat-main">
@@ -638,7 +661,7 @@
             <article class="card profile-hero">
               <div class="profile-identity"><div class="avatar xl" id="profile-avatar">AM</div><div><h2 id="profile-name">army_member</h2><p id="profile-email">you@example.com</p><div class="badges"><span class="badge">Community member</span><span class="badge" id="profile-admin-badge" hidden>♛ ADMIN</span></div></div></div>
               <p class="profile-bio" id="profile-bio">Finding small joys in every corner of the night sky.</p>
-              <div class="profile-details"><div class="detail"><span>Member since</span><strong id="profile-since">—</strong></div><div class="detail"><span>Personal channel</span><strong># my-orbit</strong></div></div>
+               <div class="profile-details"><div class="detail"><span>Member since</span><strong id="profile-since">—</strong></div><div class="detail"><span>Personal channel</span><strong id="profile-channel-name"># my-orbit</strong></div></div>
             </article>
             <article class="card side-card"><div class="card-heading"><h3>Dimension settings</h3></div><div class="settings-list"><div class="setting-row"><div><strong>Read receipts</strong><p>Let friends see when you’ve read a message.</p></div><button class="toggle on" data-toggle></button></div><div class="setting-row"><div><strong>Quiet notifications</strong><p>Keep mentions and announcements visible.</p></div><button class="toggle" data-toggle></button></div><div class="setting-row"><div><strong>Dimension Shift</strong><p>A tiny hue shift for your personal view.</p></div><button class="toggle" data-toggle></button></div></div></article>
           </div>
@@ -650,6 +673,7 @@
           <div class="view-header"><div><div class="eyebrow">For the one who keeps the door</div><h1>Admin dashboard</h1><p>See the health of the dimension and care for its people.</p></div><button class="btn btn-primary" id="announcement-btn">Make an announcement</button></div>
           <div class="admin-stats"><article class="card admin-stat"><span>Total communities</span><strong id="admin-community-count">0</strong></article><article class="card admin-stat"><span>Total ARMYs</span><strong id="admin-army-count">0</strong></article><article class="card admin-stat"><span>Reports to review</span><strong id="report-count">0</strong></article></div>
            <div class="reports-grid"><article class="card table-card"><div class="card-heading"><h3>Reports queue</h3><button class="link-btn">View all</button></div><div id="reports-list"></div></article><article class="card side-card"><div class="card-heading"><h3>Quick broadcast</h3></div><p class="muted" style="font-size:12px;line-height:1.6">Send a short note to every community as <b style="color:var(--gold)">ADMIN ♛</b>.</p><textarea id="broadcast-input" placeholder="What should the dimension know?" rows="4" style="width:100%;margin-top:15px;resize:vertical"></textarea><button class="btn btn-primary" id="broadcast-btn" style="width:100%;margin-top:12px">Post announcement</button><div class="card-heading" style="margin-top:25px"><h3>Jump into any community</h3></div><input class="search-input" id="admin-community-search" placeholder="Search communities" /><div id="admin-community-jump" class="community-jump"></div></article></div>
+           <article class="card side-card" style="margin-top:19px"><div class="card-heading"><div><h3>Featured ARMY controls</h3><p class="muted" style="margin-top:4px;font-size:11px">Only admins can grant or remove Featured ARMY status.</p></div></div><input class="search-input" id="featured-army-search" placeholder="Search ARMYs" /><div id="featured-army-list" class="community-jump"></div></article>
         </div>
         <div class="footer-credit">Created by <b>@bts_votings</b> on YT</div>
       </div>
@@ -675,8 +699,8 @@
       <div class="modal-head">
         <div>
           <div class="eyebrow" style="color:var(--gold)">Keep the dimension kind</div>
-          <h2>Report this message</h2>
-          <p>Tell the steward what needs attention.</p>
+          <h2 id="report-modal-title">Report this item</h2>
+          <p id="report-modal-subtitle">Tell the steward what needs attention.</p>
         </div>
         <button class="icon-btn" data-close-modal aria-label="Close">×</button>
       </div>
@@ -700,7 +724,8 @@
         <div class="field"><label for="profile-username-input">Username</label><input id="profile-username-input" maxlength="40" required /></div>
         <div class="field"><label for="profile-display-input">Display name</label><input id="profile-display-input" maxlength="80" /></div>
         <div class="field"><label for="profile-bio-input">Bio <span class="muted" id="profile-bio-count">0/160</span></label><textarea id="profile-bio-input" rows="4" maxlength="160"></textarea></div>
-        <div class="field"><label for="profile-avatar-color">Avatar color</label><select id="profile-avatar-color"><option value="gold">Gold</option><option value="lilac">Lilac</option><option value="pink">Pink</option></select></div>
+         <div class="field"><label for="profile-channel-input">Personal channel name</label><input id="profile-channel-input" maxlength="40" placeholder="my-orbit" /></div>
+         <div class="field"><label for="profile-avatar-color">Avatar color</label><select id="profile-avatar-color"><option value="gold">Silver</option><option value="lilac">Crimson glow</option><option value="pink">Bright crimson</option></select></div>
         <div class="report-actions"><button class="btn btn-quiet" type="button" data-close-modal>Cancel</button><button class="btn btn-primary" id="save-profile-btn" type="submit">Save changes</button></div>
       </form>
     </div>
@@ -750,11 +775,13 @@
       mainCommunity: null,
       messages: [],
       reports: [],
+      manageableProfiles: [],
       totalArmyCount: 0,
       totalMessageCount: 0,
       realtimeChannel: null,
       presenceChannel: null,
       pendingReportMessageId: null,
+      pendingReportTarget: null,
       reactionCounts: {},
       pinnedMessages: [],
       isLoadingMessages: false,
@@ -812,6 +839,10 @@
       return state.user?.profile?.username || state.user?.profile?.display_name || state.user?.user_metadata?.username || state.user?.email?.split("@")[0] || "ARMY";
     }
 
+    function currentChannelName() {
+      return state.user?.profile?.channel_name || "my-orbit";
+    }
+
     function renderCommunityCard(community) {
       const memberCount = state.communityCounts[community.id] ?? community.member_count ?? community.members_count ?? 0;
       const owner = community.owner_username || community.owner_name || community.owner_id || "—";
@@ -819,7 +850,7 @@
       return `<article class="card community-card" data-community="${safeText(community.id)}">
         <div class="community-top"><div class="hex-icon" style="width:40px;height:40px;color:var(--lilac)"><span style="width:7px;height:7px"></span></div><span class="tag">${safeText(category)}</span></div>
         <h3>${safeText(community.name || "Unnamed community")}</h3><p>${safeText(community.description || "No description yet.")}</p>
-        <div class="community-meta"><span>◉ ${safeText(memberCount)} / ${community.is_main ? "∞" : "500"} ARMYs</span><button class="link-btn join-community" data-community-id="${safeText(community.id)}">${community.is_main ? "Joined automatically" : "Join"}</button></div>
+        <div class="community-meta"><span>◉ ${safeText(memberCount)} / ${community.is_main ? "∞" : "500"} ARMYs</span><span style="display:flex;gap:10px"><button class="link-btn report-community-action" data-community-id="${safeText(community.id)}">Report</button><button class="link-btn join-community" data-community-id="${safeText(community.id)}">${community.is_main ? "Joined automatically" : "Join"}</button></span></div>
         <div class="community-meta" style="margin-top:8px"><span>Owner</span><span>${safeText(owner)}</span></div>
       </article>`;
     }
@@ -855,7 +886,7 @@
         const count = state.reactionCounts[`${message.id}:${emoji}`] || 0;
         return `<button class="reaction emoji-action" type="button" data-message-id="${messageId}" data-emoji="${emoji}">${emoji} ${count || ""}</button>`;
       }).join("");
-      return `<div class="message-row" data-message-id="${messageId}"><div class="avatar sm">${admin ? "♛" : safeText(message.initials || initials(author))}</div><div class="message-body"><div class="message-line"><strong style="${admin ? "color:var(--gold)" : ""}">${safeText(author)}${adminBadge}</strong><time>${safeText(message.time || "")}</time></div><p>${safeText(message.text)}</p><div class="message-actions">${reactionButtons}<button class="reaction report-action" type="button" data-message-id="${messageId}">Report</button>${pinButton}${deleteButton}</div></div></div>`;
+       return `<div class="message-row" data-message-id="${messageId}"><div class="avatar sm">${admin ? "♛" : safeText(message.initials || initials(author))}</div><div class="message-body"><div class="message-line"><strong style="${admin ? "color:var(--gold)" : ""}">${safeText(author)}${adminBadge}</strong><time>${safeText(message.time || "")}</time></div><p>${safeText(message.text)}</p><div class="message-actions">${reactionButtons}<button class="reaction report-action" type="button" data-message-id="${messageId}">Report</button>${pinButton}${deleteButton}</div></div></div>`;
     }
 
     function renderMessages() {
@@ -885,7 +916,8 @@
       $("#reports-list").innerHTML = state.reports.map((report, index) => {
         const status = report.status || "pending";
         const label = status[0].toUpperCase() + status.slice(1);
-        return `<div class="report"><div><div class="report-meta"><span>${safeText(formatTime(report.created_at))}</span><span>·</span><span>Reported: ${safeText(report.reported_user_id || report.reporter_id || "ARMY")}</span></div><h3>${safeText(report.reason || report.type || "Community report")}</h3><p>${safeText(report.details || report.description || "Review the reported item.")}</p></div><div style="display:grid;gap:8px;justify-items:end"><span class="status ${status !== "pending" ? "reviewed" : ""}">${safeText(label)}</span><div class="report-actions"><button class="link-btn report-review" data-report="${index}">Review</button><button class="link-btn danger report-remove" data-report="${index}">Remove from community</button><button class="link-btn danger report-ban" data-report="${index}">Ban platform</button></div></div></div>`;
+        const targetType = report.target_type || (report.message_id ? "message" : report.community_id ? "community" : report.reported_user_id ? "member" : "item");
+        return `<div class="report"><div><div class="report-meta"><span>${safeText(formatTime(report.created_at))}</span><span>·</span><span>${safeText(targetType)} · Reported by ${safeText(report.reporter_id || "ARMY")}</span></div><h3>${safeText(report.reason || report.type || "Community report")}</h3><p>${safeText(report.details || report.description || "Review the reported item.")}</p></div><div style="display:grid;gap:8px;justify-items:end"><span class="status ${status !== "pending" ? "reviewed" : ""}">${safeText(label)}</span><div class="report-actions"><button class="link-btn report-review" data-report="${index}">Review</button><button class="link-btn danger report-remove-item" data-report="${index}">Remove item</button><button class="link-btn danger report-remove" data-report="${index}">Remove person</button><button class="link-btn danger report-ban" data-report="${index}">Ban person</button><button class="link-btn report-dismiss" data-report="${index}">Dismiss</button></div></div></div>`;
       }).join("");
       $("#report-count").textContent = state.reports.filter(report => (report.status || "pending") === "pending").length;
     }
@@ -906,14 +938,17 @@
       $("#profile-name").textContent = name;
       $("#profile-email").textContent = email;
       $("#profile-bio").textContent = profile.bio || "No bio yet.";
+      $("#personal-channel-name").textContent = currentChannelName();
+      $("#profile-channel-name").textContent = `# ${currentChannelName()}`;
       const memberSince = profile.created_at || state.user?.created_at;
       $("#profile-since").textContent = memberSince ? new Intl.DateTimeFormat(undefined, { month: "long", year: "numeric" }).format(new Date(memberSince)) : "—";
       $("#profile-admin-badge").hidden = !state.isAdmin;
       $("#admin-nav").classList.toggle("hidden", !state.isAdmin);
-      const canCreate = state.isAdmin || state.isFeatured;
+      const canCreate = state.isFeatured;
       $("#create-community-btn").classList.toggle("hidden", !canCreate);
       $("#profile-create-community-btn").classList.toggle("hidden", !canCreate);
       renderAdminCommunities();
+      renderFeaturedArmyControls();
       $("#stage-member-avatar").textContent = initials(name);
       $("#stage-member-count").textContent = `${state.communityCounts[state.mainCommunity?.id] ?? 0} members`;
       $("#stat-armys").textContent = state.totalArmyCount;
@@ -930,6 +965,24 @@
       node.innerHTML = list.length
         ? list.map(community => `<div class="community-jump-row"><div><strong>${safeText(community.name || "Unnamed community")}</strong><span>${safeText(community.category || "Community")}</span></div><button class="link-btn jump-community" data-community-id="${safeText(community.id)}">View &amp; post</button></div>`).join("")
         : `<div class="empty-state">No communities found.</div>`;
+    }
+
+    function renderFeaturedArmyControls() {
+      const node = $("#featured-army-list");
+      if (!node) return;
+      if (!state.isAdmin) {
+        node.innerHTML = `<div class="empty-state">Admin access required.</div>`;
+        return;
+      }
+      const query = ($("#featured-army-search")?.value || "").trim().toLowerCase();
+      const profiles = state.manageableProfiles.filter(profile => {
+        return !query || `${profile.username || ""} ${profile.display_name || ""}`.toLowerCase().includes(query);
+      });
+      node.innerHTML = profiles.length ? profiles.map(profile => {
+        const name = profile.display_name || profile.username || "ARMY";
+        const featured = profile.role === "featured_army";
+        return `<div class="community-jump-row"><div><strong>${safeText(name)}</strong><span>@${safeText(profile.username || "army")} · ${featured ? "Featured ARMY" : "Member"}</span></div><button class="link-btn feature-army" data-user-id="${safeText(profile.id)}" data-featured="${featured ? "true" : "false"}">${featured ? "Remove feature" : "Feature ARMY"}</button></div>`;
+      }).join("") : `<div class="empty-state">No ARMYs found.</div>`;
     }
 
     function formatTime(value) {
@@ -1061,10 +1114,11 @@
       $("#home-communities").innerHTML = `<div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>`;
       $("#discover-communities").innerHTML = `<div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>`;
       if (state.isAdmin) $("#reports-list").innerHTML = `<div class="skeleton" style="margin:21px"></div>`;
-      const [communityResult, armyCount, reportResult] = await Promise.all([
+      const [communityResult, armyCount, reportResult, profileResult] = await Promise.all([
         supabaseClient.from("communities").select("*").order("created_at", { ascending: true }),
         countRows("profiles"),
-        state.isAdmin ? supabaseClient.from("reports").select("*").order("created_at", { ascending: false }) : Promise.resolve({ data: [] })
+        state.isAdmin ? supabaseClient.from("reports").select("*").order("created_at", { ascending: false }) : Promise.resolve({ data: [] }),
+        state.isAdmin ? supabaseClient.from("profiles").select("id,username,display_name,role,banned").neq("role", "admin").order("username", { ascending: true }) : Promise.resolve({ data: [] })
       ]);
       if (communityResult.error) {
         toast(communityResult.error.message, "error");
@@ -1083,6 +1137,7 @@
       } else {
         state.reports = reportResult.data || [];
       }
+      state.manageableProfiles = profileResult.error ? [] : (profileResult.data || []);
       const countPairs = await Promise.all(state.communities.map(async community => [community.id, await countRows("community_members", { column: "community_id", value: community.id })]));
       state.communityCounts = Object.fromEntries(countPairs);
       await ensureMainMembership();
@@ -1153,7 +1208,7 @@
       $("#message-input").placeholder = isPersonal ? "Write in your personal channel…" : canPost ? "Leave a little light here…" : "This community is read-only for members";
       $("#message-form button").disabled = !canPost;
       $("#message-form button").textContent = canPost ? "Send" : "Read only";
-      $("#chat-title").textContent = isPersonal ? "# my-orbit" : `# ${community?.slug || "community"}`;
+       $("#chat-title").textContent = isPersonal ? `# ${currentChannelName()}` : `# ${community?.slug || "community"}`;
       $("#chat-subtitle").textContent = isPersonal ? "Your profile-linked personal channel" : isMain ? (canPost ? "You can message this community" : "Everyone joins · members can read") : (canPost ? "You can message this community" : "Join this community to participate");
     }
 
@@ -1236,12 +1291,7 @@
 
     async function loadFeaturedStatus() {
       if (!state.user || !supabaseClient) return;
-      if (state.user.profile?.role === "featured_army") {
-        state.isFeatured = true;
-        return;
-      }
-      const { data } = await supabaseClient.from("featured_army_grants").select("*").eq("user_id", state.user.id).maybeSingle();
-      state.isFeatured = Boolean(data);
+      state.isFeatured = state.user.profile?.role === "featured_army";
     }
 
     async function logout() {
@@ -1277,7 +1327,7 @@
       let saved = false;
 
       for (const payload of candidates) {
-        const { error } = await supabaseClient.from("messages").insert(payload);
+         const { error } = await supabaseClient.from(table).insert(payload);
         if (!error) {
           saved = true;
           break;
@@ -1337,10 +1387,14 @@
       toast(`You joined ${community.name}.`);
     }
 
-    function openReportModal(messageId) {
-      if (!state.user || !messageId) return toast("This message is missing its database id.", "error");
-      state.pendingReportMessageId = messageId;
+    function openReportModal(target) {
+      const normalized = typeof target === "object" ? target : { type: "message", id: target };
+      if (!state.user || !normalized?.id) return toast("This item is missing its database id.", "error");
+      state.pendingReportTarget = normalized;
+      state.pendingReportMessageId = normalized.type === "message" ? normalized.id : null;
       $("#report-reason").value = "";
+      $("#report-modal-title").textContent = normalized.type === "community" ? "Report this community" : normalized.type === "member" ? "Report this ARMY" : "Report this message";
+      $("#report-modal-subtitle").textContent = normalized.type === "community" ? "Tell the steward what feels unsafe or harmful." : "Tell the steward what needs attention.";
       $("#report-modal").classList.remove("hidden");
       $("#report-reason").focus();
     }
@@ -1348,15 +1402,16 @@
     async function submitReport(event) {
       event.preventDefault();
       const reason = $("#report-reason").value.trim();
-      const messageId = state.pendingReportMessageId;
-      if (!state.user || !messageId || !reason) return;
-
-      const message = state.messages.find(item => String(item.id) === String(messageId));
+       const target = state.pendingReportTarget;
+       if (!state.user || !target?.id || !reason) return;
+       const message = target.type === "message" ? state.messages.find(item => String(item.id) === String(target.id)) : null;
       const { error } = await supabaseClient.from("reports").insert({
-        message_id: String(messageId),
-        community_id: message?.communityId || state.mainCommunity?.id || null,
+         target_type: target.type || "message",
+         target_id: String(target.id),
+         message_id: target.type === "message" ? String(target.id) : null,
+         community_id: target.communityId || message?.communityId || state.mainCommunity?.id || null,
         reporter_id: state.user.id,
-        reported_user_id: message?.userId || null,
+         reported_user_id: target.reportedUserId || message?.userId || null,
         reason,
         status: "pending"
       });
@@ -1364,6 +1419,7 @@
 
       $("#report-modal").classList.add("hidden");
       state.pendingReportMessageId = null;
+       state.pendingReportTarget = null;
       toast("Your report was sent to the admin queue.");
     }
 
@@ -1403,6 +1459,44 @@
       toast("Report marked as actioned.");
     }
 
+    async function dismissReport(report) {
+      if (!state.isAdmin || !report?.id) return;
+      const { error } = await supabaseClient.from("reports").update({
+        status: "dismissed",
+        reviewed_by: state.user.id,
+        reviewed_at: new Date().toISOString()
+      }).eq("id", report.id);
+      if (error) return toast(error.message, "error");
+      report.status = "dismissed";
+      renderReports();
+      toast("Report dismissed.");
+    }
+
+    async function removeReportedItem(report) {
+      if (!state.isAdmin || !report) return;
+      const type = String(report.target_type || (report.message_id ? "message" : report.community_id ? "community" : "item")).toLowerCase();
+      const targetId = report.target_id || report.message_id || report.community_id;
+      if (!targetId) return toast("This report has no removable item id.", "error");
+      if (!window.confirm(`Remove this ${type} from the dimension?`)) return;
+
+      let error;
+      if (type === "community") {
+        ({ error } = await supabaseClient.from("communities").delete().eq("id", targetId));
+      } else if (type === "message" || type === "post") {
+        ({ error } = await supabaseClient.from("messages").delete().eq("id", targetId));
+      } else if (type === "member" || type === "user" || type === "profile") {
+        const userId = report.reported_user_id || targetId;
+        const query = supabaseClient.from("community_members").delete().eq("user_id", userId);
+        ({ error } = await query);
+      } else {
+        return toast("Choose a supported target type before removing this report.", "error");
+      }
+      if (error) return toast(`Removal failed: ${error.message}`, "error");
+      await reviewReport(report);
+      await loadAppData();
+      toast(`The reported ${type} was removed.`);
+    }
+
     async function removeReportedPerson(report) {
       if (!state.isAdmin || !report?.reported_user_id) return;
       if (!window.confirm("Remove this person from the reported community?")) return;
@@ -1430,11 +1524,24 @@
       toast("Person banned from the platform.");
     }
 
+    async function setFeaturedArmy(userId, featured) {
+      if (!state.isAdmin || !userId) return;
+      const { error } = await supabaseClient.from("profiles").update({
+        role: featured ? "featured_army" : "member"
+      }).eq("id", userId);
+      if (error) return toast(`Feature update failed: ${error.message}`, "error");
+      const profile = state.manageableProfiles.find(item => item.id === userId);
+      if (profile) profile.role = featured ? "featured_army" : "member";
+      renderFeaturedArmyControls();
+      toast(featured ? "ARMY featured. They can now create up to 3 communities." : "Featured status removed.");
+    }
+
     function openEditProfile() {
       const profile = state.user?.profile || {};
       $("#profile-username-input").value = profile.username || state.user?.user_metadata?.username || "";
       $("#profile-display-input").value = profile.display_name || "";
       $("#profile-bio-input").value = profile.bio || "";
+      $("#profile-channel-input").value = profile.channel_name || "my-orbit";
       $("#profile-avatar-color").value = profile.avatar_color || "gold";
       $("#profile-bio-count").textContent = `${$("#profile-bio-input").value.length}/160`;
       $("#edit-profile-modal").classList.remove("hidden");
@@ -1447,6 +1554,7 @@
       const username = $("#profile-username-input").value.trim();
       const displayName = $("#profile-display-input").value.trim();
       const bio = $("#profile-bio-input").value.trim();
+      const channelName = $("#profile-channel-input").value.trim().toLowerCase().replace(/[^a-z0-9-_]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "my-orbit";
       const avatarColor = $("#profile-avatar-color").value;
       if (!username) return toast("Choose a username first.", "error");
 
@@ -1466,7 +1574,7 @@
 
       const { data, error } = await supabaseClient
         .from("profiles")
-        .update({ username, display_name: displayName, bio, avatar_color: avatarColor })
+        .update({ username, display_name: displayName, bio, channel_name: channelName, avatar_color: avatarColor })
         .eq("id", state.user.id)
         .select("*")
         .single();
@@ -1483,8 +1591,8 @@
     }
 
     async function openCreateCommunity() {
-      if (!state.user || (!state.isAdmin && !state.isFeatured)) {
-        return toast("Only Featured ARMYs and admins can create communities.", "error");
+      if (!state.user || !state.isFeatured) {
+        return toast("Only Featured ARMYs can create communities.", "error");
       }
       const { count, error } = await supabaseClient
         .from("communities")
@@ -1493,10 +1601,8 @@
         .eq("is_main", false);
       if (error) return toast(error.message, "error");
       const created = count || 0;
-      const capped = !state.isAdmin && created >= 3;
-      $("#community-cap-note").textContent = state.isAdmin
-        ? "Admin accounts can create and manage communities."
-        : `You've created ${created} of 3 communities.`;
+      const capped = created >= 3;
+      $("#community-cap-note").textContent = `You've created ${created} of 3 communities.`;
       $("#community-cap-note").classList.toggle("error", capped);
       $("#create-community-submit").disabled = capped;
       $("#create-community-modal").classList.remove("hidden");
@@ -1526,9 +1632,9 @@
       });
       button.disabled = false;
       button.textContent = "Create community";
-      if (error) {
-        if (/maximum of 3|3 communities|featured/i.test(error.message || "")) {
-          toast("Featured ARMYs can create a maximum of 3 communities.", "error");
+       if (error) {
+         if (/maximum of 3|3 communities|featured|only featured/i.test(error.message || "")) {
+           toast("Only Featured ARMYs can create a maximum of 3 communities.", "error");
         } else {
           toast(error.message, "error");
         }
@@ -1622,6 +1728,12 @@
         joinCommunity(joinButton.dataset.communityId);
         return;
       }
+      const communityReport = event.target.closest(".report-community-action");
+      if (communityReport) {
+        event.stopPropagation();
+        openReportModal({ type: "community", id: communityReport.dataset.communityId, communityId: communityReport.dataset.communityId });
+        return;
+      }
       if (card) toast(`Opening ${card.querySelector("h3").textContent}…`);
       const reportButton = event.target.closest(".report-action");
       if (reportButton) {
@@ -1639,6 +1751,7 @@
     $("#profile-create-community-btn").addEventListener("click", openCreateCommunity);
     $("#edit-profile-btn").addEventListener("click", openEditProfile);
     $("#admin-community-search").addEventListener("input", renderAdminCommunities);
+    $("#featured-army-search").addEventListener("input", renderFeaturedArmyControls);
 
     // Chat
     $("#message-form").addEventListener("submit", async (event) => {
@@ -1661,7 +1774,6 @@
 
     // Profile & admin
     $$("[data-toggle]").forEach(toggle => toggle.addEventListener("click", () => toggle.classList.toggle("on")));
-    $("#edit-profile-btn").addEventListener("click", () => toast("Profile editing is next in the MVP queue."));
     $("#announcement-btn").addEventListener("click", () => showView("admin"));
     $("#broadcast-btn").addEventListener("click", async () => {
       const input = $("#broadcast-input");
@@ -1685,11 +1797,17 @@
         togglePin(pin.dataset.messageId, pin.dataset.pinned === "true");
         return;
       }
+      const feature = event.target.closest(".feature-army");
+      if (feature) {
+        setFeaturedArmy(feature.dataset.userId, feature.dataset.featured !== "true");
+        return;
+      }
       const review = event.target.closest(".report-review");
-      if (!review) return;
-      const report = state.reports[Number(review.dataset.report)];
+      const reportIndex = (review || event.target.closest(".report-remove-item") || event.target.closest(".report-dismiss") || event.target.closest(".report-remove") || event.target.closest(".report-ban"))?.dataset.report;
+      if (reportIndex === undefined) return;
+      const report = state.reports[Number(reportIndex)];
       if (!report) return;
-      reviewReport(report);
+      if (review) reviewReport(report);
     });
     document.addEventListener("click", (event) => {
       const remove = event.target.closest(".report-remove");
@@ -1702,6 +1820,18 @@
       if (ban) {
         const report = state.reports[Number(ban.dataset.report)];
         if (report) banReportedPerson(report);
+        return;
+      }
+      const removeItem = event.target.closest(".report-remove-item");
+      if (removeItem) {
+        const report = state.reports[Number(removeItem.dataset.report)];
+        if (report) removeReportedItem(report);
+        return;
+      }
+      const dismiss = event.target.closest(".report-dismiss");
+      if (dismiss) {
+        const report = state.reports[Number(dismiss.dataset.report)];
+        if (report) dismissReport(report);
       }
     });
 
