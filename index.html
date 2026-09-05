@@ -246,6 +246,7 @@
     .avatar.sm { width: 30px; height: 30px; border-radius: 10px; font-size: 10px; }
     .avatar.green { background: linear-gradient(135deg, #F1D99B, #D6B36A); }
     .avatar.gold { background: linear-gradient(135deg, #FFE8A8, #C89238); }
+    .avatar.lilac { background: linear-gradient(135deg, #F1D99B, #D6B36A); }
     .avatar.pink { background: linear-gradient(135deg, #FFD1D1, #C36F78); }
     .profile-mini .profile-text { min-width: 0; flex: 1; }
     .profile-mini strong, .profile-mini span { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
@@ -351,6 +352,8 @@
     .chat-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 20px; border-bottom: 1px solid var(--line); }
     .chat-head p { margin-top: 3px; color: var(--muted); font-size: 11px; }
     .chat-messages { flex: 1; min-height: 0; padding: 17px 22px; overflow: auto; }
+    .pinned-strip { display: grid; gap: 7px; padding: 11px 16px 0; }
+    .pinned-item { padding: 8px 10px; border: 1px solid rgba(214,179,106,.22); border-radius: 10px; color: #E9D7AB; background: rgba(214,179,106,.07); font-size: 11px; }
     .chat-composer { display: flex; gap: 10px; padding: 16px; border-top: 1px solid var(--line); }
     .chat-composer input { flex: 1; min-width: 0; border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px; outline: 0; color: var(--text); background: rgba(255,255,255,.04); }
     .chat-composer input:focus { border-color: var(--lilac); }
@@ -388,6 +391,20 @@
     .report .report-meta { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 11px; }
     .report h3 { margin: 5px 0 3px; font-size: 14px; }
     .report p { color: var(--muted); font-size: 11px; }
+    .report-actions { display: flex; flex-wrap: wrap; gap: 7px; justify-content: flex-end; }
+    .report-actions .link-btn { padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; }
+    .report-actions .link-btn:hover { border-color: var(--line-strong); }
+    .report-actions .danger { color: #D99A8C; }
+    .community-jump { display: grid; gap: 8px; max-height: 280px; overflow: auto; margin-top: 15px; }
+    .community-jump-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 11px; background: rgba(255,255,255,.025); }
+    .community-jump-row strong { display: block; font-size: 12px; }
+    .community-jump-row span { display: block; margin-top: 2px; color: var(--muted); font-size: 10px; }
+    .connection-banner { margin: 18px 33px 0; }
+    .skeleton { min-height: 76px; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(90deg, rgba(255,255,255,.03), rgba(214,179,106,.09), rgba(255,255,255,.03)); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
+    .skeleton-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 15px; }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+    .inline-spinner { display: inline-block; width: 13px; height: 13px; margin-right: 6px; border: 2px solid rgba(11,11,13,.25); border-top-color: currentColor; border-radius: 50%; animation: spin .7s linear infinite; vertical-align: -2px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
     .status { padding: 5px 8px; border-radius: 20px; color: var(--gold); background: rgba(255,209,102,.1); font-size: 10px; font-weight: 700; }
     .status.reviewed { color: var(--lilac); background: rgba(214,179,106,.14); }
     .admin-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 19px; }
@@ -507,7 +524,7 @@
       <div class="profile-mini">
         <div class="avatar" id="mini-avatar">AM</div>
         <div class="profile-text"><strong id="mini-name">army_member</strong><span id="mini-role">Community member</span></div>
-        <span style="color:var(--gold)">●</span>
+         <span id="presence-dot" title="Checking presence" style="color:var(--muted)">●</span>
       </div>
     </aside>
     <main class="main-wrap">
@@ -524,6 +541,7 @@
           <button class="icon-btn" id="top-profile-btn" aria-label="Open profile">◉</button>
         </div>
       </header>
+      <div id="connection-banner" class="notice error connection-banner hidden">Can’t reach the dimension right now — check back soon.</div>
       <div class="content">
         <!-- Home -->
         <div class="view" id="view-home">
@@ -580,7 +598,7 @@
         <div class="view hidden" id="view-discover">
           <div class="view-header">
             <div><div class="eyebrow">Find your people</div><h1>Discover communities</h1><p>Small rooms, big feelings, and one Main Stage.</p></div>
-            <div class="discover-tools"><div class="search-box"><span aria-hidden="true">⌕</span><input class="search-input" id="community-search" placeholder="Search communities" /></div><button class="btn btn-primary" id="create-community-btn">+ Create space</button></div>
+             <div class="discover-tools"><div class="search-box"><span aria-hidden="true">⌕</span><input class="search-input" id="community-search" placeholder="Search communities" /></div><button class="btn btn-primary hidden" id="create-community-btn">+ Create my community</button></div>
           </div>
           <div class="filter-pills" id="filter-pills">
             <button class="filter-pill active" data-filter="All">All spaces</button>
@@ -606,7 +624,8 @@
             </aside>
             <section class="chat-main">
               <div class="chat-head"><div><h3 id="chat-title"># main-stage</h3><p id="chat-subtitle">Everyone joins · members can read</p></div><button class="icon-btn" id="chat-info" aria-label="Channel info">ⓘ</button></div>
-              <div class="chat-messages" id="chat-messages"></div>
+               <div id="pinned-strip" class="pinned-strip hidden"></div>
+               <div class="chat-messages" id="chat-messages"></div>
               <form class="chat-composer" id="message-form"><input id="message-input" placeholder="Leave a little light here…" autocomplete="off" /><button class="btn btn-primary" type="submit">Send</button></form>
             </section>
           </div>
@@ -614,7 +633,7 @@
 
         <!-- Profile -->
         <div class="view hidden" id="view-profile">
-          <div class="view-header"><div><div class="eyebrow">Your identity in the dimension</div><h1>My profile</h1><p>A place for your username, your orbit, and your own light.</p></div><button class="btn btn-primary" id="edit-profile-btn">Edit profile</button></div>
+           <div class="view-header"><div><div class="eyebrow">Your identity in the dimension</div><h1>My profile</h1><p>A place for your username, your orbit, and your own light.</p></div><div class="welcome-actions"><button class="btn btn-quiet hidden" id="profile-create-community-btn">Create my community</button><button class="btn btn-primary" id="edit-profile-btn">Edit profile</button></div></div>
           <div class="profile-page">
             <article class="card profile-hero">
               <div class="profile-identity"><div class="avatar xl" id="profile-avatar">AM</div><div><h2 id="profile-name">army_member</h2><p id="profile-email">you@example.com</p><div class="badges"><span class="badge">Community member</span><span class="badge" id="profile-admin-badge" hidden>♛ ADMIN</span></div></div></div>
@@ -630,7 +649,7 @@
           <div class="admin-banner"><strong>♛ Steward mode</strong> — you’re viewing the admin control room. Actions here should be backed by Supabase RLS before production.</div>
           <div class="view-header"><div><div class="eyebrow">For the one who keeps the door</div><h1>Admin dashboard</h1><p>See the health of the dimension and care for its people.</p></div><button class="btn btn-primary" id="announcement-btn">Make an announcement</button></div>
           <div class="admin-stats"><article class="card admin-stat"><span>Total communities</span><strong id="admin-community-count">0</strong></article><article class="card admin-stat"><span>Total ARMYs</span><strong id="admin-army-count">0</strong></article><article class="card admin-stat"><span>Reports to review</span><strong id="report-count">0</strong></article></div>
-          <div class="reports-grid"><article class="card table-card"><div class="card-heading"><h3>Reports queue</h3><button class="link-btn">View all</button></div><div id="reports-list"></div></article><article class="card side-card"><div class="card-heading"><h3>Quick broadcast</h3></div><p class="muted" style="font-size:12px;line-height:1.6">Send a short note to every community as <b style="color:var(--gold)">ADMIN ♛</b>.</p><textarea id="broadcast-input" placeholder="What should the dimension know?" rows="4" style="width:100%;margin-top:15px;resize:vertical"></textarea><button class="btn btn-primary" id="broadcast-btn" style="width:100%;margin-top:12px">Post announcement</button></article></div>
+           <div class="reports-grid"><article class="card table-card"><div class="card-heading"><h3>Reports queue</h3><button class="link-btn">View all</button></div><div id="reports-list"></div></article><article class="card side-card"><div class="card-heading"><h3>Quick broadcast</h3></div><p class="muted" style="font-size:12px;line-height:1.6">Send a short note to every community as <b style="color:var(--gold)">ADMIN ♛</b>.</p><textarea id="broadcast-input" placeholder="What should the dimension know?" rows="4" style="width:100%;margin-top:15px;resize:vertical"></textarea><button class="btn btn-primary" id="broadcast-btn" style="width:100%;margin-top:12px">Post announcement</button><div class="card-heading" style="margin-top:25px"><h3>Jump into any community</h3></div><input class="search-input" id="admin-community-search" placeholder="Search communities" /><div id="admin-community-jump" class="community-jump"></div></article></div>
         </div>
         <div class="footer-credit">Created by <b>@bts_votings</b> on YT</div>
       </div>
@@ -648,6 +667,55 @@
         <button class="btn btn-primary" type="submit">Unlock admin space</button>
       </form>
       <div class="modal-note">MVP security note: after sign-in, admin access is granted only when your Supabase <b>profiles.role</b> is set to <b>admin</b>. Never rely on a frontend email check alone in production.</div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="report-modal">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <div class="eyebrow" style="color:var(--gold)">Keep the dimension kind</div>
+          <h2>Report this message</h2>
+          <p>Tell the steward what needs attention.</p>
+        </div>
+        <button class="icon-btn" data-close-modal aria-label="Close">×</button>
+      </div>
+      <form id="report-form" class="form-stack">
+        <div class="field">
+          <label for="report-reason">Reason</label>
+          <textarea id="report-reason" rows="4" maxlength="1000" placeholder="What happened?" required></textarea>
+        </div>
+        <div class="report-actions">
+          <button class="btn btn-quiet" type="button" data-close-modal>Cancel</button>
+          <button class="btn btn-primary" type="submit">Send report</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="edit-profile-modal">
+    <div class="modal">
+      <div class="modal-head"><div><div class="eyebrow" style="color:var(--gold)">Your identity</div><h2>Edit profile</h2><p>Keep your corner of the dimension current.</p></div><button class="icon-btn" data-close-modal aria-label="Close">×</button></div>
+      <form id="edit-profile-form" class="form-stack">
+        <div class="field"><label for="profile-username-input">Username</label><input id="profile-username-input" maxlength="40" required /></div>
+        <div class="field"><label for="profile-display-input">Display name</label><input id="profile-display-input" maxlength="80" /></div>
+        <div class="field"><label for="profile-bio-input">Bio <span class="muted" id="profile-bio-count">0/160</span></label><textarea id="profile-bio-input" rows="4" maxlength="160"></textarea></div>
+        <div class="field"><label for="profile-avatar-color">Avatar color</label><select id="profile-avatar-color"><option value="gold">Gold</option><option value="lilac">Lilac</option><option value="pink">Pink</option></select></div>
+        <div class="report-actions"><button class="btn btn-quiet" type="button" data-close-modal>Cancel</button><button class="btn btn-primary" id="save-profile-btn" type="submit">Save changes</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="create-community-modal">
+    <div class="modal">
+      <div class="modal-head"><div><div class="eyebrow" style="color:var(--gold)">Make a room</div><h2>Create my community</h2><p>Featured ARMYs can create up to 3 communities.</p></div><button class="icon-btn" data-close-modal aria-label="Close">×</button></div>
+      <div class="notice" id="community-cap-note">Checking your community limit…</div>
+      <form id="create-community-form" class="form-stack">
+        <div class="field"><label for="community-name-input">Name</label><input id="community-name-input" maxlength="80" required placeholder="e.g. Dance Practice Room" /></div>
+        <div class="field"><label for="community-description-input">Description</label><textarea id="community-description-input" rows="3" maxlength="240" required placeholder="What belongs in this space?"></textarea></div>
+        <div class="field"><label for="community-category-input">Category</label><select id="community-category-input"><option>General chat</option><option>Covers & dance</option><option>Photocards</option><option>Concert meetups</option></select></div>
+        <div class="report-actions"><button class="btn btn-quiet" type="button" data-close-modal>Cancel</button><button class="btn btn-primary" id="create-community-submit" type="submit">Create community</button></div>
+      </form>
     </div>
   </div>
 
@@ -684,7 +752,13 @@
       reports: [],
       totalArmyCount: 0,
       totalMessageCount: 0,
-      realtimeChannel: null
+      realtimeChannel: null,
+      presenceChannel: null,
+      pendingReportMessageId: null,
+      reactionCounts: {},
+      pinnedMessages: [],
+      isLoadingMessages: false,
+      isLoadingReports: false
     };
 
     const $ = (selector) => document.querySelector(selector);
@@ -742,7 +816,7 @@
       const memberCount = state.communityCounts[community.id] ?? community.member_count ?? community.members_count ?? 0;
       const owner = community.owner_username || community.owner_name || community.owner_id || "—";
       const category = community.category || "Community";
-      return `<article class="card community-card" data-community="${safeText(community.id)}" data-category="${safeText(community.category)}">
+      return `<article class="card community-card" data-community="${safeText(community.id)}">
         <div class="community-top"><div class="hex-icon" style="width:40px;height:40px;color:var(--lilac)"><span style="width:7px;height:7px"></span></div><span class="tag">${safeText(category)}</span></div>
         <h3>${safeText(community.name || "Unnamed community")}</h3><p>${safeText(community.description || "No description yet.")}</p>
         <div class="community-meta"><span>◉ ${safeText(memberCount)} / ${community.is_main ? "∞" : "500"} ARMYs</span><button class="link-btn join-community" data-community-id="${safeText(community.id)}">${community.is_main ? "Joined automatically" : "Join"}</button></div>
@@ -766,22 +840,40 @@
     }
 
     function messageMarkup(message, admin = false) {
-      const author = admin ? "ADMIN" : message.user;
-      return `<div class="message-row" data-message-id="${safeText(message.id || "")}"><div class="avatar sm">${admin ? "♛" : safeText(message.initials || initials(message.user))}</div><div class="message-body"><div class="message-line"><strong style="${admin ? "color:var(--gold)" : ""}">${safeText(author)} ${admin ? "♛" : ""}</strong><time>${safeText(message.time || "")}</time></div><p>${safeText(message.text)}</p><div class="message-actions"><button class="reaction report-action">Report</button></div></div></div>`;
+      const author = message.user || (admin ? "ADMIN" : "ARMY");
+      const canDelete = Boolean(state.user && (state.isAdmin || message.userId === state.user.id));
+      const canPin = Boolean(state.activeChannel !== "personal" && state.user && (state.isAdmin || message.userId === state.user.id));
+      const messageId = safeText(message.id || "");
+      const adminBadge = admin ? " ♛" : "";
+      const deleteButton = canDelete && messageId
+        ? `<button class="reaction delete-action" type="button" data-message-id="${messageId}">Delete</button>`
+        : "";
+      const pinButton = canPin && messageId
+        ? `<button class="reaction pin-action" type="button" data-message-id="${messageId}" data-pinned="${message.pinned ? "true" : "false"}">${message.pinned ? "Unpin" : "Pin"}</button>`
+        : "";
+      const reactionButtons = ["💜", "✨"].map(emoji => {
+        const count = state.reactionCounts[`${message.id}:${emoji}`] || 0;
+        return `<button class="reaction emoji-action" type="button" data-message-id="${messageId}" data-emoji="${emoji}">${emoji} ${count || ""}</button>`;
+      }).join("");
+      return `<div class="message-row" data-message-id="${messageId}"><div class="avatar sm">${admin ? "♛" : safeText(message.initials || initials(author))}</div><div class="message-body"><div class="message-line"><strong style="${admin ? "color:var(--gold)" : ""}">${safeText(author)}${adminBadge}</strong><time>${safeText(message.time || "")}</time></div><p>${safeText(message.text)}</p><div class="message-actions">${reactionButtons}<button class="reaction report-action" type="button" data-message-id="${messageId}">Report</button>${pinButton}${deleteButton}</div></div></div>`;
     }
 
     function renderMessages() {
-      if (state.activeChannel === "personal") {
-        $("#recent-messages").innerHTML = `<div class="empty-state">Your personal channel has no messages yet.</div>`;
-        $("#chat-messages").innerHTML = `<div class="empty-state">Your personal channel has no messages yet.</div>`;
-        return;
-      }
       const recent = state.messages.slice(-3).reverse();
       const empty = `<div class="empty-state">No messages yet. The first light can be yours.</div>`;
       $("#recent-messages").innerHTML = recent.length ? recent.map(message => messageMarkup(message, message.admin)).join("") : empty;
       $("#chat-messages").innerHTML = state.messages.length ? state.messages.map(message => messageMarkup(message, message.admin)).join("") : empty;
       $("#chat-messages").scrollTop = $("#chat-messages").scrollHeight;
       $("#stat-messages").textContent = state.totalMessageCount;
+      renderPinnedMessages();
+    }
+
+    function renderPinnedMessages() {
+      const node = $("#pinned-strip");
+      if (!node) return;
+      const pinned = state.pinnedMessages.slice(0, 3);
+      node.classList.toggle("hidden", !pinned.length);
+      node.innerHTML = pinned.map(message => `<div class="pinned-item">📌 <b>${safeText(message.user)}</b> — ${safeText(message.text)}</div>`).join("");
     }
 
     function renderReports() {
@@ -793,7 +885,7 @@
       $("#reports-list").innerHTML = state.reports.map((report, index) => {
         const status = report.status || "pending";
         const label = status[0].toUpperCase() + status.slice(1);
-        return `<div class="report"><div><div class="report-meta"><span>${safeText(formatTime(report.created_at))}</span><span>·</span><span>${safeText(report.reporter_id || report.user_id || "ARMY")}</span></div><h3>${safeText(report.reason || report.type || "Community report")}</h3><p>${safeText(report.details || report.description || "Review the reported item.")}</p></div><div style="display:grid;gap:8px;justify-items:end"><span class="status ${status !== "pending" ? "reviewed" : ""}">${safeText(label)}</span><button class="link-btn report-review" data-report="${index}">Review</button></div></div>`;
+        return `<div class="report"><div><div class="report-meta"><span>${safeText(formatTime(report.created_at))}</span><span>·</span><span>Reported: ${safeText(report.reported_user_id || report.reporter_id || "ARMY")}</span></div><h3>${safeText(report.reason || report.type || "Community report")}</h3><p>${safeText(report.details || report.description || "Review the reported item.")}</p></div><div style="display:grid;gap:8px;justify-items:end"><span class="status ${status !== "pending" ? "reviewed" : ""}">${safeText(label)}</span><div class="report-actions"><button class="link-btn report-review" data-report="${index}">Review</button><button class="link-btn danger report-remove" data-report="${index}">Remove from community</button><button class="link-btn danger report-ban" data-report="${index}">Ban platform</button></div></div></div>`;
       }).join("");
       $("#report-count").textContent = state.reports.filter(report => (report.status || "pending") === "pending").length;
     }
@@ -807,6 +899,9 @@
       $("#mini-name").textContent = name;
       $("#mini-role").textContent = state.isAdmin ? "Administrator" : state.isFeatured ? "Featured ARMY" : "Community member";
       $("#mini-avatar").textContent = initials(name);
+      const avatarColor = profile.avatar_color || "gold";
+      $("#mini-avatar").className = `avatar ${avatarColor}`;
+      $("#profile-avatar").className = `avatar xl ${avatarColor}`;
       $("#profile-avatar").textContent = initials(name);
       $("#profile-name").textContent = name;
       $("#profile-email").textContent = email;
@@ -815,10 +910,26 @@
       $("#profile-since").textContent = memberSince ? new Intl.DateTimeFormat(undefined, { month: "long", year: "numeric" }).format(new Date(memberSince)) : "—";
       $("#profile-admin-badge").hidden = !state.isAdmin;
       $("#admin-nav").classList.toggle("hidden", !state.isAdmin);
+      const canCreate = state.isAdmin || state.isFeatured;
+      $("#create-community-btn").classList.toggle("hidden", !canCreate);
+      $("#profile-create-community-btn").classList.toggle("hidden", !canCreate);
+      renderAdminCommunities();
       $("#stage-member-avatar").textContent = initials(name);
       $("#stage-member-count").textContent = `${state.communityCounts[state.mainCommunity?.id] ?? 0} members`;
       $("#stat-armys").textContent = state.totalArmyCount;
       $("#admin-army-count").textContent = state.totalArmyCount;
+    }
+
+    function renderAdminCommunities() {
+      const node = $("#admin-community-jump");
+      if (!node) return;
+      const query = ($("#admin-community-search")?.value || "").trim().toLowerCase();
+      const list = state.communities.filter(community => {
+        return !query || `${community.name || ""} ${community.category || ""}`.toLowerCase().includes(query);
+      });
+      node.innerHTML = list.length
+        ? list.map(community => `<div class="community-jump-row"><div><strong>${safeText(community.name || "Unnamed community")}</strong><span>${safeText(community.category || "Community")}</span></div><button class="link-btn jump-community" data-community-id="${safeText(community.id)}">View &amp; post</button></div>`).join("")
+        : `<div class="empty-state">No communities found.</div>`;
     }
 
     function formatTime(value) {
@@ -851,46 +962,105 @@
       if (error && !error.message.toLowerCase().includes("duplicate")) toast(error.message, "error");
     }
 
-    async function loadMainMessages() {
-      if (!state.mainCommunity) {
-        state.messages = [];
-        state.totalMessageCount = 0;
-        renderMessages();
-        return;
+    function activeCommunity() {
+      if (state.activeChannel === "personal") return null;
+      if (state.activeChannel === "main") return state.mainCommunity;
+      return state.communities.find(community => String(community.id) === String(state.activeChannel)) || state.mainCommunity;
+    }
+
+    async function hydrateMessages(rows, count) {
+      const messageRows = rows || [];
+      const ids = [...new Set(messageRows.map(row => row.user_id || row.author_id || row.sender_id).filter(Boolean))];
+      const authors = {};
+      if (ids.length) {
+        const { data: profiles } = await supabaseClient.from("profiles").select("id,username,display_name,role,avatar_color").in("id", ids);
+        (profiles || []).forEach(profile => { authors[profile.id] = profile; });
       }
-      const { data, error, count } = await supabaseClient.from("messages").select("*", { count: "exact" }).eq("community_id", state.mainCommunity.id).order("created_at", { ascending: true });
+      state.messages = messageRows.map(row => {
+        const authorId = row.user_id || row.author_id || row.sender_id || row.owner_id;
+        const author = authors[authorId];
+        return {
+          id: row.id,
+          user: row.author_name || author?.display_name || author?.username || authorId || "ARMY",
+          initials: initials(row.author_name || author?.display_name || author?.username || "ARMY"),
+          text: row.content || row.message || row.body || "",
+          userId: authorId,
+          communityId: row.community_id,
+          time: formatTime(row.created_at),
+          pinned: Boolean(row.pinned),
+          admin: row.author_role === "admin" || author?.role === "admin"
+        };
+      });
+      state.totalMessageCount = count || messageRows.length;
+      state.pinnedMessages = state.messages.filter(message => message.pinned).sort((a, b) => String(b.time).localeCompare(String(a.time)));
+      const messageIds = messageRows.map(row => row.id).filter(Boolean);
+      state.reactionCounts = {};
+      if (messageIds.length) {
+        const { data: reactions } = await supabaseClient.from("message_reactions").select("message_id,emoji").in("message_id", messageIds);
+        (reactions || []).forEach(reaction => {
+          const key = `${reaction.message_id}:${reaction.emoji}`;
+          state.reactionCounts[key] = (state.reactionCounts[key] || 0) + 1;
+        });
+      }
+      renderMessages();
+    }
+
+    async function loadPersonalMessages() {
+      const { data, error, count } = await supabaseClient
+        .from("personal_channel_messages")
+        .select("*", { count: "exact" })
+        .eq("owner_id", state.user.id)
+        .order("created_at", { ascending: true });
       if (error) {
         state.messages = [];
         state.totalMessageCount = 0;
         renderMessages();
-        toast(error.message, "error");
+        if (!/relation .*personal_channel_messages.*does not exist/i.test(error.message || "")) toast(error.message, "error");
         return;
       }
-      const rows = data || [];
-      const ids = [...new Set(rows.map(row => row.user_id || row.author_id).filter(Boolean))];
-      let authors = {};
-      if (ids.length) {
-        const { data: profiles } = await supabaseClient.from("profiles").select("id,username,display_name,role").in("id", ids);
-        (profiles || []).forEach(profile => { authors[profile.id] = profile; });
+      await hydrateMessages(data, count);
+    }
+
+    async function loadActiveMessages() {
+      if (!supabaseClient || !state.user) return;
+      state.isLoadingMessages = true;
+      $("#chat-messages").innerHTML = `<div class="skeleton"></div><div class="skeleton" style="margin-top:12px"></div>`;
+      if (state.activeChannel === "personal") {
+        await loadPersonalMessages();
+      } else {
+        const community = activeCommunity();
+        if (!community) {
+          state.messages = [];
+          state.totalMessageCount = 0;
+          renderMessages();
+        } else {
+          const { data, error, count } = await supabaseClient
+            .from("messages")
+            .select("*", { count: "exact" })
+            .eq("community_id", community.id)
+            .order("created_at", { ascending: true });
+          if (error) {
+            state.messages = [];
+            state.totalMessageCount = 0;
+            renderMessages();
+            toast(error.message, "error");
+          } else {
+            await hydrateMessages(data, count);
+          }
+        }
       }
-      state.messages = rows.map(row => {
-        const authorId = row.user_id || row.author_id;
-        const author = authors[authorId];
-        return {
-          id: row.id,
-          user: row.author_name || author?.username || author?.display_name || authorId || "ARMY",
-          initials: initials(row.author_name || author?.username || author?.display_name || "ARMY"),
-          text: row.content || row.message || row.body || "",
-          time: formatTime(row.created_at),
-          admin: row.author_role === "admin" || author?.role === "admin"
-        };
-      });
-      state.totalMessageCount = count || rows.length;
-      renderMessages();
+      state.isLoadingMessages = false;
+    }
+
+    async function loadMainMessages() {
+      return loadActiveMessages();
     }
 
     async function loadAppData() {
       if (!supabaseClient || !state.user) return;
+      $("#home-communities").innerHTML = `<div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>`;
+      $("#discover-communities").innerHTML = `<div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>`;
+      if (state.isAdmin) $("#reports-list").innerHTML = `<div class="skeleton" style="margin:21px"></div>`;
       const [communityResult, armyCount, reportResult] = await Promise.all([
         supabaseClient.from("communities").select("*").order("created_at", { ascending: true }),
         countRows("profiles"),
@@ -903,8 +1073,16 @@
         state.communities = communityResult.data || [];
       }
       state.mainCommunity = state.communities.find(community => community.is_main === true || community.slug === "main-stage" || String(community.name || "").toLowerCase() === "the main stage") || null;
+      if (state.activeChannel === "main" || !state.activeChannel || state.activeChannel === state.mainCommunity?.id) {
+        state.activeChannel = state.mainCommunity?.id || "main";
+      }
       state.totalArmyCount = armyCount;
-      state.reports = reportResult.data || [];
+      if (reportResult.error) {
+        state.reports = [];
+        if (state.isAdmin) toast(`Reports could not load: ${reportResult.error.message}`, "error");
+      } else {
+        state.reports = reportResult.data || [];
+      }
       const countPairs = await Promise.all(state.communities.map(async community => [community.id, await countRows("community_members", { column: "community_id", value: community.id })]));
       state.communityCounts = Object.fromEntries(countPairs);
       await ensureMainMembership();
@@ -922,35 +1100,61 @@
       renderCommunities();
       renderUser();
       renderReports();
-      await loadMainMessages();
-      subscribeToMainStage();
+      await loadActiveMessages();
+      subscribeToActiveChannel();
       updateChatPermissions();
     }
 
-    function subscribeToMainStage() {
-      if (!state.mainCommunity || !supabaseClient) return;
+    function subscribeToActiveChannel() {
+      if (!supabaseClient || !state.user) return;
       if (state.realtimeChannel) supabaseClient.removeChannel(state.realtimeChannel);
-      state.realtimeChannel = supabaseClient.channel(`main-stage-${state.mainCommunity.id}`)
-        .on("postgres_changes", { event: "*", schema: "public", table: "messages", filter: `community_id=eq.${state.mainCommunity.id}` }, async () => {
-          await loadMainMessages();
+      const channelName = state.activeChannel === "personal" ? `personal-${state.user.id}` : `community-${activeCommunity()?.id || "none"}`;
+      state.realtimeChannel = supabaseClient.channel(channelName);
+      if (state.activeChannel === "personal") {
+        state.realtimeChannel.on("postgres_changes", { event: "*", schema: "public", table: "personal_channel_messages", filter: `owner_id=eq.${state.user.id}` }, loadActiveMessages);
+      } else if (activeCommunity()) {
+        const communityId = activeCommunity().id;
+        state.realtimeChannel
+          .on("postgres_changes", { event: "*", schema: "public", table: "messages", filter: `community_id=eq.${communityId}` }, loadActiveMessages)
+          .on("postgres_changes", { event: "*", schema: "public", table: "community_members", filter: `community_id=eq.${communityId}` }, async () => {
+            state.communityCounts[communityId] = await countRows("community_members", { column: "community_id", value: communityId });
+            renderUser();
+            renderCommunities();
+          });
+      }
+      state.realtimeChannel.subscribe();
+    }
+
+    async function initPresence() {
+      if (!supabaseClient || !state.user) return;
+      if (state.presenceChannel) supabaseClient.removeChannel(state.presenceChannel);
+      state.presenceChannel = supabaseClient.channel("presence:dimension", {
+        config: { presence: { key: state.user.id } }
+      });
+      state.presenceChannel
+        .on("presence", { event: "sync" }, () => {
+          const online = Object.keys(state.presenceChannel.presenceState() || {}).length > 0;
+          $("#presence-dot").style.color = online ? "var(--gold)" : "var(--muted)";
+          $("#presence-dot").title = online ? "Online" : "Offline";
         })
-        .on("postgres_changes", { event: "*", schema: "public", table: "community_members", filter: `community_id=eq.${state.mainCommunity.id}` }, async () => {
-          state.communityCounts[state.mainCommunity.id] = await countRows("community_members", { column: "community_id", value: state.mainCommunity.id });
-          renderUser();
-          renderCommunities();
-        })
-        .subscribe();
+        .subscribe(async status => {
+          if (status === "SUBSCRIBED") {
+            await state.presenceChannel.track({ user_id: state.user.id, name: currentName(), online_at: new Date().toISOString() });
+          }
+        });
     }
 
     function updateChatPermissions() {
-      const isMain = state.activeChannel === "main";
-      const canPost = !isMain || state.isAdmin || state.isFeatured;
+      const isPersonal = state.activeChannel === "personal";
+      const community = activeCommunity();
+      const isMain = Boolean(community?.is_main);
+      const canPost = isPersonal || state.isAdmin || state.isFeatured || community?.owner_id === state.user?.id;
       $("#message-input").disabled = !canPost;
-      $("#message-input").placeholder = canPost ? "Leave a little light here…" : "The Main Stage is read-only for members";
+      $("#message-input").placeholder = isPersonal ? "Write in your personal channel…" : canPost ? "Leave a little light here…" : "This community is read-only for members";
       $("#message-form button").disabled = !canPost;
       $("#message-form button").textContent = canPost ? "Send" : "Read only";
-      $("#chat-title").textContent = isMain ? `# ${state.mainCommunity?.slug || "main-stage"}` : "# my-orbit";
-      $("#chat-subtitle").textContent = isMain ? (canPost ? "You can message this community" : "Everyone joins · members can read") : "Your profile-linked personal channel";
+      $("#chat-title").textContent = isPersonal ? "# my-orbit" : `# ${community?.slug || "community"}`;
+      $("#chat-subtitle").textContent = isPersonal ? "Your profile-linked personal channel" : isMain ? (canPost ? "You can message this community" : "Everyone joins · members can read") : (canPost ? "You can message this community" : "Join this community to participate");
     }
 
     async function showApp() {
@@ -962,6 +1166,7 @@
       renderReports();
       showView("home");
       updateChatPermissions();
+      initPresence();
       await loadAppData();
     }
 
@@ -989,6 +1194,11 @@
       }
       const profile = await getProfile(data.user);
       const isAdmin = profile?.role === "admin";
+      if (profile?.banned) {
+        await supabaseClient.auth.signOut();
+        (adminMode ? showAdminMessage : showAuthMessage)("This account has been banned from the dimension.", "error");
+        return;
+      }
       if (adminMode && !isAdmin) {
         await supabaseClient.auth.signOut();
         showAdminMessage("This account is not marked as an admin in profiles.role.", "error");
@@ -1037,6 +1247,7 @@
     async function logout() {
       if (supabaseClient) await supabaseClient.auth.signOut();
       if (state.realtimeChannel) supabaseClient.removeChannel(state.realtimeChannel);
+      if (state.presenceChannel) supabaseClient.removeChannel(state.presenceChannel);
       state.user = null; state.isAdmin = false; state.isFeatured = false;
       $("#app-shell").classList.add("hidden");
       $("#auth-shell").classList.remove("hidden");
@@ -1046,15 +1257,68 @@
     }
 
     async function saveMessage(text) {
-      if (!state.mainCommunity || !state.user) return toast("The Main Stage is not configured yet.", "error");
-      if (!state.isAdmin && !state.isFeatured) return toast("The Main Stage is read-only for community members.", "error");
-      const { error } = await supabaseClient.from("messages").insert({ content: text, user_id: state.user.id, community_id: state.mainCommunity.id });
-      if (error) {
-        toast(error.message, "error");
+      if (!state.user) return toast("Please sign in first.", "error");
+      const isPersonal = state.activeChannel === "personal";
+      const community = activeCommunity();
+      if (!isPersonal && !community) return toast("This community is not available yet.", "error");
+      const canPost = isPersonal || state.isAdmin || state.isFeatured || community?.owner_id === state.user.id;
+      if (!canPost) return toast("This community is read-only for members.", "error");
+
+      const table = isPersonal ? "personal_channel_messages" : "messages";
+      const baseMessage = isPersonal
+        ? { owner_id: state.user.id, sender_id: state.user.id }
+        : { user_id: state.user.id, community_id: community.id };
+      const candidates = [
+        { ...baseMessage, content: text },
+        { ...baseMessage, message: text },
+        { ...baseMessage, body: text }
+      ];
+      let lastError = null;
+      let saved = false;
+
+      for (const payload of candidates) {
+        const { error } = await supabaseClient.from("messages").insert(payload);
+        if (!error) {
+          saved = true;
+          break;
+        }
+        lastError = error;
+        const schemaColumnError = /could not find the '.*' column of the 'messages' schema cache/i.test(error.message || "");
+        const notNullColumnError = /null value in column ".*" violates not-null constraint/i.test(error.message || "");
+        if (!schemaColumnError && !notNullColumnError) break;
+      }
+
+      if (!saved) {
+        if (isPersonal && /relation .*personal_channel_messages.*does not exist/i.test(lastError?.message || "")) {
+          toast("Personal channels need the personal_channel_messages table in Supabase.", "error");
+          return false;
+        }
+        if (/maximum of 3|3 communities|featured/i.test(lastError?.message || "")) {
+          toast("Featured ARMYs can create a maximum of 3 communities.", "error");
+          return false;
+        }
+        toast(lastError?.message || "Could not send the message.", "error");
         return false;
       }
-      await loadMainMessages();
+      await loadActiveMessages();
       toast("Your message is live.");
+      return true;
+    }
+
+    async function broadcastAnnouncement(text) {
+      if (!state.isAdmin || !state.user) return toast("Only admins can broadcast announcements.", "error");
+      const communities = state.communities.filter(community => community.id);
+      if (!communities.length) return toast("There are no communities to announce to.", "error");
+      const rows = communities.map(community => ({
+        community_id: community.id,
+        user_id: state.user.id,
+        content: text
+      }));
+      const { error } = await supabaseClient.from("messages").insert(rows);
+      if (error) return toast(error.message, "error");
+      state.activeChannel = "main";
+      await loadActiveMessages();
+      toast(`Announcement posted to ${communities.length} communities.`);
       return true;
     }
 
@@ -1073,31 +1337,243 @@
       toast(`You joined ${community.name}.`);
     }
 
-    async function reportMessage(messageId) {
-      if (!state.user || !messageId) return;
-      const reason = window.prompt("Why are you reporting this message?");
-      if (!reason?.trim()) return;
+    function openReportModal(messageId) {
+      if (!state.user || !messageId) return toast("This message is missing its database id.", "error");
+      state.pendingReportMessageId = messageId;
+      $("#report-reason").value = "";
+      $("#report-modal").classList.remove("hidden");
+      $("#report-reason").focus();
+    }
+
+    async function submitReport(event) {
+      event.preventDefault();
+      const reason = $("#report-reason").value.trim();
+      const messageId = state.pendingReportMessageId;
+      if (!state.user || !messageId || !reason) return;
+
+      const message = state.messages.find(item => String(item.id) === String(messageId));
       const { error } = await supabaseClient.from("reports").insert({
-        message_id: messageId,
+        message_id: String(messageId),
+        community_id: message?.communityId || state.mainCommunity?.id || null,
         reporter_id: state.user.id,
-        reason: reason.trim(),
+        reported_user_id: message?.userId || null,
+        reason,
         status: "pending"
       });
-      if (error) return toast(error.message, "error");
+      if (error) return toast(`Report failed: ${error.message}`, "error");
+
+      $("#report-modal").classList.add("hidden");
+      state.pendingReportMessageId = null;
       toast("Your report was sent to the admin queue.");
+    }
+
+    async function deleteMessage(messageId) {
+      if (!messageId || !state.user) return;
+      const message = state.messages.find(item => String(item.id) === String(messageId));
+      const canDelete = state.isAdmin || message?.userId === state.user.id;
+      if (!canDelete) return toast("You can only delete your own messages.", "error");
+      if (!window.confirm("Delete this message? This cannot be undone.")) return;
+
+      const personal = state.activeChannel === "personal";
+      let query = supabaseClient
+        .from(personal ? "personal_channel_messages" : "messages")
+        .delete()
+        .eq("id", messageId);
+      if (personal || !state.isAdmin) query = query.eq(personal ? "owner_id" : "user_id", state.user.id);
+
+      const { error } = await query;
+      if (error) return toast(`Delete failed: ${error.message}`, "error");
+
+      state.messages = state.messages.filter(item => String(item.id) !== String(messageId));
+      state.totalMessageCount = Math.max(0, state.totalMessageCount - 1);
+      renderMessages();
+      toast("Message deleted.");
     }
 
     async function reviewReport(report) {
       if (!report.id || !state.user) return;
       const { error } = await supabaseClient.from("reports").update({
-        status: "reviewed",
+        status: "actioned",
         reviewed_by: state.user.id,
         reviewed_at: new Date().toISOString()
       }).eq("id", report.id);
       if (error) return toast(error.message, "error");
       report.status = "reviewed";
       renderReports();
-      toast("Report marked as reviewed.");
+      toast("Report marked as actioned.");
+    }
+
+    async function removeReportedPerson(report) {
+      if (!state.isAdmin || !report?.reported_user_id) return;
+      if (!window.confirm("Remove this person from the reported community?")) return;
+      if (!report.community_id) return toast("This report has no community id.", "error");
+
+      const { error } = await supabaseClient
+        .from("community_members")
+        .delete()
+        .eq("community_id", report.community_id)
+        .eq("user_id", report.reported_user_id);
+      if (error) return toast(`Remove failed: ${error.message}`, "error");
+      await reviewReport(report);
+      toast("Person removed from the community.");
+    }
+
+    async function banReportedPerson(report) {
+      if (!state.isAdmin || !report?.reported_user_id) return;
+      if (!window.confirm("Ban this person from the platform?")) return;
+      const { error } = await supabaseClient
+        .from("profiles")
+        .update({ banned: true })
+        .eq("id", report.reported_user_id);
+      if (error) return toast(`Ban failed: ${error.message}`, "error");
+      await reviewReport(report);
+      toast("Person banned from the platform.");
+    }
+
+    function openEditProfile() {
+      const profile = state.user?.profile || {};
+      $("#profile-username-input").value = profile.username || state.user?.user_metadata?.username || "";
+      $("#profile-display-input").value = profile.display_name || "";
+      $("#profile-bio-input").value = profile.bio || "";
+      $("#profile-avatar-color").value = profile.avatar_color || "gold";
+      $("#profile-bio-count").textContent = `${$("#profile-bio-input").value.length}/160`;
+      $("#edit-profile-modal").classList.remove("hidden");
+    }
+
+    async function saveProfile(event) {
+      event.preventDefault();
+      if (!state.user) return;
+      const button = $("#save-profile-btn");
+      const username = $("#profile-username-input").value.trim();
+      const displayName = $("#profile-display-input").value.trim();
+      const bio = $("#profile-bio-input").value.trim();
+      const avatarColor = $("#profile-avatar-color").value;
+      if (!username) return toast("Choose a username first.", "error");
+
+      button.disabled = true;
+      button.innerHTML = `<span class="inline-spinner"></span>Saving…`;
+      const { data: existing } = await supabaseClient
+        .from("profiles")
+        .select("id")
+        .eq("username", username)
+        .neq("id", state.user.id)
+        .maybeSingle();
+      if (existing) {
+        button.disabled = false;
+        button.textContent = "Save changes";
+        return toast("That username is taken — try another.", "error");
+      }
+
+      const { data, error } = await supabaseClient
+        .from("profiles")
+        .update({ username, display_name: displayName, bio, avatar_color: avatarColor })
+        .eq("id", state.user.id)
+        .select("*")
+        .single();
+      button.disabled = false;
+      button.textContent = "Save changes";
+      if (error) {
+        if (/unique|duplicate/i.test(error.message || "")) return toast("That username is taken — try another.", "error");
+        return toast(error.message, "error");
+      }
+      state.user.profile = { ...state.user.profile, ...data };
+      $("#edit-profile-modal").classList.add("hidden");
+      renderUser();
+      toast("Profile updated.");
+    }
+
+    async function openCreateCommunity() {
+      if (!state.user || (!state.isAdmin && !state.isFeatured)) {
+        return toast("Only Featured ARMYs and admins can create communities.", "error");
+      }
+      const { count, error } = await supabaseClient
+        .from("communities")
+        .select("id", { count: "exact", head: true })
+        .eq("owner_id", state.user.id)
+        .eq("is_main", false);
+      if (error) return toast(error.message, "error");
+      const created = count || 0;
+      const capped = !state.isAdmin && created >= 3;
+      $("#community-cap-note").textContent = state.isAdmin
+        ? "Admin accounts can create and manage communities."
+        : `You've created ${created} of 3 communities.`;
+      $("#community-cap-note").classList.toggle("error", capped);
+      $("#create-community-submit").disabled = capped;
+      $("#create-community-modal").classList.remove("hidden");
+    }
+
+    function communitySlug(name) {
+      return name.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60) || `community-${Date.now()}`;
+    }
+
+    async function createCommunity(event) {
+      event.preventDefault();
+      if (!state.user) return;
+      const button = $("#create-community-submit");
+      const name = $("#community-name-input").value.trim();
+      const description = $("#community-description-input").value.trim();
+      const category = $("#community-category-input").value;
+      if (!name || !description) return toast("Add a name and description first.", "error");
+      button.disabled = true;
+      button.innerHTML = `<span class="inline-spinner"></span>Creating…`;
+      const { error } = await supabaseClient.from("communities").insert({
+        name,
+        slug: communitySlug(name),
+        description,
+        category,
+        owner_id: state.user.id,
+        is_main: false
+      });
+      button.disabled = false;
+      button.textContent = "Create community";
+      if (error) {
+        if (/maximum of 3|3 communities|featured/i.test(error.message || "")) {
+          toast("Featured ARMYs can create a maximum of 3 communities.", "error");
+        } else {
+          toast(error.message, "error");
+        }
+        return;
+      }
+      $("#create-community-form").reset();
+      $("#create-community-modal").classList.add("hidden");
+      await loadAppData();
+      toast(`${name} is now part of the dimension.`);
+    }
+
+    function jumpToCommunity(communityId) {
+      const community = state.communities.find(item => String(item.id) === String(communityId));
+      if (!community) return;
+      state.activeChannel = community.id;
+      showView("chat");
+      $$(".chat-channel").forEach(item => item.classList.toggle("active", item.dataset.channel === String(community.id)));
+      updateChatPermissions();
+      loadActiveMessages();
+      subscribeToActiveChannel();
+    }
+
+    async function toggleReaction(messageId, emoji) {
+      if (!state.user || !messageId) return;
+      const { data: existing } = await supabaseClient
+        .from("message_reactions")
+        .select("id")
+        .eq("message_id", messageId)
+        .eq("user_id", state.user.id)
+        .eq("emoji", emoji)
+        .maybeSingle();
+      if (existing) {
+        await supabaseClient.from("message_reactions").delete().eq("id", existing.id);
+      } else {
+        const { error } = await supabaseClient.from("message_reactions").insert({ message_id: messageId, user_id: state.user.id, emoji });
+        if (error) return toast(error.message, "error");
+      }
+      await loadActiveMessages();
+    }
+
+    async function togglePin(messageId, pinned) {
+      if (!state.user || (!state.isAdmin && state.messages.find(item => item.id === messageId)?.userId !== state.user.id)) return;
+      const { error } = await supabaseClient.from("messages").update({ pinned: !pinned, updated_at: new Date().toISOString() }).eq("id", messageId);
+      if (error) return toast(error.message, "error");
+      await loadActiveMessages();
     }
 
     // Auth controls
@@ -1108,14 +1584,23 @@
       event.preventDefault();
       await signIn($("#admin-email").value.trim(), $("#admin-password").value, true);
     });
+    $("#report-form").addEventListener("submit", submitReport);
+    $("#edit-profile-form").addEventListener("submit", saveProfile);
+    $("#profile-bio-input").addEventListener("input", () => {
+      $("#profile-bio-count").textContent = `${$("#profile-bio-input").value.length}/160`;
+    });
+    $("#create-community-form").addEventListener("submit", createCommunity);
     $$("[data-close-modal]").forEach(button => button.addEventListener("click", () => button.closest(".modal-backdrop").classList.add("hidden")));
     $("#admin-modal").addEventListener("click", (event) => { if (event.target.id === "admin-modal") event.currentTarget.classList.add("hidden"); });
+    $("#report-modal").addEventListener("click", (event) => { if (event.target.id === "report-modal") event.currentTarget.classList.add("hidden"); });
+    $("#edit-profile-modal").addEventListener("click", (event) => { if (event.target.id === "edit-profile-modal") event.currentTarget.classList.add("hidden"); });
+    $("#create-community-modal").addEventListener("click", (event) => { if (event.target.id === "create-community-modal") event.currentTarget.classList.add("hidden"); });
 
     // Navigation
     $$(".nav-item[data-view]").forEach(button => button.addEventListener("click", () => showView(button.dataset.view)));
     $$("[data-view-jump]").forEach(button => button.addEventListener("click", () => showView(button.dataset.viewJump)));
     $("#top-profile-btn").addEventListener("click", () => showView("profile"));
-    $("#stage-btn").addEventListener("click", () => { showView("chat"); state.activeChannel = "main"; updateChatPermissions(); renderMessages(); });
+    $("#stage-btn").addEventListener("click", () => { showView("chat"); state.activeChannel = "main"; updateChatPermissions(); loadActiveMessages(); subscribeToActiveChannel(); });
     $("#logout-btn").addEventListener("click", logout);
     $("#mobile-menu").addEventListener("click", () => document.body.classList.toggle("menu-open"));
     $("#notification-btn").addEventListener("click", () => toast("No new mentions. The dimension is quiet for now."));
@@ -1139,9 +1624,21 @@
       }
       if (card) toast(`Opening ${card.querySelector("h3").textContent}…`);
       const reportButton = event.target.closest(".report-action");
-      if (reportButton) reportMessage(reportButton.closest("[data-message-id]")?.dataset.messageId);
+      if (reportButton) {
+        event.stopPropagation();
+        openReportModal(reportButton.dataset.messageId || reportButton.closest("[data-message-id]")?.dataset.messageId);
+        return;
+      }
+      const deleteButton = event.target.closest(".delete-action");
+      if (deleteButton) {
+        event.stopPropagation();
+        deleteMessage(deleteButton.dataset.messageId || deleteButton.closest("[data-message-id]")?.dataset.messageId);
+      }
     });
-    $("#create-community-btn").addEventListener("click", () => toast("Community creation is reserved for Featured ARMYs and admins."));
+    $("#create-community-btn").addEventListener("click", openCreateCommunity);
+    $("#profile-create-community-btn").addEventListener("click", openCreateCommunity);
+    $("#edit-profile-btn").addEventListener("click", openEditProfile);
+    $("#admin-community-search").addEventListener("input", renderAdminCommunities);
 
     // Chat
     $("#message-form").addEventListener("submit", async (event) => {
@@ -1149,7 +1646,7 @@
       const input = $("#message-input");
       const text = input.value.trim();
       if (!text) return;
-      if (state.activeChannel !== "main") return toast("Select the Main Stage to post to the community.", "error");
+       if (!state.activeChannel) return toast("Select a channel first.", "error");
       input.value = "";
       await saveMessage(text);
     });
@@ -1158,8 +1655,8 @@
       channel.classList.add("active");
       state.activeChannel = channel.dataset.channel;
       updateChatPermissions();
-      if (state.activeChannel === "main") loadMainMessages();
-      else renderMessages();
+       loadActiveMessages();
+       subscribeToActiveChannel();
     }));
 
     // Profile & admin
@@ -1169,15 +1666,43 @@
     $("#broadcast-btn").addEventListener("click", async () => {
       const input = $("#broadcast-input");
       if (!input.value.trim()) return toast("Write a short note first.", "error");
-      const posted = await saveMessage(input.value.trim());
+      const posted = await broadcastAnnouncement(input.value.trim());
       if (posted) input.value = "";
     });
     document.addEventListener("click", (event) => {
+      const jump = event.target.closest(".jump-community");
+      if (jump) {
+        jumpToCommunity(jump.dataset.communityId);
+        return;
+      }
+      const emoji = event.target.closest(".emoji-action");
+      if (emoji) {
+        toggleReaction(emoji.dataset.messageId, emoji.dataset.emoji);
+        return;
+      }
+      const pin = event.target.closest(".pin-action");
+      if (pin) {
+        togglePin(pin.dataset.messageId, pin.dataset.pinned === "true");
+        return;
+      }
       const review = event.target.closest(".report-review");
       if (!review) return;
       const report = state.reports[Number(review.dataset.report)];
       if (!report) return;
       reviewReport(report);
+    });
+    document.addEventListener("click", (event) => {
+      const remove = event.target.closest(".report-remove");
+      if (remove) {
+        const report = state.reports[Number(remove.dataset.report)];
+        if (report) removeReportedPerson(report);
+        return;
+      }
+      const ban = event.target.closest(".report-ban");
+      if (ban) {
+        const report = state.reports[Number(ban.dataset.report)];
+        if (report) banReportedPerson(report);
+      }
     });
 
     // Restore a Supabase session when one exists.
@@ -1186,10 +1711,19 @@
       renderCommunities();
       renderMessages();
       renderReports();
-      if (!supabaseClient) return;
+      if (!supabaseClient) {
+        $("#connection-banner").classList.remove("hidden");
+        showAuthMessage("Can’t reach the dimension right now — check back soon.", "error");
+        return;
+      }
       const { data } = await supabaseClient.auth.getSession();
       if (data.session?.user) {
         const profile = await getProfile(data.session.user);
+        if (profile?.banned) {
+          await supabaseClient.auth.signOut();
+          showAuthMessage("This account has been removed from 7th Dimension.", "error");
+          return;
+        }
         state.user = { ...data.session.user, profile };
         state.isAdmin = profile?.role === "admin";
         await loadFeaturedStatus();
