@@ -1505,6 +1505,10 @@
         return state.profile?.role === "admin";
       }
 
+      function canCreateCommunity() {
+        return isAdmin() || state.profile?.is_featured === true || state.profile?.can_create_community === true;
+      }
+
       function mainStage() {
         return state.communities.find((community) => community.is_main === true || community.is_main === "true")
           || state.communities.find((community) => /main\s*stage/i.test(community.name || ""));
@@ -1751,7 +1755,7 @@
           const isMain = community.is_main === true || community.is_main === "true" || /main\s*stage/i.test(community.name || "");
           return `<article class="card community-card">${isMain ? `<span class="community-open-badge">Main Stage · Open to all</span>` : `<div class="eyebrow">${escapeHTML(community.category || "community")}</div>`}<h3>${escapeHTML(community.name || "Unnamed community")}</h3><p>${escapeHTML(community.description || "No description in database.")}</p><div class="community-foot"><span>${isMain ? "Unlimited public membership" : `${count} member${count === 1 ? "" : "s"}`}</span>${isMain ? `<button class="card-link" data-open-main-stage="${escapeHTML(community.id)}">Enter stage →</button>` : `<button class="card-link" data-community="${escapeHTML(community.id)}">${joined ? "Joined ✓" : "Join orbit →"}</button>`}</div></article>`;
         }).join("");
-        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">Live community universe</div><h1>Find your constellation.</h1><p>Only communities returned by Supabase are shown here. Main Stage is the open community; membership and messaging still come from the connected database.</p></section><div class="cards-grid">${cards || empty("No communities yet.", "Create the first community in the connected database.")}</div></div>`;
+        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">Live community universe</div><h1>Find your constellation.</h1><p>Only communities returned by Supabase are shown here. Main Stage is the open community; membership and messaging still come from the connected database.</p>${canCreateCommunity() ? `<button class="primary-button" style="margin-top:18px" data-action="create-community">＋ Create community</button>` : ""}</section><div class="cards-grid">${cards || empty("No communities yet.", "Create the first community in the connected database.")}</div></div>`;
       }
 
       function renderDiscover() {
@@ -1918,6 +1922,39 @@
         toast(profile.is_featured === true ? "ARMY removed from featured." : "ARMY featured in the constellation.");
       }
 
+      function openCreateCommunityModal() {
+        if (!canCreateCommunity()) return toast("Only admins and featured ARMYs can create communities.", true);
+        $("#modal-root").innerHTML = `<div class="modal-backdrop" data-close-modal><section class="modal" role="dialog" aria-modal="true" aria-labelledby="community-title"><button class="modal-close" data-close-modal aria-label="Close dialog">×</button><div class="eyebrow">Admin control</div><h2 id="community-title">Create a community</h2><p>This creates a real community record in Supabase. Main Stage remains the open public community.</p><form class="form" id="community-form"><div class="field"><label for="community-name">Name</label><input id="community-name" maxlength="60" required placeholder="Community name" /></div><div class="field"><label for="community-category">Category</label><input id="community-category" maxlength="40" placeholder="Music, projects, discussion..." /></div><div class="field"><label for="community-description">Description</label><textarea id="community-description" maxlength="240" placeholder="What belongs in this constellation?"></textarea></div><p id="community-error" class="muted" style="min-height:18px"></p><div class="modal-actions"><button type="button" class="ghost-button" data-close-modal>Cancel</button><button type="submit" class="primary-button">Create community</button></div></form></section></div>`;
+        $("#community-form").addEventListener("submit", createCommunity);
+      }
+
+      async function createCommunity(event) {
+        event.preventDefault();
+        const name = $("#community-name").value.trim();
+        const category = $("#community-category").value.trim();
+        const description = $("#community-description").value.trim();
+        if (!name) return;
+        const payloads = [
+          { name, category, description, created_by: state.user.id, is_main: false },
+          { name, category, description, owner_id: state.user.id, is_main: false },
+          { name, category, description, created_by: state.user.id },
+          { name, category, description }
+        ];
+        let result = null;
+        for (const payload of payloads) {
+          result = await db.from("communities").insert(payload).select("*").maybeSingle();
+          if (!result.error) break;
+          if (!/column|schema cache|null value/i.test(result.error.message || "")) break;
+        }
+        if (result?.error) {
+          $("#community-error").textContent = result.error.message;
+          return;
+        }
+        $("#modal-root").innerHTML = "";
+        await loadLiveData();
+        toast("Community created in Supabase.");
+      }
+
       function openProfileEditor() {
         $("#modal-root").innerHTML = `<div class="modal-backdrop" data-close-modal><section class="modal" role="dialog" aria-modal="true"><button class="modal-close" data-close-modal aria-label="Close dialog">×</button><div class="eyebrow">Live identity</div><h2>Edit your profile</h2><p>Changes are written to public.profiles.</p><form class="form" id="profile-form"><div class="field"><label for="profile-name">Display name</label><input id="profile-name" maxlength="32" value="${escapeHTML(state.profile?.display_name || state.profile?.username || "")}" required /></div><div class="field"><label for="profile-bio">Bio</label><textarea id="profile-bio" maxlength="160">${escapeHTML(state.profile?.bio || "")}</textarea></div><div class="modal-actions"><button type="button" class="ghost-button" data-close-modal>Cancel</button><button type="submit" class="primary-button">Save profile</button></div></form></section></div>`;
         $("#profile-form").addEventListener("submit", async (event) => {
@@ -1961,6 +1998,7 @@
         $("#main-stage-message")?.addEventListener("keydown", (event) => {
           if (event.key === "Enter") sendMainStageMessage();
         });
+        $("[data-action='create-community']")?.addEventListener("click", openCreateCommunityModal);
         $("[data-action='edit-profile']")?.addEventListener("click", openProfileEditor);
         $("[data-action='replay-tour']")?.addEventListener("click", () => openTour(0));
         $("[data-action='logout']")?.addEventListener("click", logout);
