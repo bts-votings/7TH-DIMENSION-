@@ -516,6 +516,45 @@
     .post-author strong { display: block; font-size: 12px; }
     .post-author span { display: block; margin-top: 1px; color: var(--muted); font-size: 10px; }
     .more-button { padding: 0 5px; border: 0; color: var(--muted); background: none; font-size: 18px; }
+    .more-button:hover { color: var(--white); }
+    .post-menu {
+      position: absolute;
+      top: 44px;
+      right: 17px;
+      z-index: 3;
+      min-width: 150px;
+      display: grid;
+      gap: 3px;
+      padding: 6px;
+      border: 1px solid var(--line-bright);
+      border-radius: 12px;
+      background: #15122b;
+      box-shadow: var(--shadow);
+    }
+    .post-menu button {
+      padding: 8px 10px;
+      border: 0;
+      border-radius: 7px;
+      color: var(--muted);
+      background: transparent;
+      font-size: 11px;
+      text-align: left;
+    }
+    .post-menu button:hover { color: var(--white); background: rgba(255,255,255,.07); }
+    .post-menu button.danger { color: var(--danger); }
+    .post-card { position: relative; }
+    .thread-list { display: grid; gap: 11px; margin-top: 16px; }
+    .thread-item { padding: 11px 12px; border: 1px solid var(--line); border-radius: 11px; background: rgba(255,255,255,.025); }
+    .thread-item.reply { margin-left: 22px; }
+    .thread-item p { margin-top: 5px; color: #dedbf0; font-size: 12px; white-space: pre-wrap; }
+    .thread-meta { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 10px; }
+    .thread-meta strong { color: var(--white); font-size: 11px; }
+    .thread-tools { display: flex; gap: 8px; margin-top: 7px; }
+    .thread-tools button { padding: 0; border: 0; color: var(--violet-bright); background: none; font-size: 10px; }
+    .settings-grid { display: grid; gap: 13px; margin-top: 20px; }
+    .setting-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 11px 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    .setting-row:last-child { border-bottom: 0; }
+    .setting-row select { max-width: 180px; padding: 7px 8px; border: 1px solid var(--line); border-radius: 8px; color: var(--white); background: rgba(255,255,255,.06); }
     .post-body { padding: 15px 0 6px 42px; }
     .post-body p { color: #dedbf0; font-size: 13px; line-height: 1.7; }
     .post-body .tag { color: var(--violet-bright); }
@@ -624,6 +663,83 @@
     .admin-badge { color: #f2d998; letter-spacing: .1em; font-size: 9px; text-transform: uppercase; }
     .message-composer { display: flex; gap: 9px; align-items: center; margin-top: 16px; }
     .message-composer input { flex: 1; min-width: 0; }
+    /* Full-scale private messaging experience */
+    .messages-view {
+      min-height: calc(100vh - 145px);
+      height: calc(100vh - 145px);
+      display: grid;
+      grid-template-columns: minmax(260px, 330px) minmax(0, 1fr);
+      overflow: hidden;
+      border: 1px solid rgba(160, 178, 215, .16);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 72% 18%, rgba(73, 101, 164, .13), transparent 28rem),
+        linear-gradient(145deg, rgba(12, 18, 34, .97), rgba(9, 8, 23, .98));
+      box-shadow: 0 25px 75px rgba(0, 0, 0, .28);
+    }
+    .conversation-panel {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid rgba(160, 178, 215, .15);
+      background: rgba(8, 13, 27, .56);
+    }
+    .conversation-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 22px 18px 13px; }
+    .conversation-heading h3 { color: var(--white); font-size: 18px; letter-spacing: .08em; }
+    .conversation-heading p { margin-top: 4px; color: var(--dim); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+    .conversation-search { display: flex; align-items: center; gap: 8px; margin: 0 14px 14px; padding: 9px 11px; border: 1px solid rgba(160, 178, 215, .16); border-radius: 10px; color: var(--muted); background: rgba(255,255,255,.035); }
+    .conversation-search input { width: 100%; min-width: 0; border: 0; outline: 0; color: var(--white); background: transparent; font-size: 11px; }
+    .conversation-search input::placeholder { color: var(--dim); }
+    .conversation-list { min-height: 0; flex: 1; overflow-y: auto; padding: 0 9px 14px; scrollbar-color: rgba(168,140,255,.38) transparent; }
+    .conversation-row { width: 100%; display: flex; align-items: center; gap: 10px; padding: 12px 9px; border: 1px solid transparent; border-radius: 13px; color: inherit; background: transparent; text-align: left; transition: background .2s ease, border-color .2s ease, transform .2s ease; }
+    .conversation-row:hover { border-color: rgba(160, 178, 215, .18); background: rgba(255,255,255,.045); transform: translateX(2px); }
+    .conversation-row.active { border-color: rgba(145, 168, 215, .35); background: linear-gradient(90deg, rgba(86, 116, 177, .2), rgba(122, 101, 190, .08)); }
+    .conversation-copy { min-width: 0; flex: 1; }
+    .conversation-copy strong, .conversation-copy span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .conversation-copy strong { color: var(--white); font-size: 12px; }
+    .conversation-copy .conversation-username { margin-top: 1px; color: #8995af; font-size: 9px; }
+    .conversation-copy .conversation-preview { margin-top: 5px; color: var(--muted); font-size: 10px; }
+    .conversation-meta { align-self: stretch; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; gap: 5px; color: var(--dim); font-size: 9px; }
+    .unread-dot { min-width: 17px; height: 17px; display: grid; place-items: center; padding: 0 4px; border-radius: 99px; color: #0b1020; background: #b9c8e7; font-size: 9px; font-weight: 700; box-shadow: 0 0 12px rgba(185, 200, 231, .28); }
+    .status-dot { width: 7px; height: 7px; display: inline-block; border-radius: 50%; background: #7a849a; }
+    .status-dot.online { background: #b9c8e7; box-shadow: 0 0 9px rgba(185, 200, 231, .7); }
+    .new-message-button { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid rgba(185, 200, 231, .35); border-radius: 9px; color: var(--white); background: rgba(102, 129, 180, .14); font-size: 18px; }
+    .new-message-button:hover { border-color: rgba(185, 200, 231, .7); background: rgba(102, 129, 180, .25); }
+    .chat-panel { min-width: 0; min-height: 0; display: flex; flex-direction: column; background: radial-gradient(circle at 50% 20%, rgba(65, 87, 137, .1), transparent 30rem); }
+    .chat-header { min-height: 78px; display: flex; align-items: center; gap: 12px; padding: 15px 23px; border-bottom: 1px solid rgba(160, 178, 215, .14); background: rgba(9, 14, 28, .38); }
+    .chat-header-copy { min-width: 0; flex: 1; }
+    .chat-header-copy strong, .chat-header-copy span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .chat-header-copy strong { color: var(--white); font-size: 14px; }
+    .chat-header-copy span { margin-top: 3px; color: var(--muted); font-size: 10px; }
+    .chat-options, .chat-back { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid transparent; border-radius: 9px; color: var(--muted); background: transparent; }
+    .chat-options:hover, .chat-back:hover { border-color: var(--line); color: var(--white); background: rgba(255,255,255,.05); }
+    .chat-back { display: none; }
+    .chat-body { min-height: 0; flex: 1; overflow-y: auto; padding: 26px clamp(18px, 4vw, 50px); scrollbar-color: rgba(168,140,255,.38) transparent; }
+    .chat-day { margin: 0 auto 19px; color: var(--dim); font-size: 9px; letter-spacing: .16em; text-align: center; text-transform: uppercase; }
+    .chat-message { display: flex; gap: 9px; max-width: min(680px, 82%); margin: 0 0 15px; animation: message-in .25s ease both; }
+    .chat-message.sent { margin-left: auto; flex-direction: row-reverse; }
+    .chat-bubble { padding: 11px 14px; border: 1px solid rgba(158, 177, 216, .14); border-radius: 16px 16px 16px 5px; color: #e2e7f3; background: rgba(30, 43, 70, .8); box-shadow: 0 9px 24px rgba(0,0,0,.12); }
+    .chat-message.sent .chat-bubble { border-color: rgba(161, 153, 211, .2); border-radius: 16px 16px 5px 16px; background: linear-gradient(135deg, rgba(73, 86, 135, .72), rgba(55, 47, 92, .78)); }
+    .chat-bubble p { font-size: 12px; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .chat-time { display: block; margin-top: 5px; color: #8e99ad; font-size: 9px; text-align: right; }
+    .chat-composer { display: flex; align-items: flex-end; gap: 8px; margin: 0 18px 18px; padding: 10px; border: 1px solid rgba(160, 178, 215, .2); border-radius: 15px; background: rgba(12, 19, 35, .82); box-shadow: 0 12px 32px rgba(0,0,0,.2); }
+    .chat-composer:focus-within { border-color: rgba(151, 174, 221, .56); box-shadow: 0 0 0 3px rgba(105, 132, 188, .1), 0 12px 32px rgba(0,0,0,.2); }
+    .chat-composer textarea { min-height: 42px; max-height: 130px; flex: 1; padding: 10px 7px; border: 0; outline: 0; resize: none; color: var(--white); background: transparent; font-size: 12px; line-height: 1.45; }
+    .chat-composer textarea::placeholder { color: var(--dim); }
+    .composer-icon { width: 34px; height: 34px; flex: 0 0 auto; display: grid; place-items: center; border: 1px solid transparent; border-radius: 9px; color: var(--muted); background: transparent; }
+    .composer-icon:hover { border-color: var(--line); color: var(--white); background: rgba(255,255,255,.05); }
+    .composer-send { width: 38px; height: 38px; flex: 0 0 auto; display: grid; place-items: center; border: 0; border-radius: 11px; color: #101525; background: #c7d3ed; box-shadow: 0 0 18px rgba(170, 190, 230, .17); font-size: 17px; }
+    .composer-send:hover { background: #e0e8fa; transform: translateY(-1px); }
+    .message-empty { min-height: 100%; display: grid; place-items: center; padding: 30px; text-align: center; }
+    .message-empty-inner { max-width: 340px; }
+    .empty-orbit { position: relative; width: 122px; height: 122px; margin: 0 auto 25px; border: 1px solid rgba(151, 174, 221, .28); border-radius: 50%; box-shadow: 0 0 55px rgba(89, 123, 191, .1), inset 0 0 35px rgba(89, 123, 191, .08); }
+    .empty-orbit::before, .empty-orbit::after { content: ""; position: absolute; inset: 20px -12px; border: 1px solid rgba(151, 174, 221, .2); border-radius: 50%; transform: rotate(55deg); }
+    .empty-orbit::after { inset: 31px -23px; transform: rotate(-35deg); border-color: rgba(167, 155, 213, .2); }
+    .empty-orbit i { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: #dce5fa; box-shadow: 0 0 12px rgba(201, 219, 255, .8); }
+    .empty-orbit i:nth-child(1) { top: 12px; left: 32px; } .empty-orbit i:nth-child(2) { top: 31px; right: 8px; } .empty-orbit i:nth-child(3) { right: 16px; bottom: 19px; } .empty-orbit i:nth-child(4) { bottom: 12px; left: 30px; }
+    .message-empty h3 { color: var(--white); font-size: 20px; letter-spacing: .16em; }
+    .message-empty p { margin-top: 9px; color: var(--muted); font-size: 12px; }
+    @keyframes message-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     .featured-mark { color: #f2d998; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
     .profile-view { display: grid; gap: 17px; }
     .profile-banner {
@@ -795,7 +911,7 @@
       bottom: 10px;
       left: 10px;
       z-index: 10;
-      grid-template-columns: repeat(5, 1fr);
+       grid-template-columns: repeat(6, 1fr);
       padding: 7px;
       border: 1px solid var(--line-bright);
       border-radius: 16px;
@@ -817,6 +933,8 @@
       .content-grid { grid-template-columns: 1fr; }
       .side-column { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
       .side-column > .card { min-width: 0; }
+      .messages-view { grid-template-columns: minmax(220px, 280px) minmax(0, 1fr); }
+      .chat-body { padding-right: 22px; padding-left: 22px; }
     }
     @media (max-width: 640px) {
       .portal-header { width: calc(100% - 28px); padding-top: 14px; }
@@ -849,6 +967,16 @@
       .post-image { width: 100%; margin-left: 0; }
       .cards-grid { grid-template-columns: 1fr; }
       .hero-card { padding: 21px; }
+      .messages-view { position: relative; display: block; height: calc(100vh - 105px); min-height: 510px; border-radius: 17px; }
+      .conversation-panel { height: 100%; border-right: 0; }
+      .chat-panel { height: 100%; }
+      .messages-view:not(.chat-open) .chat-panel { display: none; }
+      .messages-view.chat-open .conversation-panel { display: none; }
+      .chat-back { display: grid; }
+      .chat-header { min-height: 66px; padding: 11px 13px; }
+      .chat-body { padding: 19px 13px; }
+      .chat-message { max-width: 88%; }
+      .chat-composer { margin: 0 10px 10px; }
       .profile-banner { min-height: 190px; padding: 18px; }
       .stats-card { padding: 12px 4px; }
       .stat { padding: 2px 6px; }
@@ -919,6 +1047,8 @@
           <button class="nav-button" data-view="signal"><span class="nav-icon">◈</span><span>Signal <b class="signal-count">3</b></span></button>
           <button class="nav-button" data-view="archive"><span class="nav-icon">▱</span><span>Archive</span></button>
           <button class="nav-button" data-view="events"><span class="nav-icon">◷</span><span>Events</span></button>
+          <button class="nav-button" data-view="projects"><span class="nav-icon">◇</span><span>Projects</span></button>
+          <button class="nav-button" data-view="missions"><span class="nav-icon">✦</span><span>Missions</span></button>
           <button class="nav-button" data-view="messages"><span class="nav-icon">⌁</span><span>Messages</span></button>
         </nav>
       </div>
@@ -963,6 +1093,7 @@
       <button data-view="constellation"><span>✧</span>Stars</button>
       <button data-view="discover"><span>⌕</span>Explore</button>
       <button data-view="events"><span>◷</span>Events</button>
+      <button data-view="projects"><span>◇</span>Projects</button>
       <button data-view="profile"><span>◎</span>You</button>
     </nav>
   </section>
@@ -1412,6 +1543,7 @@
         view: "flow",
         filter: "Latest",
         query: "",
+        conversationQuery: "",
         user: null,
         profile: null,
         profiles: [],
@@ -1421,9 +1553,16 @@
         comments: [],
         reactions: [],
         messages: [],
+        conversations: [],
+        conversationParticipants: [],
         notifications: [],
         follows: [],
         bookmarks: [],
+        events: [],
+        eventAttendees: [],
+        projects: [],
+        missions: [],
+        achievements: [],
         reports: [],
         selectedCommunityId: null,
         capabilities: {},
@@ -1438,6 +1577,8 @@
         signal: ["Signal", "Notifications received from the database."],
         archive: ["Archive", "Saved records from your account."],
         events: ["Events", "Events configured in the connected database."],
+        projects: ["Projects", "ARMY projects configured in the connected database."],
+        missions: ["Missions", "Missions and XP from the connected database."],
         messages: ["Messages", "Live messages from connected channels."],
         profile: ["Profile", "Your identity from the connected database."]
       };
@@ -1466,12 +1607,18 @@
         toast.timer = setTimeout(() => { root.innerHTML = ""; }, 3600);
       }
 
+      function safeError(operation, error) {
+        console.error(`[7TH DIMENSION] ${operation}`, error);
+        return toast(`${operation} could not be completed. Please try again.`, true);
+      }
+
       async function queryRows(table, options = {}) {
         if (!db) return { data: [], error: new Error("Supabase client could not load.") };
         let query = db.from(table).select(options.select || "*");
         if (options.order) query = query.order(options.order, { ascending: options.ascending ?? false });
         if (options.limit) query = query.limit(options.limit);
         if (options.eq) Object.entries(options.eq).forEach(([column, value]) => { query = query.eq(column, value); });
+        if (options.in) Object.entries(options.in).forEach(([column, values]) => { query = query.in(column, values); });
         return query;
       }
 
@@ -1550,12 +1697,32 @@
           readTable("posts", { order: "created_at", ascending: false, limit: 100 }),
           readTable("comments", { limit: 500 }),
           readTable("reactions", { limit: 500 }),
-          readTable("messages", { order: "created_at", ascending: true, limit: 100 }),
-          readTable("notifications", { order: "created_at", ascending: false, limit: 100 }),
+          readTable("notifications", { eq: { user_id: state.user.id }, order: "created_at", ascending: false, limit: 100 }),
           readTable("user_follows", { limit: 500 }),
-          readTable("bookmarks", { limit: 500 })
+          readTable("bookmarks", { eq: { user_id: state.user.id }, limit: 500 }),
+          readTable("conversation_participants", { eq: { user_id: state.user.id }, limit: 100 }),
+          readTable("conversations", { limit: 100 }),
+          readTable("events", { limit: 100 }),
+          readTable("event_attendees", { eq: { user_id: state.user.id }, limit: 300 }),
+          readTable("projects", { order: "created_at", ascending: false, limit: 100 }),
+          readTable("missions", { order: "created_at", ascending: false, limit: 100 }),
+          readTable("achievements", { eq: { user_id: state.user.id }, limit: 100 })
         ]);
-        [state.profiles, state.communities, state.communityMembers, state.posts, state.comments, state.reactions, state.messages, state.notifications, state.follows, state.bookmarks] = results;
+        [state.profiles, state.communities, state.communityMembers, state.posts, state.comments, state.reactions, state.notifications, state.follows, state.bookmarks, state.conversationParticipants, state.conversations, state.events, state.eventAttendees, state.projects, state.missions, state.achievements] = results;
+        const conversationIds = state.conversationParticipants.map((item) => item.conversation_id).filter(Boolean);
+        if (conversationIds.length) {
+          const messagesResult = await queryRows("messages", {
+            in: { conversation_id: conversationIds },
+            order: "created_at",
+            ascending: true,
+            limit: 300
+          });
+          state.messages = messagesResult.error ? [] : (messagesResult.data || []);
+          state.capabilities.messages = !messagesResult.error;
+        } else {
+          state.messages = [];
+          state.capabilities.messages = true;
+        }
         state.profile = profileFor(state.user.id) || state.profile;
         state.loading = false;
         render();
@@ -1563,7 +1730,7 @@
 
       function connectRealtime() {
         if (!db || state.realtimeChannel) return;
-        const tables = ["profiles", "communities", "community_members", "posts", "comments", "reactions", "messages", "notifications", "user_follows"];
+        const tables = ["profiles", "communities", "community_members", "posts", "comments", "reactions", "messages", "notifications", "user_follows", "bookmarks", "conversation_participants", "conversations", "events", "event_attendees", "projects", "missions", "achievements"];
         state.realtimeChannel = db.channel("7th-dimension-live");
         tables.forEach((table) => {
           state.realtimeChannel.on("postgres_changes", { event: "*", schema: "public", table }, () => loadLiveData());
@@ -1577,6 +1744,16 @@
         state.user = user;
         const profileResult = await db.from("profiles").select("*").eq("id", user.id).maybeSingle();
         state.profile = profileResult.data || null;
+        if (!state.profile && !profileResult.error) {
+          const username = user.user_metadata?.username || user.email?.split("@")[0] || "army";
+          const profileInsert = await db.from("profiles").insert({
+            id: user.id,
+            username,
+            display_name: user.user_metadata?.display_name || username
+          }).select("*").maybeSingle();
+          if (!profileInsert.error) state.profile = profileInsert.data;
+          else console.warn("[7TH DIMENSION] Profile creation was not accepted by the current schema.", profileInsert.error);
+        }
         $("#portal").classList.add("hidden");
         $("#app").classList.remove("hidden");
         connectRealtime();
@@ -1622,7 +1799,8 @@
           }
           submit.disabled = false;
           if (result.error) {
-            $("#auth-error").textContent = result.error.message;
+            $("#auth-error").textContent = "Authentication could not be completed. Check your details and try again.";
+            console.error("[7TH DIMENSION] Authentication", result.error);
             return;
           }
           if (!result.data.session) {
@@ -1644,7 +1822,8 @@
         }
         const result = await db.auth.resetPasswordForEmail(email, { redirectTo: window.location.href });
         if (result.error) {
-          $("#auth-error").textContent = result.error.message;
+          $("#auth-error").textContent = "Password reset could not be requested. Check the email and try again.";
+          console.error("[7TH DIMENSION] Password reset", result.error);
           return;
         }
         $("#auth-error").textContent = "Password reset email sent. Check your inbox.";
@@ -1652,8 +1831,7 @@
 
       function maybeShowTour() {
         if (!state.user) return;
-        const key = `dimension-tour-completed:${state.user.id}`;
-        if (localStorage.getItem(key) !== "true") openTour(0);
+        if (state.profile?.tutorial_completed !== true) openTour(0);
       }
 
       function openTour(start = 0) {
@@ -1687,7 +1865,12 @@
       }
 
       function completeTour() {
-        if (state.user) localStorage.setItem(`dimension-tour-completed:${state.user.id}`, "true");
+        if (!state.user) return;
+        if (state.profile) state.profile.tutorial_completed = true;
+        db.from("profiles").update({ tutorial_completed: true }).eq("id", state.user.id)
+          .then(({ error }) => {
+            if (error) console.warn("[7TH DIMENSION] Tutorial completion could not be persisted.", error);
+          });
         $("#tour-root").innerHTML = "";
       }
 
@@ -1716,14 +1899,19 @@
         $("#page-subtitle").textContent = subtitle;
         $$(".nav-button, .mobile-nav button").forEach((button) => button.classList.toggle("active", button.dataset.view === state.view));
         $("#mini-name").textContent = currentName();
+        const unread = state.notifications.filter((item) => item.read !== true && item.read_at == null).length;
+        $$(".signal-count").forEach((item) => {
+          item.textContent = unread ? String(unread) : "";
+          item.hidden = !unread;
+        });
         const renderer = renderers[state.view] || renderFlow;
         $("#view-container").innerHTML = renderer();
         bindViewEvents();
       }
 
       function postTemplate(post) {
-        return `<article class="card post-card" data-post="${escapeHTML(post.id)}">
-          <div class="post-meta"><span class="avatar ${escapeHTML(post.avatar)}">${escapeHTML(post.initials)}</span><div class="post-author"><strong>${escapeHTML(post.author)}</strong><span>${escapeHTML(post.role)} · ${escapeHTML(post.time)}</span></div><button class="more-button" aria-label="More post actions">···</button></div>
+        return `<article class="card post-card" id="post-${escapeHTML(post.id)}" data-post="${escapeHTML(post.id)}">
+          <div class="post-meta"><span class="avatar ${escapeHTML(post.avatar)}">${escapeHTML(post.initials)}</span><div class="post-author"><strong>${escapeHTML(post.author)}</strong><span>${escapeHTML(post.role)} · ${escapeHTML(post.time)}</span></div><button class="more-button" data-post-menu aria-label="More post actions">···</button></div>
           <div class="post-body"><p>${post.text || "<span class=\"muted\">Empty signal</span>"}</p></div>
           ${post.image ? `<img class="post-image" src="${escapeHTML(post.image)}" alt="Image attached by ${escapeHTML(post.author)}" />` : ""}
           <div class="post-actions"><button class="action-button ${post.liked ? "active" : ""}" data-post-action="like">♡ ${post.likes}</button><button class="action-button" data-post-action="comment">◌ ${post.comments}</button><button class="action-button" data-post-action="share">↗ Share</button><button class="action-button save ${post.saved ? "active" : ""}" data-post-action="save">${post.saved ? "▣ Saved" : "▱ Save"}</button></div>
@@ -1737,15 +1925,22 @@
       function renderFlow() {
         const hydrated = state.posts.map(hydratePost).filter((post) => !state.query || `${post.author} ${post.text}`.toLowerCase().includes(state.query.toLowerCase()));
         const postList = hydrated.length ? hydrated.map(postTemplate).join("") : empty("No live signals yet.", "When someone posts to the connected database, it will appear here.");
+        const query = state.query.toLowerCase();
+        const searchProfiles = state.profiles.filter((profile) => `${displayName(profile)} ${profile.username || ""}`.toLowerCase().includes(query));
+        const searchCommunities = state.communities.filter((community) => `${community.name || ""} ${community.description || ""}`.toLowerCase().includes(query));
+        const searchProjects = state.projects.filter((project) => `${project.title || project.name || ""} ${project.description || ""}`.toLowerCase().includes(query));
+        const searchEvents = state.events.filter((event) => `${event.title || event.name || ""} ${event.description || ""}`.toLowerCase().includes(query));
+        const searchHashtags = [...new Set(state.posts.flatMap((post) => String(post.content || post.body || post.text || "").match(/#[\w-]+/g) || []))].filter((tag) => tag.toLowerCase().includes(query));
+        const searchPanel = state.query ? `<section class="card side-card"><div class="eyebrow">Global search</div><h3 style="margin-top:6px">Results for “${escapeHTML(state.query)}”</h3><div class="trend-list">${searchProfiles.slice(0, 5).map((profile) => `<div class="trend-row"><span>ARMY · ${escapeHTML(displayName(profile))}</span><span>@${escapeHTML(profile.username || "army")}</span></div>`).join("")}${searchCommunities.slice(0, 5).map((community) => `<div class="trend-row"><span>COMMUNITY · ${escapeHTML(community.name || "Unnamed")}</span><span>Constellation</span></div>`).join("")}${searchProjects.slice(0, 5).map((project) => `<div class="trend-row"><span>PROJECT · ${escapeHTML(project.title || project.name || "Untitled")}</span><span>Project</span></div>`).join("")}${searchEvents.slice(0, 5).map((event) => `<div class="trend-row"><span>EVENT · ${escapeHTML(event.title || event.name || "Untitled")}</span><span>Event</span></div>`).join("")}${searchHashtags.slice(0, 8).map((tag) => `<div class="trend-row"><span>HASHTAG · ${escapeHTML(tag)}</span><span>Post tag</span></div>`).join("")}${!searchProfiles.length && !searchCommunities.length && !searchProjects.length && !searchEvents.length && !searchHashtags.length && !hydrated.length ? `<div class="empty-state" style="padding:22px 0"><strong>No matching records.</strong><p>Search uses only data visible to your account.</p></div>` : ""}</div></section>` : "";
         const liveCommunity = state.communities[0];
-        return `<div class="content-grid"><section class="stack">
+        return `<div class="stack">${searchPanel}<div class="content-grid"><section class="stack">
           <div class="card composer"><div class="composer-head"><span class="avatar ${escapeHTML(currentAvatar())}">${escapeHTML(initials(currentName()))}</span><input class="composer-input" id="composer-input" maxlength="320" placeholder="Send a signal to the ARMY..." /></div><div class="composer-tools"><button class="tool-button" id="add-image">▧ Image</button><button class="tool-button" id="add-tag"># Tag</button><button class="primary-button post-button" id="post-button">Transmit</button></div></div>
           <div class="section-tabs">${["Following", "Recommended", "Latest"].map((tab) => `<button class="section-tab ${state.filter === tab ? "active" : ""}" data-filter="${tab}">${tab}</button>`).join("")}</div>
           <div class="stack" id="post-list">${postList}</div>
         </section><aside class="side-column">
           <section class="card side-card"><div class="card-heading"><div><div class="eyebrow">Live database</div><h3 style="margin-top:6px">Current pulse</h3></div><button class="card-link" data-view="discover">Discover</button></div><div class="signal-line"></div>${state.posts.length ? `<div class="trend-list"><div class="trend-row"><div><strong>${state.posts.length} stored signals</strong><span>Loaded from public.posts</span></div><b class="rank">LIVE</b></div><div class="trend-row"><div><strong>${state.profiles.length} visible profiles</strong><span>Loaded from public.profiles</span></div><b class="rank">ARMY</b></div></div>` : empty("No activity yet.", "The pulse will appear when the database has records.")}</section>
           <section class="card side-card"><div class="card-heading"><div><div class="eyebrow">Connected orbit</div><h3 style="margin-top:6px">Community</h3></div><button class="card-link" data-view="constellation">All</button></div><div class="event-list">${liveCommunity ? `<div class="event-row"><div class="event-date">✧</div><div><strong>${escapeHTML(liveCommunity.name || "Unnamed community")}</strong><span>${escapeHTML(liveCommunity.description || "No description in database.")}</span></div></div>` : `<div class="empty-state">No communities exist in the connected database.</div>`}</div></section>
-        </aside></div>`;
+         </aside></div></div>`;
       }
 
       function renderConstellation() {
@@ -1770,7 +1965,25 @@
       }
 
       function renderEvents() {
-        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">Database events</div><h1>Meet at the next point.</h1><p>This view never fabricates dates. Add an events table to Supabase to populate it with real records.</p></section>${empty("No events configured.", "The connected database does not currently expose an events table.")}</div>`;
+        const rows = state.events.map((event) => {
+          const dateValue = event.starts_at || event.start_at || event.date || event.event_date;
+          const date = dateValue ? new Date(dateValue) : null;
+          const validDate = date && !Number.isNaN(date.getTime());
+          const joined = state.eventAttendees.some((item) => String(item.event_id) === String(event.id));
+          const count = event.attendee_count ?? event.attendees_count ?? state.eventAttendees.filter((item) => String(item.event_id) === String(event.id)).length;
+          return `<div class="event-row" style="padding:16px 0;border-bottom:1px solid var(--line)"><div class="event-date">${validDate ? escapeHTML(new Intl.DateTimeFormat(undefined, { month: "short" }).format(date).toUpperCase()) : "DATE"}<br>${validDate ? date.getDate() : "—"}</div><div style="flex:1"><strong style="font-size:13px">${escapeHTML(event.title || event.name || "Untitled event")}</strong><span>${escapeHTML(event.description || "")} · ${validDate ? escapeHTML(formatTime(dateValue)) : "Time not set"} · ${escapeHTML(String(count))} attending</span></div><button class="${joined ? "ghost-button" : "primary-button"}" style="min-height:34px;padding:0 13px" data-event="${escapeHTML(event.id)}">${joined ? "Going ✓" : "Join"}</button></div>`;
+        }).join("");
+        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">Database events</div><h1>Meet at the next point.</h1><p>Dates, organizers, descriptions, and attendance come from the connected database.</p></section><section class="card side-card"><div class="event-list" style="margin-top:0">${rows || empty("No events configured.", "The connected database does not currently expose any events.")}</div></section></div>`;
+      }
+
+      function renderProjects() {
+        const rows = state.projects.map((project) => `<article class="card side-card"><div class="card-heading"><div><div class="eyebrow">${escapeHTML(project.status || "Project")}</div><h3 style="margin-top:6px">${escapeHTML(project.title || project.name || "Untitled project")}</h3></div></div><p class="muted" style="margin-top:9px;font-size:12px">${escapeHTML(project.description || "No description in database.")}</p><div class="signal-line"></div><div class="trend-row"><span>${escapeHTML(project.goal || "Goal not set")}</span><strong>${escapeHTML(String(project.progress ?? 0))}${project.progress != null ? "%" : ""}</strong></div></article>`).join("");
+        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">ARMY projects</div><h1>Build something together.</h1><p>Projects shown here are records returned by Supabase, with no placeholder progress or participants.</p></section><div class="cards-grid">${rows || empty("No projects configured.", "Projects will appear when the database has project records.")}</div></div>`;
+      }
+
+      function renderMissions() {
+        const rows = state.missions.map((mission) => `<article class="card side-card"><div class="card-heading"><div><div class="eyebrow">Active mission</div><h3 style="margin-top:6px">${escapeHTML(mission.title || mission.name || "Untitled mission")}</h3></div><span class="featured-mark">+${escapeHTML(String(mission.xp_reward ?? mission.reward_xp ?? 0))} XP</span></div><p class="muted" style="margin-top:9px;font-size:12px">${escapeHTML(mission.description || "No description in database.")}</p><div class="signal-line"></div><div class="trend-row"><span>Progress</span><strong>${escapeHTML(String(mission.progress ?? 0))}${mission.progress != null ? "%" : ""}</strong></div></article>`).join("");
+        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">Missions + XP</div><h1>Keep the orbit moving.</h1><p>Mission progress and rewards are read from your connected database.</p></section><div class="cards-grid">${rows || empty("No missions configured.", "Missions will appear when the database has mission records.")}</div></div>`;
       }
 
       function renderSignal() {
@@ -1787,24 +2000,50 @@
       }
 
       function renderMessages() {
-        const stage = mainStage();
-        const hasChannelIds = state.messages.some((message) => message.community_id);
-        const messages = stage && hasChannelIds ? state.messages.filter((message) => String(message.community_id) === String(stage.id)) : state.messages;
-        const rows = messages.map((message) => {
-          const author = profileFor(message.user_id || message.author_id || message.sender_id);
-          return `<div class="event-row"><span class="avatar small ${escapeHTML(author?.avatar_color || "blue")}">${escapeHTML(initials(displayName(author, "ARMY")))}</span><div><strong>${escapeHTML(displayName(author, message.author_name || "ARMY"))}</strong><span>${escapeHTML(message.content || message.body || message.message || "")} · ${escapeHTML(formatTime(message.created_at))}</span></div></div>`;
+        const ownConversationIds = new Set(state.conversationParticipants.map((item) => String(item.conversation_id)));
+        const conversations = state.conversations.filter((conversation) => ownConversationIds.has(String(conversation.id))).filter((conversation) => {
+          if (!state.conversationQuery) return true;
+          const participantIds = state.conversationParticipants
+            .filter((item) => String(item.conversation_id) === String(conversation.id))
+            .map((item) => item.user_id);
+          const other = profileFor(participantIds.find((id) => String(id) !== String(state.user.id)));
+          return `${displayName(other, conversation.title || "Private conversation")} ${other?.username || ""}`.toLowerCase().includes(state.conversationQuery.toLowerCase());
+        });
+        const allConversations = state.conversations.filter((conversation) => ownConversationIds.has(String(conversation.id)));
+        const rows = conversations.map((conversation) => {
+          const participantIds = state.conversationParticipants
+            .filter((item) => String(item.conversation_id) === String(conversation.id))
+            .map((item) => item.user_id)
+            .filter((id) => String(id) !== String(state.user.id));
+          const other = profileFor(participantIds[0]);
+          const latest = [...state.messages].reverse().find((message) => String(message.conversation_id) === String(conversation.id));
+          const participant = state.conversationParticipants.find((item) => String(item.conversation_id) === String(conversation.id) && String(item.user_id) === String(state.user.id));
+          const unread = Number(participant?.unread_count || 0) || state.messages.filter((message) => String(message.conversation_id) === String(conversation.id) && String(message.sender_id || message.user_id || message.author_id) !== String(state.user.id) && message.read !== true && message.read_at == null).length;
+          const online = other?.online_status === "online" || other?.is_online === true || other?.online === true;
+          return `<button class="conversation-row ${String(conversation.id) === String(state.selectedConversationId) ? "active" : ""}" data-conversation="${escapeHTML(conversation.id)}"><span style="position:relative"><span class="avatar small ${escapeHTML(other?.avatar_color || "blue")}">${escapeHTML(initials(displayName(other, "ARMY")))}</span>${online ? `<i class="status-dot online" style="position:absolute;right:-2px;bottom:-1px;border:2px solid #0b1120"></i>` : ""}</span><span class="conversation-copy"><strong>${escapeHTML(displayName(other, conversation.title || "Private conversation"))}</strong><span class="conversation-username">@${escapeHTML(other?.username || "army")}</span><span class="conversation-preview">${escapeHTML(latest?.content || latest?.body || "No messages yet")}</span></span><span class="conversation-meta"><span>${latest ? escapeHTML(formatTime(latest.created_at)) : ""}</span>${unread ? `<b class="unread-dot">${unread > 9 ? "9+" : unread}</b>` : ""}</span></button>`;
         }).join("");
-        const composer = stage ? `<div class="message-composer"><input id="main-stage-message" maxlength="500" placeholder="Message everyone in Main Stage..." /><button class="primary-button" id="send-main-stage-message">Send</button></div>` : "";
-        return `<div class="content-grid"><section class="card side-card"><div class="card-heading"><div><div class="eyebrow">${stage ? "Main Stage · Open channel" : "Live records"}</div><h3 style="margin-top:6px">${stage ? escapeHTML(stage.name || "Main Stage") : "Messages"}</h3></div>${isAdmin() ? `<span class="admin-badge">ADMIN</span>` : ""}</div><p class="muted" style="margin-top:8px;font-size:12px">${stage ? "Everyone can join and send messages here. No private invitation is required." : "Messages are read from the connected database."}</p>${composer}<div class="member-list" style="margin-top:16px">${rows || empty("No messages yet.", stage ? "Be the first person to send a message in Main Stage." : "No message records are visible in the connected database.")}</div></section>${stage ? empty("Public channel", "Main Stage messages are visible to members of the open community.") : empty("Choose a channel.", "Private messaging needs a real conversation record before it can be displayed.")}</div>`;
+        const active = allConversations.find((conversation) => String(conversation.id) === String(state.selectedConversationId));
+        const activeMessages = active ? state.messages.filter((message) => String(message.conversation_id) === String(active.id)) : [];
+        const activeOtherId = active && state.conversationParticipants.find((item) => String(item.conversation_id) === String(active.id) && String(item.user_id) !== String(state.user.id))?.user_id;
+        const activeOther = profileFor(activeOtherId);
+        const thread = activeMessages.map((message) => {
+          const author = profileFor(message.sender_id || message.user_id || message.author_id);
+          const sent = String(message.sender_id || message.user_id || message.author_id) === String(state.user.id);
+          return `<div class="chat-message ${sent ? "sent" : ""}"><span class="avatar small ${escapeHTML(author?.avatar_color || (sent ? currentAvatar() : "blue"))}">${escapeHTML(initials(displayName(author, sent ? currentName() : "ARMY")))}</span><div class="chat-bubble"><p>${escapeHTML(message.content || message.body || message.message || "")}</p><span class="chat-time">${escapeHTML(formatTime(message.created_at))}</span></div></div>`;
+        }).join("");
+        const composer = active ? `<div class="chat-composer"><button class="composer-icon" data-action="attach-message" aria-label="Attach a file">＋</button><textarea id="private-message-input" rows="1" maxlength="1000" placeholder="Transmit a message..." aria-label="Message text"></textarea><button class="composer-icon" data-action="emoji-message" aria-label="Add symbol">✦</button><button class="composer-send" id="send-private-message" aria-label="Send message">↗</button></div>` : "";
+        const chatContent = active ? `<header class="chat-header"><button class="chat-back" data-action="back-to-conversations" aria-label="Back to conversations">←</button><span class="avatar ${escapeHTML(activeOther?.avatar_color || "blue")}">${escapeHTML(initials(displayName(activeOther, "ARMY")))}</span><span class="chat-header-copy"><strong>${escapeHTML(displayName(activeOther, active.title || "Private conversation"))}</strong><span>@${escapeHTML(activeOther?.username || "army")} · <i class="status-dot ${activeOther?.online_status === "online" || activeOther?.is_online === true ? "online" : ""}"></i> ${activeOther?.online_status === "online" || activeOther?.is_online === true ? "active now" : "offline"}</span></span><button class="chat-options" data-action="conversation-options" aria-label="Conversation options">···</button></header><div class="chat-body" id="chat-body">${thread || `<div class="message-empty"><div class="message-empty-inner"><div class="empty-orbit"><i></i><i></i><i></i><i></i></div><h3>ENTER THE SIGNAL</h3><p>Transmit the first message in this private channel.</p></div></div>`}</div>${composer}` : `<div class="message-empty"><div class="message-empty-inner"><div class="empty-orbit"><i></i><i></i><i></i><i></i></div><h3>ENTER THE SIGNAL</h3><p>Select a conversation to begin transmitting.</p></div></div>`;
+        return `<div class="messages-view ${active ? "chat-open" : ""}"><section class="conversation-panel"><div class="conversation-heading"><div><h3>MESSAGES</h3><p>${allConversations.length} private channel${allConversations.length === 1 ? "" : "s"}</p></div><button class="new-message-button" data-action="new-conversation" aria-label="New private conversation">+</button></div><label class="conversation-search" aria-label="Search conversations"><span>⌕</span><input id="conversation-search-input" type="search" value="${escapeHTML(state.conversationQuery)}" placeholder="Search conversations" /></label><div class="conversation-list">${rows || empty(state.conversationQuery ? "No conversations found." : "No private conversations yet.", state.conversationQuery ? "Try another name or username." : "Start a secure channel with another visible ARMY.")}</div></section><section class="chat-panel">${chatContent}</section></div>`;
       }
 
       function renderProfile() {
         const ownPosts = state.posts.filter((post) => String(post.author_id || post.user_id || post.owner_id) === String(state.user.id)).length;
         const ownCommunities = state.communityMembers.filter((member) => String(member.user_id) === String(state.user.id)).length;
-        return `<div class="profile-view"><section class="profile-banner"><div class="profile-info"><span class="avatar ${escapeHTML(currentAvatar())}">${escapeHTML(initials(currentName()))}</span><div><h1>${escapeHTML(currentName())}</h1><p>@${escapeHTML(state.profile?.username || "army")} · ${escapeHTML(state.profile?.role || "user")}</p></div></div></section><section class="card stats-card"><div class="stat"><strong>${ownPosts}</strong><span>Signals</span></div><div class="stat"><strong>${ownCommunities}</strong><span>Communities</span></div><div class="stat"><strong>${state.notifications.length}</strong><span>Signals received</span></div></section><section class="card side-card"><div class="eyebrow">ARMY ORBIT</div><h3 style="margin-top:8px">Your constellation is ${ownCommunities ? "taking shape." : "waiting for its first point."}</h3><p class="muted" style="margin-top:8px;font-size:12px">The orbit is based on your real memberships, posts, follows, and notifications.</p><div style="position:relative;height:58px;margin-top:17px;overflow:hidden;border:1px solid var(--line);border-radius:13px;background:radial-gradient(circle at 50% 50%,rgba(168,140,255,.2),transparent 35%),rgba(255,255,255,.02)"><span class="orbit-dot dot-a"></span><span class="orbit-dot dot-b"></span><span class="orbit-dot dot-c"></span><span class="orbit-dot dot-d"></span><span class="orbit-dot dot-e"></span><span class="orbit-dot dot-f"></span><span class="orbit-dot dot-g"></span></div><div style="display:flex;gap:8px;margin-top:18px;flex-wrap:wrap"><button class="ghost-button" style="padding:0 16px" data-action="edit-profile">Edit profile</button><button class="ghost-button" style="padding:0 16px" data-action="replay-tour">Replay tour</button><button class="ghost-button" style="padding:0 16px" data-action="logout">Log out</button></div></section></div>`;
+        const achievements = state.achievements.map((achievement) => `<span class="chip" style="padding:7px 10px;border:1px solid var(--line);border-radius:99px;color:var(--violet-bright);font-size:10px">${escapeHTML(achievement.name || achievement.title || "Achievement")}</span>`).join("");
+        return `<div class="profile-view"><section class="profile-banner"><div class="profile-info"><span class="avatar ${escapeHTML(currentAvatar())}">${escapeHTML(initials(currentName()))}</span><div><h1>${escapeHTML(currentName())}</h1><p>@${escapeHTML(state.profile?.username || "army")} · ${escapeHTML(state.profile?.role || "user")}</p></div></div></section><section class="card stats-card"><div class="stat"><strong>${ownPosts}</strong><span>Signals</span></div><div class="stat"><strong>${ownCommunities}</strong><span>Communities</span></div><div class="stat"><strong>${state.achievements.length}</strong><span>Achievements</span></div></section><section class="card side-card"><div class="eyebrow">ARMY ORBIT</div><h3 style="margin-top:8px">Your constellation is ${ownCommunities ? "taking shape." : "waiting for its first point."}</h3><p class="muted" style="margin-top:8px;font-size:12px">The orbit is based on your real memberships, posts, follows, and notifications.</p><div style="position:relative;height:58px;margin-top:17px;overflow:hidden;border:1px solid var(--line);border-radius:13px;background:radial-gradient(circle at 50% 50%,rgba(168,140,255,.2),transparent 35%),rgba(255,255,255,.02)"><span class="orbit-dot dot-a"></span><span class="orbit-dot dot-b"></span><span class="orbit-dot dot-c"></span><span class="orbit-dot dot-d"></span><span class="orbit-dot dot-e"></span><span class="orbit-dot dot-f"></span><span class="orbit-dot dot-g"></span></div><div style="display:flex;gap:8px;margin-top:18px;flex-wrap:wrap"><button class="ghost-button" style="padding:0 16px" data-action="edit-profile">Edit profile</button><button class="ghost-button" style="padding:0 16px" data-action="replay-tour">Replay tour</button><button class="ghost-button" style="padding:0 16px" data-action="logout">Log out</button></div></section><section class="card side-card"><div class="eyebrow">Achievements</div><h3 style="margin-top:8px">Earned in the real orbit</h3><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:15px">${achievements || `<span class="muted" style="font-size:12px">No achievements recorded yet.</span>`}</div></section></div>`;
       }
 
-      const renderers = { flow: renderFlow, constellation: renderConstellation, discover: renderDiscover, signal: renderSignal, archive: renderArchive, events: renderEvents, messages: renderMessages, profile: renderProfile };
+      const renderers = { flow: renderFlow, constellation: renderConstellation, discover: renderDiscover, signal: renderSignal, archive: renderArchive, events: renderEvents, projects: renderProjects, missions: renderMissions, messages: renderMessages, profile: renderProfile };
 
       async function createPost() {
         const input = $("#composer-input");
@@ -1821,7 +2060,7 @@
           if (!result.error) break;
           if (!/column|schema cache|null value/i.test(result.error.message || "")) break;
         }
-        if (result?.error) return toast(`Post failed: ${result.error.message}`, true);
+        if (result?.error) return safeError("Signal transmission", result.error);
         await loadLiveData();
         toast("Signal transmitted to Supabase.");
       }
@@ -1833,23 +2072,146 @@
           if (existing.post_id) query = query.eq("post_id", post.id);
           else query = query.eq("target_id", post.id);
           const result = await query;
-          if (result.error) return toast(result.error.message, true);
+          if (result.error) return safeError("Reaction update", result.error);
         } else {
           let result = await db.from("reactions").insert({ post_id: post.id, user_id: state.user.id, type: "like" });
           if (result.error && /column|schema cache/i.test(result.error.message || "")) result = await db.from("reactions").insert({ post_id: post.id, user_id: state.user.id, reaction_type: "like" });
-          if (result.error) return toast(result.error.message, true);
+          if (result.error) return safeError("Reaction update", result.error);
         }
         await loadLiveData();
       }
 
       async function addComment(post) {
-        const content = window.prompt("Reply to this signal");
-        if (!content?.trim()) return;
-        let result = await db.from("comments").insert({ post_id: post.id, user_id: state.user.id, content: content.trim() });
-        if (result.error && /column|schema cache/i.test(result.error.message || "")) result = await db.from("comments").insert({ post_id: post.id, author_id: state.user.id, body: content.trim() });
-        if (result.error) return toast(result.error.message, true);
+        openCommentsModal(post);
+      }
+
+      async function saveComment(postId, content, parentId = null) {
+        const payloads = [
+          { post_id: postId, user_id: state.user.id, content, parent_id: parentId },
+          { post_id: postId, author_id: state.user.id, body: content, parent_id: parentId },
+          { post_id: postId, user_id: state.user.id, content },
+          { post_id: postId, author_id: state.user.id, body: content }
+        ];
+        let result;
+        for (const payload of payloads) {
+          result = await db.from("comments").insert(payload);
+          if (!result.error) break;
+          if (!/column|schema cache|null value/i.test(result.error.message || "")) break;
+        }
+        if (result?.error) return safeError("Comment", result.error);
         await loadLiveData();
-        toast("Reply added to the live thread.");
+        toast(parentId ? "Reply added to the live thread." : "Comment added to the live thread.");
+      }
+
+      function openCommentsModal(post) {
+        const comments = state.comments.filter((comment) => String(comment.post_id || comment.target_id) === String(post.id));
+        const rows = comments.map((comment) => {
+          const author = profileFor(comment.user_id || comment.author_id);
+          const owner = String(comment.user_id || comment.author_id) === String(state.user.id);
+          const parent = comment.parent_id || comment.parent_comment_id;
+          return `<div class="thread-item ${parent ? "reply" : ""}" data-comment="${escapeHTML(comment.id)}">
+            <div class="thread-meta"><strong>${escapeHTML(displayName(author, "ARMY"))}</strong><span>${escapeHTML(formatTime(comment.created_at))}</span></div>
+            <p>${escapeHTML(comment.content || comment.body || comment.text || "")}</p>
+            <div class="thread-tools"><button data-comment-reply="${escapeHTML(comment.id)}">Reply</button>${owner ? `<button data-comment-edit="${escapeHTML(comment.id)}">Edit</button><button data-comment-delete="${escapeHTML(comment.id)}">Delete</button>` : ""}<button data-comment-report="${escapeHTML(comment.id)}">Report</button></div>
+          </div>`;
+        }).join("");
+        $("#modal-root").innerHTML = `<div class="modal-backdrop" data-close-modal><section class="modal" role="dialog" aria-modal="true" aria-labelledby="comments-title">
+          <button class="modal-close" data-close-modal aria-label="Close dialog">×</button><div class="eyebrow">Live thread</div><h2 id="comments-title">Responses to ${escapeHTML(post.author)}</h2>
+          <div class="thread-list">${rows || `<div class="empty-state" style="padding:22px 0"><strong>No responses yet.</strong><p>Start the conversation around this signal.</p></div>`}</div>
+          <form class="form" id="comment-form"><div class="field"><label for="comment-input">Add a comment</label><textarea id="comment-input" maxlength="1000" required placeholder="Write a thoughtful response..."></textarea></div><div class="modal-actions"><button type="button" class="ghost-button" data-close-modal>Close</button><button type="submit" class="primary-button">Transmit</button></div></form>
+        </section></div>`;
+        $("#comment-form").addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const input = $("#comment-input");
+          const content = input.value.trim();
+          if (!content) return;
+          await saveComment(post.id, content, input.dataset.parentId || null);
+          openCommentsModal(hydratePost(state.posts.find((item) => String(item.id) === String(post.id))));
+        });
+        $$("[data-comment-reply]").forEach((button) => button.addEventListener("click", () => {
+          $("#comment-input").focus();
+          $("#comment-input").dataset.parentId = button.dataset.commentReply;
+        }));
+        $$("[data-comment-edit]").forEach((button) => button.addEventListener("click", () => editComment(post, button.dataset.commentEdit)));
+        $$("[data-comment-delete]").forEach((button) => button.addEventListener("click", () => deleteComment(post, button.dataset.commentDelete)));
+        $$("[data-comment-report]").forEach((button) => button.addEventListener("click", () => reportContent("comment", button.dataset.commentReport)));
+      }
+
+      async function editComment(post, commentId) {
+        const comment = state.comments.find((item) => String(item.id) === String(commentId));
+        if (!comment) return;
+        const content = window.prompt("Edit your comment", comment.content || comment.body || comment.text || "");
+        if (!content?.trim()) return;
+        let result = await db.from("comments").update({ content: content.trim() }).eq("id", commentId).eq("user_id", state.user.id);
+        if (result.error && /column|schema cache/i.test(result.error.message || "")) result = await db.from("comments").update({ body: content.trim() }).eq("id", commentId).eq("author_id", state.user.id);
+        if (result.error) return safeError("Comment edit", result.error);
+        await loadLiveData();
+        openCommentsModal(hydratePost(state.posts.find((item) => String(item.id) === String(post.id))));
+      }
+
+      async function deleteComment(post, commentId) {
+        let result = await db.from("comments").delete().eq("id", commentId).eq("user_id", state.user.id);
+        if (result.error && /column|schema cache/i.test(result.error.message || "")) result = await db.from("comments").delete().eq("id", commentId).eq("author_id", state.user.id);
+        if (result.error) return safeError("Comment deletion", result.error);
+        await loadLiveData();
+        openCommentsModal(hydratePost(state.posts.find((item) => String(item.id) === String(post.id))));
+      }
+
+      async function reportContent(type, contentId) {
+        const payloads = [
+          { reporter_id: state.user.id, target_type: type, target_id: contentId, reason: "Reported from 7TH DIMENSION" },
+          { user_id: state.user.id, type, target_id: contentId, reason: "Reported from 7TH DIMENSION" }
+        ];
+        let result;
+        for (const payload of payloads) {
+          result = await db.from("reports").insert(payload);
+          if (!result.error) break;
+          if (!/column|schema cache|null value/i.test(result.error.message || "")) break;
+        }
+        if (result?.error) return safeError("Report", result.error);
+        toast("Report submitted for moderation.");
+      }
+
+      function openPostMenu(button) {
+        const card = button.closest("[data-post]");
+        const raw = state.posts.find((item) => String(item.id) === String(card.dataset.post));
+        const post = hydratePost(raw);
+        card.querySelector(".post-menu")?.remove();
+        const owner = String(post.authorId) === String(state.user.id);
+        card.insertAdjacentHTML("beforeend", `<div class="post-menu">
+          ${owner ? `<button data-post-menu-action="edit">Edit signal</button><button class="danger" data-post-menu-action="delete">Delete signal</button>` : ""}
+          <button data-post-menu-action="report">Report signal</button>
+        </div>`);
+        card.querySelectorAll("[data-post-menu-action]").forEach((item) => item.addEventListener("click", async () => {
+          card.querySelector(".post-menu")?.remove();
+          if (item.dataset.postMenuAction === "edit") openPostEditor(raw);
+          if (item.dataset.postMenuAction === "delete") await deletePost(post);
+          if (item.dataset.postMenuAction === "report") await reportContent("post", post.id);
+        }));
+      }
+
+      function openPostEditor(raw) {
+        if (String(raw.author_id || raw.user_id || raw.owner_id) !== String(state.user.id)) return toast("Only the signal creator can edit it.", true);
+        const current = raw.content ?? raw.body ?? raw.text ?? raw.caption ?? "";
+        $("#modal-root").innerHTML = `<div class="modal-backdrop" data-close-modal><section class="modal" role="dialog" aria-modal="true" aria-labelledby="edit-post-title"><button class="modal-close" data-close-modal aria-label="Close dialog">×</button><div class="eyebrow">Signal control</div><h2 id="edit-post-title">Edit your signal</h2><form class="form" id="edit-post-form"><div class="field"><label for="edit-post-input">Signal text</label><textarea id="edit-post-input" maxlength="320" required>${escapeHTML(current)}</textarea></div><div class="modal-actions"><button type="button" class="ghost-button" data-close-modal>Cancel</button><button type="submit" class="primary-button">Save changes</button></div></form></section></div>`;
+        $("#edit-post-form").addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const content = $("#edit-post-input").value.trim();
+          let result = await db.from("posts").update({ content }).eq("id", raw.id).eq("author_id", state.user.id);
+          if (result.error && /column|schema cache/i.test(result.error.message || "")) result = await db.from("posts").update({ body: content }).eq("id", raw.id).eq("user_id", state.user.id);
+          if (result.error) return safeError("Signal edit", result.error);
+          $("#modal-root").innerHTML = "";
+          await loadLiveData();
+          toast("Signal updated.");
+        });
+      }
+
+      async function deletePost(post) {
+        let result = await db.from("posts").delete().eq("id", post.id).eq("author_id", state.user.id);
+        if (result.error && /column|schema cache/i.test(result.error.message || "")) result = await db.from("posts").delete().eq("id", post.id).eq("user_id", state.user.id);
+        if (result.error) return safeError("Signal deletion", result.error);
+        await loadLiveData();
+        toast("Signal deleted.");
       }
 
       async function toggleBookmark(post) {
@@ -1858,7 +2220,7 @@
         let result;
         if (existing) result = await db.from("bookmarks").delete().eq("user_id", state.user.id).eq(existing.post_id ? "post_id" : "target_id", post.id);
         else result = await db.from("bookmarks").insert({ user_id: state.user.id, post_id: post.id });
-        if (result.error) return toast(result.error.message, true);
+        if (result.error) return safeError("Archive update", result.error);
         await loadLiveData();
       }
 
@@ -1876,12 +2238,17 @@
         if (!community) return false;
         const existing = state.communityMembers.some((member) => String(member.community_id) === String(id) && String(member.user_id) === String(state.user.id));
         if (existing) {
-          toast("You are already a member of this community.");
+          const isMain = community.is_main === true || community.is_main === "true" || /main\s*stage/i.test(community.name || "");
+          if (isMain) return true;
+          const leave = await db.from("community_members").delete().eq("community_id", id).eq("user_id", state.user.id);
+          if (leave.error) return safeError("Community update", leave.error);
+          await loadLiveData();
+          toast(`Left ${community.name}.`);
           return true;
         }
         const result = await db.from("community_members").insert({ community_id: id, user_id: state.user.id, role: "member", status: "approved" });
         if (result.error) {
-          toast(result.error.message, true);
+          safeError("Community update", result.error);
           return false;
         }
         await loadLiveData();
@@ -1889,27 +2256,46 @@
         return true;
       }
 
-      async function sendMainStageMessage() {
-        const input = $("#main-stage-message");
+      async function sendPrivateMessage() {
+        const input = $("#private-message-input");
+        const active = state.selectedConversationId;
         const content = input?.value.trim();
-        const stage = mainStage();
-        if (!stage || !content) return;
+        if (!active || !content) return;
         const payloads = [
-          { community_id: stage.id, user_id: state.user.id, content },
-          { community_id: stage.id, author_id: state.user.id, content },
-          { community_id: stage.id, sender_id: state.user.id, content },
-          { community_id: stage.id, user_id: state.user.id, body: content }
+          { conversation_id: active, sender_id: state.user.id, content },
+          { conversation_id: active, user_id: state.user.id, content },
+          { conversation_id: active, author_id: state.user.id, body: content }
         ];
-        let result = null;
+        let result;
         for (const payload of payloads) {
           result = await db.from("messages").insert(payload);
           if (!result.error) break;
-          if (!/column|schema cache/i.test(result.error.message || "")) break;
+          if (!/column|schema cache|null value/i.test(result.error.message || "")) break;
         }
-        if (result?.error) return toast(`Message failed: ${result.error.message}`, true);
+        if (result?.error) return safeError("Message", result.error);
         input.value = "";
         await loadLiveData();
-        toast("Message sent to Main Stage.");
+      }
+
+      async function openNewConversationModal() {
+        const profiles = state.profiles.filter((profile) => String(profile.id) !== String(state.user.id));
+        if (!profiles.length) return toast("No other visible ARMYs are available yet.", true);
+        $("#modal-root").innerHTML = `<div class="modal-backdrop" data-close-modal><section class="modal" role="dialog" aria-modal="true" aria-labelledby="new-conversation-title"><button class="modal-close" data-close-modal aria-label="Close dialog">×</button><div class="eyebrow">Secure channel</div><h2 id="new-conversation-title">Start a conversation</h2><p>The new channel will be readable only by its participants.</p><form class="form" id="new-conversation-form"><div class="field"><label for="conversation-person">Choose an ARMY</label><select id="conversation-person" style="padding:11px 12px;border:1px solid var(--line);border-radius:10px;color:var(--white);background:rgba(255,255,255,.045)" required>${profiles.map((profile) => `<option value="${escapeHTML(profile.id)}">${escapeHTML(displayName(profile))}</option>`).join("")}</select></div><div class="modal-actions"><button type="button" class="ghost-button" data-close-modal>Cancel</button><button type="submit" class="primary-button">Create channel</button></div></form></section></div>`;
+        $("#new-conversation-form").addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const otherId = $("#conversation-person").value;
+          const conversationResult = await db.from("conversations").insert({ created_by: state.user.id }).select("*").single();
+          if (conversationResult.error) return safeError("Conversation", conversationResult.error);
+          const conversationId = conversationResult.data.id;
+          const participants = await db.from("conversation_participants").insert([
+            { conversation_id: conversationId, user_id: state.user.id },
+            { conversation_id: conversationId, user_id: otherId }
+          ]);
+          if (participants.error) return safeError("Conversation participants", participants.error);
+          $("#modal-root").innerHTML = "";
+          state.selectedConversationId = conversationId;
+          await loadLiveData();
+        });
       }
 
       async function toggleFeaturedProfile(profileId) {
@@ -1917,7 +2303,7 @@
         const profile = profileFor(profileId);
         if (!profile) return;
         const result = await db.from("profiles").update({ is_featured: profile.is_featured !== true }).eq("id", profileId).select("*").single();
-        if (result.error) return toast(`Feature update failed: ${result.error.message}`, true);
+        if (result.error) return safeError("Featured ARMY update", result.error);
         await loadLiveData();
         toast(profile.is_featured === true ? "ARMY removed from featured." : "ARMY featured in the constellation.");
       }
@@ -1947,7 +2333,8 @@
           if (!/column|schema cache|null value/i.test(result.error.message || "")) break;
         }
         if (result?.error) {
-          $("#community-error").textContent = result.error.message;
+          $("#community-error").textContent = "Community creation is not available with the current database schema or permissions.";
+          console.error("[7TH DIMENSION] Community creation", result.error);
           return;
         }
         $("#modal-root").innerHTML = "";
@@ -1962,7 +2349,7 @@
           const display_name = $("#profile-name").value.trim();
           const bio = $("#profile-bio").value.trim();
           const result = await db.from("profiles").update({ display_name, bio }).eq("id", state.user.id).select("*").single();
-          if (result.error) return toast(result.error.message, true);
+          if (result.error) return safeError("Profile update", result.error);
           state.profile = result.data;
           $("#modal-root").innerHTML = "";
           await loadLiveData();
@@ -1974,18 +2361,37 @@
         $$(".section-tab").forEach((button) => button.addEventListener("click", () => { state.filter = button.dataset.filter; render(); }));
         $("#post-button")?.addEventListener("click", createPost);
         $("#add-tag")?.addEventListener("click", () => { const input = $("#composer-input"); input.value = `${input.value}${input.value ? " " : ""}#ARMY `; input.focus(); });
+        $$("[data-post-menu]").forEach((button) => button.addEventListener("click", (event) => {
+          event.stopPropagation();
+          openPostMenu(button);
+        }));
         $$("[data-post-action]").forEach((button) => button.addEventListener("click", async () => {
           const post = hydratePost(state.posts.find((item) => String(item.id) === String(button.closest("[data-post]").dataset.post)));
           if (button.dataset.postAction === "like") await toggleLike(post);
           if (button.dataset.postAction === "comment") await addComment(post);
           if (button.dataset.postAction === "save") await toggleBookmark(post);
           if (button.dataset.postAction === "share") {
-            const text = `7TH DIMENSION · ${post.author}: ${post.text.replace(/<[^>]+>/g, "")}`;
-            if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(text).catch(() => {});
-            toast("Live signal link copied.");
+            const url = `${window.location.origin}${window.location.pathname}#post-${encodeURIComponent(post.id)}`;
+            if (navigator.share) {
+              await navigator.share({ title: "7TH DIMENSION signal", text: `Signal from ${post.author}`, url }).catch(() => {});
+              toast("Live signal shared.");
+            } else {
+              if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(url).catch(() => {});
+              toast("Live signal link copied.");
+            }
           }
         }));
         $$("[data-community]").forEach((button) => button.addEventListener("click", () => joinCommunity(button.dataset.community)));
+        $$("[data-event]").forEach((button) => button.addEventListener("click", async () => {
+          const eventId = button.dataset.event;
+          const existing = state.eventAttendees.find((item) => String(item.event_id) === String(eventId) && String(item.user_id) === String(state.user.id));
+          const result = existing
+            ? await db.from("event_attendees").delete().eq("event_id", eventId).eq("user_id", state.user.id)
+            : await db.from("event_attendees").insert({ event_id: eventId, user_id: state.user.id });
+          if (result.error) return safeError("Event attendance", result.error);
+          await loadLiveData();
+          toast(existing ? "Event removed from your orbit." : "Event added to your orbit.");
+        }));
         $$("[data-open-main-stage]").forEach((button) => button.addEventListener("click", async () => {
           const joined = await joinCommunity(button.dataset.openMainStage);
           if (!joined) return;
@@ -1994,10 +2400,18 @@
         }));
         $$("[data-follow]").forEach((button) => button.addEventListener("click", () => followProfile(button.dataset.follow)));
         $$("[data-feature-profile]").forEach((button) => button.addEventListener("click", () => toggleFeaturedProfile(button.dataset.featureProfile)));
-        $("#send-main-stage-message")?.addEventListener("click", sendMainStageMessage);
-        $("#main-stage-message")?.addEventListener("keydown", (event) => {
-          if (event.key === "Enter") sendMainStageMessage();
+        $$("[data-conversation]").forEach((button) => button.addEventListener("click", () => {
+          state.selectedConversationId = button.dataset.conversation;
+          render();
+        }));
+        $("#send-private-message")?.addEventListener("click", sendPrivateMessage);
+        $("#private-message-input")?.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault();
+            sendPrivateMessage();
+          }
         });
+        $("[data-action='new-conversation']")?.addEventListener("click", openNewConversationModal);
         $("[data-action='create-community']")?.addEventListener("click", openCreateCommunityModal);
         $("[data-action='edit-profile']")?.addEventListener("click", openProfileEditor);
         $("[data-action='replay-tour']")?.addEventListener("click", () => openTour(0));
@@ -2006,6 +2420,36 @@
           const unread = state.notifications.filter((item) => item.id && item.read !== true && item.user_id === state.user.id);
           for (const item of unread) await db.from("notifications").update({ read: true, read_at: new Date().toISOString() }).eq("id", item.id);
           await loadLiveData();
+        });
+      }
+
+      function openSettingsModal() {
+        const profile = state.profile || {};
+        const setting = (name, fallback) => profile[name] ?? fallback;
+        $("#modal-root").innerHTML = `<div class="modal-backdrop" data-close-modal><section class="modal" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+          <button class="modal-close" data-close-modal aria-label="Close dialog">×</button><div class="eyebrow">Account controls</div><h2 id="settings-title">Settings & privacy</h2>
+          <p>These preferences are saved on your Supabase profile. RLS should continue to restrict changes to your own account.</p>
+          <form class="settings-grid" id="settings-form">
+            <label class="setting-row">Profile visibility<select name="profile_visibility"><option ${setting("profile_visibility", "public") === "public" ? "selected" : ""} value="public">Public</option><option ${setting("profile_visibility", "public") === "private" ? "selected" : ""} value="private">Private</option></select></label>
+            <label class="setting-row">Messaging permissions<select name="messaging_permissions"><option ${setting("messaging_permissions", "everyone") === "everyone" ? "selected" : ""} value="everyone">Everyone</option><option ${setting("messaging_permissions", "following") === "following" ? "selected" : ""} value="following">Following only</option><option ${setting("messaging_permissions", "nobody") === "nobody" ? "selected" : ""} value="nobody">Nobody</option></select></label>
+            <label class="setting-row">Online status<select name="online_status"><option ${setting("online_status", "visible") === "visible" ? "selected" : ""} value="visible">Visible</option><option ${setting("online_status", "hidden") === "hidden" ? "selected" : ""} value="hidden">Hidden</option></select></label>
+            <label class="setting-row">Country visibility<select name="country_visibility"><option ${setting("country_visibility", "hidden") === "hidden" ? "selected" : ""} value="hidden">Hidden</option><option ${setting("country_visibility", "followers") === "followers" ? "selected" : ""} value="followers">Followers</option><option ${setting("country_visibility", "public") === "public" ? "selected" : ""} value="public">Public</option></select></label>
+            <label class="setting-row">Notifications<select name="notification_settings"><option ${setting("notification_settings", "all") === "all" ? "selected" : ""} value="all">All activity</option><option ${setting("notification_settings", "mentions") === "mentions" ? "selected" : ""} value="mentions">Mentions only</option><option ${setting("notification_settings", "none") === "none" ? "selected" : ""} value="none">Off</option></select></label>
+            <div class="modal-actions"><button type="button" class="ghost-button" data-action="replay-tour">Replay tour</button><button type="button" class="ghost-button" data-close-modal>Cancel</button><button type="submit" class="primary-button">Save settings</button></div>
+          </form>
+        </section></div>`;
+        $("#settings-form").addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const values = Object.fromEntries(new FormData(event.currentTarget).entries());
+          const result = await db.from("profiles").update(values).eq("id", state.user.id).select("*").single();
+          if (result.error) return safeError("Settings update", result.error);
+          state.profile = result.data;
+          $("#modal-root").innerHTML = "";
+          toast("Privacy settings updated.");
+        });
+        $("[data-action='replay-tour']").addEventListener("click", () => {
+          $("#modal-root").innerHTML = "";
+          openTour(0);
         });
       }
 
@@ -2038,7 +2482,7 @@
         if (clickedBackdrop || clickedCloseButton) $("#modal-root").innerHTML = "";
         const commandClose = event.target.closest("[data-command-close]");
         if (commandClose && event.target === commandClose) $("#command-root").innerHTML = "";
-        if (event.target.closest("[data-action='settings']")) toast("Settings will be backed by the same Supabase profile and preference tables.");
+        if (event.target.closest("[data-action='settings']")) openSettingsModal();
       });
       $("#enter-button").addEventListener("click", () => state.user ? enterWithUser(state.user) : openAuthModal("login"));
       $("#explore-button").addEventListener("click", () => state.user ? setView("discover") : openAuthModal("login"));
@@ -2062,7 +2506,8 @@
           const password = $("#new-password").value;
           const result = await db.auth.updateUser({ password });
           if (result.error) {
-            $("#password-update-error").textContent = result.error.message;
+            $("#password-update-error").textContent = "Password update could not be completed. Please try again.";
+            console.error("[7TH DIMENSION] Password update", result.error);
             return;
           }
           $("#modal-root").innerHTML = "";
