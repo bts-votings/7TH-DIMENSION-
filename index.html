@@ -923,30 +923,139 @@
       width: min(900px, 100%);
       padding: 42px 20px;
       text-align: left;
+      overflow: visible;
+    }
+    @keyframes sevenPulse {
+      0%, 100% { opacity: .72; transform: skewX(-8deg) scale(.98); }
+      50% { opacity: 1; transform: skewX(-8deg) scale(1.02); }
+    }
+    @keyframes sevenOrbit {
+      from { transform: rotate(-18deg) scaleY(.42); }
+      to { transform: rotate(342deg) scaleY(.42); }
+    }
+    @keyframes sevenShimmer {
+      0%, 100% { background-position: 0% 50%; filter: drop-shadow(0 0 9px rgba(151, 143, 255, .9)) drop-shadow(0 0 24px rgba(84, 172, 255, .45)); }
+      50% { background-position: 100% 50%; filter: drop-shadow(0 0 14px rgba(190, 181, 255, 1)) drop-shadow(0 0 34px rgba(84, 172, 255, .72)); }
+    }
+    @keyframes sevenRayA {
+      0%, 100% { opacity: .3; transform: translate(-50%, -50%) rotate(17deg) scaleX(.72); }
+      50% { opacity: .95; transform: translate(-50%, -50%) rotate(17deg) scaleX(1.16); }
+    }
+    @keyframes sevenRayB {
+      0%, 100% { opacity: .2; transform: translate(-50%, -50%) rotate(-17deg) scaleX(.8); }
+      50% { opacity: .68; transform: translate(-50%, -50%) rotate(-17deg) scaleX(1.2); }
     }
     .portal-content::before {
       content: "7";
       position: absolute;
-      top: -5.8rem;
-      left: 20%;
-      color: rgba(118, 150, 255, .08);
-      font: 700 clamp(260px, 45vw, 520px)/1 "Space Grotesk", sans-serif;
+      top: -4.9rem;
+      left: 18%;
+      color: rgba(118, 150, 255, .06);
+      font: 700 clamp(280px, 46vw, 540px)/1 "Space Grotesk", sans-serif;
       pointer-events: none;
-      text-shadow: 0 0 70px rgba(67, 126, 255, .16);
+      text-shadow: 0 0 70px rgba(67, 126, 255, .16), 0 0 130px rgba(132, 92, 255, .12);
+      transform: skewX(-8deg);
+      animation: sevenPulse 4.8s ease-in-out infinite;
+    }
+    .portal-content::after {
+      content: "";
+      position: absolute;
+      width: min(610px, 74vw);
+      aspect-ratio: 1;
+      top: -2.2rem;
+      left: 9%;
+      border: 1px solid rgba(168, 148, 255, .24);
+      border-radius: 50%;
+      transform: rotate(-18deg) scaleY(.42);
+      box-shadow: 0 0 38px rgba(111, 92, 255, .16), inset 0 0 35px rgba(111, 92, 255, .08);
+      pointer-events: none;
+      animation: sevenOrbit 18s linear infinite;
     }
     .portal-content h1 {
       position: relative;
       max-width: 840px;
       font-size: clamp(60px, 10.5vw, 132px);
       letter-spacing: -.11em;
+      line-height: 1;
+      overflow: visible;
       text-shadow: 0 0 48px rgba(75, 139, 255, .25);
     }
     .portal-content h1 span {
       color: #84dfff;
-      background: linear-gradient(120deg, #e9fcff 0%, #6dd9ff 34%, #817cff 90%);
+      background: linear-gradient(120deg, #f2fdff 0%, #8fe6ff 27%, #6f72ff 68%, #d9d0ff 100%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+    .portal-content h1 .hero-line {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: -.45rem;
+    }
+    .portal-content h1 .hero-seven {
+      position: relative;
+      display: block;
+      width: clamp(150px, 22vw, 260px);
+      height: clamp(150px, 22vw, 260px);
+      margin: -.15em 0 0;
+      color: transparent;
+      line-height: 1;
+      transform: none;
+      z-index: 1;
+      filter: drop-shadow(0 0 8px rgba(151, 143, 255, .95)) drop-shadow(0 0 26px rgba(84, 172, 255, .55));
+      animation: sevenShimmer 4.2s ease-in-out infinite;
+    }
+    .portal-content h1 .hero-seven svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .portal-content h1 .hero-seven .crystal-edge {
+      fill: url(#crystalEdge);
+      stroke: rgba(233, 249, 255, .9);
+      stroke-width: 1.2;
+      stroke-linejoin: bevel;
+    }
+    .portal-content h1 .hero-seven .crystal-facet-a { fill: url(#crystalFacetA); }
+    .portal-content h1 .hero-seven .crystal-facet-b { fill: url(#crystalFacetB); }
+    .portal-content h1 .hero-seven .crystal-facet-c { fill: url(#crystalFacetC); }
+    .portal-content h1 .hero-seven .crystal-highlight {
+      fill: none;
+      stroke: rgba(255, 255, 255, .92);
+      stroke-width: 2;
+      stroke-linecap: round;
+      opacity: .82;
+    }
+    .portal-content h1 .hero-seven::before,
+    .portal-content h1 .hero-seven::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1.8em;
+      height: .025em;
+      background: linear-gradient(90deg, transparent, rgba(223, 236, 255, .9), transparent);
+      box-shadow: 0 0 12px rgba(169, 189, 255, .8);
+      transform: translate(-50%, -50%) rotate(17deg);
+      opacity: .8;
+      z-index: -1;
+      animation: sevenRayA 2.8s ease-in-out infinite;
+    }
+    .portal-content h1 .hero-seven::after {
+      width: 2.2em;
+      transform: translate(-50%, -50%) rotate(-17deg);
+      opacity: .42;
+      animation: sevenRayB 3.6s ease-in-out .35s infinite;
+    }
+    .portal-content h1 .hero-th {
+      display: inline-block;
+      margin: 0 0 .28em -.85em;
+      font-size: .59em;
+      letter-spacing: -.04em;
+      vertical-align: baseline;
     }
     .portal-tagline {
       position: relative;
@@ -1478,7 +1587,7 @@
         <i class="orbit-dot dot-d"></i><i class="orbit-dot dot-e"></i><i class="orbit-dot dot-f"></i><i class="orbit-dot dot-g"></i>
       </div>
       <div class="portal-content">
-        <h1><span>7TH</span>DIMENSION</h1>
+        <h1><span class="hero-line"><span class="hero-seven" aria-label="7"><svg viewBox="0 0 120 160" role="img" aria-labelledby="crystal-seven-title"><title id="crystal-seven-title">7</title><defs><linearGradient id="crystalEdge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".25" stop-color="#8feeff"/><stop offset=".58" stop-color="#6368ff"/><stop offset=".84" stop-color="#d7ceff"/><stop offset="1" stop-color="#ffffff"/></linearGradient><linearGradient id="crystalFacetA" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#efffff"/><stop offset=".42" stop-color="#638fff"/><stop offset="1" stop-color="#252b9a"/></linearGradient><linearGradient id="crystalFacetB" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#ffffff"/><stop offset=".38" stop-color="#a69bff"/><stop offset="1" stop-color="#3b32ae"/></linearGradient><linearGradient id="crystalFacetC" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#7aeeff"/><stop offset=".5" stop-color="#5261e7"/><stop offset="1" stop-color="#151a6c"/></linearGradient></defs><g class="crystal-seven"><path class="crystal-edge" d="M8 14 H112 L98 35 L82 41 L67 61 L56 87 L45 120 L59 145 L44 155 L27 128 L33 101 L44 73 L57 49 L70 35 H8 Z"/><path class="crystal-facet-a" d="M8 14 H112 L99 27 H16 Z"/><path class="crystal-facet-b" d="M112 14 L99 37 L84 42 L99 27 Z"/><path class="crystal-facet-c" d="M16 27 H99 L84 42 L70 62 L59 88 L50 118 L42 105 L48 78 L59 53 L72 36 Z"/><path class="crystal-facet-a" d="M72 36 L84 42 L70 62 L59 88 L50 118 L42 105 L52 73 L63 49 Z"/><path class="crystal-facet-b" d="M84 42 L70 62 L59 88 L50 118 L42 105 L54 68 L68 45 Z"/><path class="crystal-facet-c" d="M45 120 L59 145 L44 155 L27 128 L33 101 Z"/><path class="crystal-highlight" d="M16 22 H91 M68 45 L55 77 L45 108"/></g></svg></span><span class="hero-th">TH</span></span>DIMENSION</h1>
         <p class="portal-tagline">One space. Seven stars. One ARMY.</p>
         <div class="portal-actions">
           <button class="primary-button" id="enter-button">Enter 7th Dimension</button>
@@ -2747,3 +2856,4 @@
   </script>
 </body>
 </html>
+
