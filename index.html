@@ -131,14 +131,13 @@
       overflow: hidden;
       isolation: isolate;
     }
-    .portal-reference {
+      .portal-reference {
       position: absolute;
       inset: 0;
       z-index: -1;
       opacity: .065;
       background:
-        linear-gradient(180deg, rgba(7, 5, 17, .24), rgba(9, 8, 23, .95)),
-        url("attached_assets/Screenshot_2026-09-06_123254_1788698170494.png") center / cover no-repeat;
+        linear-gradient(180deg, rgba(4, 8, 18, .12), rgba(4, 8, 18, .96));
       filter: saturate(.8) blur(.2px);
       pointer-events: none;
     }
@@ -859,6 +858,603 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
     }
+
+    /* Reference-led visual pass: denser, bluer, and more like a command center. */
+    :root {
+      --void: #040811;
+      --void-soft: #07101e;
+      --panel: rgba(8, 17, 31, .88);
+      --panel-solid: #091321;
+      --panel-light: rgba(15, 30, 52, .86);
+      --line: rgba(122, 164, 214, .18);
+      --line-bright: rgba(103, 176, 255, .62);
+      --white: #f3f7ff;
+      --muted: #8e9eb6;
+      --dim: #52647e;
+      --violet: #7167ff;
+      --violet-bright: #9c9cff;
+      --blue: #6cd7ff;
+      --green: #7ee6c2;
+      --radius: 14px;
+    }
+    body {
+      background:
+        radial-gradient(circle at 52% 12%, rgba(43, 77, 151, .24), transparent 28rem),
+        radial-gradient(circle at 92% 88%, rgba(72, 36, 152, .13), transparent 24rem),
+        #040811;
+    }
+    body::before {
+      background:
+        linear-gradient(rgba(75, 112, 169, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(75, 112, 169, .045) 1px, transparent 1px),
+        radial-gradient(circle at 52% 30%, rgba(67, 99, 212, .20), transparent 30rem),
+        #040811;
+      background-size: 42px 42px, 42px 42px, auto, auto;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.75), transparent 90%);
+    }
+    body::after {
+      opacity: .28;
+      background-size: 280px 220px, 360px 290px, 470px 390px;
+    }
+    .portal {
+      background:
+        radial-gradient(ellipse at 50% 48%, rgba(40, 81, 191, .19), transparent 25rem),
+        radial-gradient(ellipse at 50% 50%, transparent 0 16rem, rgba(49, 115, 235, .08) 16.1rem 16.2rem, transparent 16.3rem),
+        linear-gradient(135deg, #040811 0%, #071222 52%, #03060c 100%);
+    }
+    .portal::after {
+      content: "";
+      position: absolute;
+      inset: 12% 21%;
+      border: 1px solid rgba(77, 148, 255, .12);
+      border-radius: 50%;
+      transform: rotate(-14deg) scaleY(.35);
+      box-shadow: 0 0 90px rgba(46, 116, 255, .12);
+      pointer-events: none;
+    }
+    .portal-header {
+      width: 100%;
+      padding: 20px clamp(18px, 4vw, 56px);
+      border-bottom-color: rgba(119, 159, 211, .17);
+    }
+    .portal-header .brand-mark,
+    .sidebar .brand-mark { color: var(--blue); }
+    .portal-content {
+      width: min(900px, 100%);
+      padding: 42px 20px;
+      text-align: left;
+    }
+    .portal-content::before {
+      content: "7";
+      position: absolute;
+      top: -5.8rem;
+      left: 20%;
+      color: rgba(118, 150, 255, .08);
+      font: 700 clamp(260px, 45vw, 520px)/1 "Space Grotesk", sans-serif;
+      pointer-events: none;
+      text-shadow: 0 0 70px rgba(67, 126, 255, .16);
+    }
+    .portal-content h1 {
+      position: relative;
+      max-width: 840px;
+      font-size: clamp(60px, 10.5vw, 132px);
+      letter-spacing: -.11em;
+      text-shadow: 0 0 48px rgba(75, 139, 255, .25);
+    }
+    .portal-content h1 span {
+      color: #84dfff;
+      background: linear-gradient(120deg, #e9fcff 0%, #6dd9ff 34%, #817cff 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .portal-tagline {
+      position: relative;
+      margin-top: 21px;
+      color: #a9c5e6;
+      letter-spacing: .24em;
+    }
+    .portal-actions { position: relative; justify-content: flex-start; }
+    .primary-button {
+      color: #04101d;
+      background: linear-gradient(135deg, #e8fbff, #83dfff);
+      box-shadow: 0 0 26px rgba(84, 202, 255, .22);
+    }
+    .ghost-button { border-color: rgba(108, 190, 255, .58); }
+    .portal-footer {
+      width: 100%;
+      padding: 0 clamp(18px, 4vw, 56px) 18px;
+    }
+    .feature-strip {
+      grid-template-columns: repeat(3, minmax(0, 220px));
+      justify-content: start;
+      gap: 28px;
+      border-top-color: rgba(119, 159, 211, .18);
+      border-bottom-color: rgba(119, 159, 211, .12);
+    }
+    .feature { justify-content: flex-start; color: #8ea7c8; }
+    .feature i { border-color: var(--blue); }
+
+    .app-shell {
+      grid-template-columns: 210px minmax(0, 1fr);
+      background:
+        linear-gradient(90deg, rgba(3, 7, 14, .88), transparent 28%),
+        radial-gradient(circle at 62% 8%, rgba(32, 94, 188, .14), transparent 32rem);
+    }
+    .sidebar {
+      gap: 24px;
+      padding: 20px 12px 14px;
+      border-right-color: rgba(105, 151, 209, .19);
+      background: rgba(3, 9, 18, .9);
+    }
+    .sidebar .brand { padding: 0 11px; }
+    .nav-button {
+      padding: 10px 12px;
+      border-radius: 9px;
+    }
+    .nav-button:hover, .nav-button.active {
+      border-color: rgba(84, 170, 255, .42);
+      background: linear-gradient(90deg, rgba(72, 151, 235, .18), rgba(72, 151, 235, .03));
+      box-shadow: inset 3px 0 0 #62d8ff;
+    }
+    .nav-button.active .nav-icon { color: var(--blue); }
+    .mini-profile {
+      border-color: rgba(105, 151, 209, .22);
+      background: linear-gradient(135deg, rgba(20, 43, 72, .68), rgba(11, 20, 35, .62));
+    }
+    .topbar {
+      height: 70px;
+      padding: 0 clamp(18px, 3vw, 38px);
+      border-bottom-color: rgba(105, 151, 209, .19);
+      background: rgba(4, 10, 20, .68);
+    }
+    .page-heading h2 { font-size: 18px; letter-spacing: -.02em; }
+    .search {
+      width: min(285px, 28vw);
+      border-radius: 8px;
+      border-color: rgba(105, 151, 209, .25);
+      background: rgba(9, 23, 40, .74);
+    }
+    .icon-button {
+      border-color: rgba(105, 151, 209, .25);
+      border-radius: 8px;
+      background: rgba(9, 23, 40, .74);
+    }
+    .profile-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 36px;
+      padding: 3px 9px 3px 4px;
+      border: 1px solid rgba(105, 151, 209, .25);
+      border-radius: 9px;
+      color: #d7e7f9;
+      background: rgba(9, 23, 40, .74);
+      font-size: 10px;
+    }
+    .profile-chip:hover { border-color: rgba(108, 215, 255, .58); }
+    .content {
+      width: min(1280px, 100%);
+      padding: 24px clamp(18px, 3vw, 38px) 90px;
+    }
+    .content-grid { gap: 15px; }
+    .stack { gap: 13px; }
+    .card {
+      border-radius: 13px;
+      border-color: rgba(105, 151, 209, .2);
+      background: linear-gradient(145deg, rgba(12, 27, 46, .9), rgba(6, 14, 26, .92));
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .22), inset 0 1px 0 rgba(188, 222, 255, .035);
+    }
+    .card:hover {
+      border-color: rgba(105, 191, 255, .35);
+    }
+    .composer { padding: 15px; }
+    .composer-input { border-color: rgba(105, 151, 209, .22); background: rgba(2, 8, 17, .48); }
+    .section-tabs {
+      gap: 23px;
+      padding-bottom: 10px;
+      border-bottom-color: rgba(105, 151, 209, .16);
+    }
+    .section-tab.active::after { background: var(--blue); box-shadow: 0 0 11px rgba(108, 215, 255, .72); }
+    .post-card { padding: 16px; }
+    .post-body p { color: #c6d4e8; }
+    .post-actions { border-top-color: rgba(105, 151, 209, .12); }
+    .action-button.active, .card-link { color: var(--blue); }
+    .side-card { padding: 15px; }
+    .hero-card {
+      padding: 24px;
+      border-color: rgba(105, 166, 242, .27);
+      background:
+        radial-gradient(circle at 86% 20%, rgba(82, 153, 255, .20), transparent 15rem),
+        linear-gradient(135deg, rgba(15, 48, 88, .88), rgba(7, 16, 30, .94));
+    }
+    .hero-card::after { color: rgba(111, 191, 255, .08); }
+    .community-card { min-height: 156px; padding: 16px; }
+    .profile-banner {
+      min-height: 190px;
+      background:
+        radial-gradient(circle at 74% 35%, rgba(88, 179, 255, .25) 0 2px, transparent 3px),
+        linear-gradient(130deg, #0f3158, #050a14 75%);
+    }
+    .flow-dashboard { display: grid; gap: 14px; }
+    .flow-intro {
+      position: relative;
+      min-height: 164px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+      overflow: hidden;
+      padding: 23px 27px;
+      background:
+        radial-gradient(circle at 79% 50%, rgba(94, 129, 255, .24), transparent 11rem),
+        linear-gradient(110deg, rgba(11, 35, 64, .96), rgba(6, 14, 27, .94));
+    }
+    .flow-intro::before {
+      content: "";
+      position: absolute;
+      width: 410px;
+      height: 160px;
+      right: 8%;
+      border: 1px solid rgba(102, 185, 255, .20);
+      border-radius: 50%;
+      transform: rotate(-17deg);
+      box-shadow: 0 0 50px rgba(68, 133, 255, .11);
+    }
+    .flow-intro h1 {
+      position: relative;
+      z-index: 1;
+      margin-top: 8px;
+      max-width: 650px;
+      font-size: clamp(24px, 3.3vw, 42px);
+      letter-spacing: -.065em;
+    }
+    .flow-intro p {
+      position: relative;
+      z-index: 1;
+      max-width: 510px;
+      margin-top: 8px;
+      color: #9bb2cf;
+      font-size: 12px;
+    }
+    .flow-mark {
+      position: relative;
+      z-index: 1;
+      width: 104px;
+      height: 104px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border: 1px solid rgba(109, 208, 255, .42);
+      border-radius: 50%;
+      transform: rotate(-15deg);
+      box-shadow: 0 0 35px rgba(66, 143, 255, .22), inset 0 0 28px rgba(95, 118, 255, .13);
+    }
+    .flow-mark::before, .flow-mark::after {
+      content: "";
+      position: absolute;
+      inset: 12px -17px;
+      border: 1px solid rgba(129, 133, 255, .45);
+      border-radius: 50%;
+      transform: rotate(55deg);
+    }
+    .flow-mark::after { inset: -17px 12px; transform: rotate(-37deg); border-color: rgba(103, 212, 255, .28); }
+    .flow-mark span {
+      color: #bceeff;
+      font: 700 53px/1 "Space Grotesk", sans-serif;
+      text-shadow: 0 0 22px rgba(103, 211, 255, .88);
+    }
+    .flow-mark i {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      top: 8px;
+      right: 13px;
+      border-radius: 50%;
+      background: #d8fbff;
+      box-shadow: 0 0 14px 4px rgba(108, 215, 255, .75);
+    }
+    .metric-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      overflow: hidden;
+      border: 1px solid rgba(105, 151, 209, .2);
+      border-radius: 13px;
+      background: rgba(7, 17, 31, .78);
+    }
+    .metric {
+      position: relative;
+      min-height: 76px;
+      padding: 13px 16px;
+      border-right: 1px solid rgba(105, 151, 209, .16);
+    }
+    .metric:last-child { border-right: 0; }
+    .metric span, .metric small { display: block; color: var(--muted); font-size: 10px; }
+    .metric strong { display: inline-block; margin-top: 2px; color: #e9f6ff; font: 600 24px/1.1 "Space Grotesk", sans-serif; }
+    .metric small { display: inline; margin-left: 6px; color: var(--dim); font-size: 9px; }
+    .orbit-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 39px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(105, 151, 209, .10);
+    }
+    .orbit-row:last-child { border-bottom: 0; }
+    .orbit-row > div { min-width: 0; flex: 1; }
+    .orbit-row strong, .orbit-row span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .orbit-row strong { color: #e1edfb; font-size: 11px; font-weight: 600; }
+    .orbit-row span { margin-top: 2px; color: var(--muted); font-size: 9px; }
+    .orbit-glyph {
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border: 1px solid rgba(108, 215, 255, .32);
+      border-radius: 8px;
+      color: var(--blue);
+      background: rgba(85, 173, 255, .10);
+      font-size: 11px !important;
+    }
+    .community-dashboard, .discover-dashboard { display: grid; gap: 18px; }
+    .community-heading, .section-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .community-heading h1 {
+      margin-top: 7px;
+      color: #eaf5ff;
+      font-size: clamp(27px, 4vw, 43px);
+    }
+    .community-heading p { margin-top: 6px; color: var(--muted); font-size: 12px; }
+    .section-heading { align-items: center; }
+    .section-heading h2 { margin-top: 5px; font-size: 19px; }
+    .section-count { color: var(--dim); font: 600 10px "Space Grotesk", sans-serif; text-transform: uppercase; letter-spacing: .12em; }
+    .featured-community {
+      display: grid;
+      grid-template-columns: minmax(240px, .9fr) minmax(0, 1.5fr);
+      min-height: 260px;
+      overflow: hidden;
+      padding: 0;
+      background:
+        radial-gradient(circle at 24% 48%, rgba(82, 171, 255, .22), transparent 15rem),
+        linear-gradient(116deg, #0b294b, #07111f 68%);
+    }
+    .featured-community-visual {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 260px;
+      overflow: hidden;
+      border-right: 1px solid rgba(105, 151, 209, .18);
+      background:
+        radial-gradient(circle, rgba(100, 198, 255, .19) 0 1px, transparent 2px),
+        radial-gradient(circle at 50% 50%, rgba(58, 109, 255, .22), transparent 9rem);
+      background-size: 82px 76px, auto;
+    }
+    .community-avatar {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(154, 226, 255, .52);
+      border-radius: 14px;
+      color: #d8f8ff;
+      background: linear-gradient(145deg, #255c8f, #26327b);
+      box-shadow: 0 0 24px rgba(89, 201, 255, .22);
+      font: 700 13px "Space Grotesk", sans-serif;
+    }
+    .community-avatar.large { position: relative; z-index: 2; width: 86px; height: 86px; border-radius: 24px; font-size: 25px; box-shadow: 0 0 42px rgba(89, 201, 255, .34); }
+    .community-open-badge {
+      position: absolute;
+      right: 17px;
+      bottom: 15px;
+      z-index: 3;
+      color: #8cefcf;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .community-orbit-ring {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border: 1px solid rgba(119, 215, 255, .26);
+      border-radius: 50%;
+      transform: rotate(32deg) scaleY(.42);
+    }
+    .ring-one { width: 235px; height: 235px; transform: rotate(-19deg) scaleY(.45); }
+    .ring-two { width: 145px; height: 145px; border-color: rgba(141, 132, 255, .36); transform: rotate(62deg) scaleY(.62); }
+    .featured-community-copy { padding: 32px 33px; align-self: center; }
+    .featured-community-copy h1 { margin-top: 8px; color: #effaff; font-size: clamp(28px, 4vw, 49px); }
+    .featured-community-copy p { max-width: 520px; margin-top: 9px; color: #a9c1db; line-height: 1.65; }
+    .featured-community-meta { display: flex; flex-wrap: wrap; gap: 15px; margin: 19px 0; color: #7e9ab9; font-size: 10px; }
+    .featured-community-copy .primary-button { min-height: 38px; padding: 0 16px; border-radius: 8px; }
+    .featured-community-copy .primary-button span { margin-left: 14px; }
+    .community-section, .people-section { display: grid; gap: 12px; }
+    .community-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+    }
+    .community-tile { overflow: hidden; padding: 0; }
+    .community-tile-visual {
+      position: relative;
+      min-height: 77px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 13px;
+      background:
+        radial-gradient(circle at 84% 14%, rgba(104, 218, 255, .22) 0 1px, transparent 2px),
+        radial-gradient(circle at 65% 70%, rgba(112, 126, 255, .18), transparent 6rem),
+        linear-gradient(135deg, #0e2c4c, #091422);
+    }
+    .community-tile:nth-child(3n + 2) .community-tile-visual { background: radial-gradient(circle at 74% 30%, rgba(157, 134, 255, .27), transparent 7rem), linear-gradient(135deg, #171541, #0a1220); }
+    .community-tile:nth-child(3n + 3) .community-tile-visual { background: radial-gradient(circle at 73% 30%, rgba(100, 230, 191, .20), transparent 7rem), linear-gradient(135deg, #0b373e, #091422); }
+    .community-status { color: #82e4c2; font-size: 8px; font-weight: 700; letter-spacing: .12em; }
+    .community-tile-body { position: relative; padding: 14px; }
+    .community-tile-body h3 { margin-top: 5px; color: #e8f2ff; font-size: 16px; }
+    .community-tile-body p { min-height: 39px; margin-top: 5px; color: var(--muted); font-size: 10px; line-height: 1.55; }
+    .community-tile-meta { display: flex; justify-content: space-between; gap: 8px; margin-top: 13px; color: var(--dim); font-size: 9px; }
+    .community-action { display: block; margin-top: 13px; padding-top: 10px; border-top: 1px solid rgba(105, 151, 209, .13); }
+    .discover-heading { position: relative; min-height: 206px; }
+    .discover-heading h1 { max-width: 640px; }
+    .discover-count { position: absolute; right: 28px; bottom: 23px; display: grid; justify-items: end; }
+    .discover-count strong { color: var(--blue); font: 600 37px/1 "Space Grotesk", sans-serif; }
+    .discover-count span { margin-top: 4px; color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: .12em; }
+    .people-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+    }
+    .person-card { min-height: 170px; padding: 15px; }
+    .person-card.is-featured { border-color: rgba(226, 196, 104, .34); background: linear-gradient(145deg, rgba(42, 38, 25, .80), rgba(7, 15, 27, .92)); }
+    .person-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; min-height: 39px; }
+    .person-card > strong { display: block; margin-top: 12px; color: #e4effb; font-size: 13px; }
+    .person-handle { display: block; margin-top: 2px; color: var(--blue); font-size: 10px; }
+    .person-card p { min-height: 31px; margin-top: 10px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .person-actions { display: flex; align-items: center; justify-content: flex-end; gap: 9px; margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(105, 151, 209, .12); }
+    .person-actions .admin-tools { margin-right: auto; margin-left: 0; }
+    .chat-layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(220px, .58fr); gap: 14px; min-height: 560px; }
+    .chat-panel { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; min-height: 560px; overflow: hidden; }
+    .chat-header { display: flex; align-items: center; gap: 12px; padding: 17px 19px; border-bottom: 1px solid rgba(105, 151, 209, .18); background: linear-gradient(90deg, rgba(20, 57, 95, .42), transparent); }
+    .chat-channel-icon { width: 37px; height: 37px; display: grid; place-items: center; border: 1px solid rgba(108, 215, 255, .42); border-radius: 11px; color: var(--blue); background: rgba(108, 215, 255, .10); font-size: 20px; }
+    .chat-header h2 { margin-top: 3px; font-size: 17px; }
+    .chat-header > div:nth-child(2) > span { display: block; margin-top: 2px; color: #73e2bf; font-size: 9px; }
+    .chat-header .admin-badge { margin-left: auto; }
+    .chat-messages { min-height: 0; overflow: auto; padding: 20px; background: radial-gradient(circle at 70% 15%, rgba(64, 102, 190, .10), transparent 20rem); }
+    .chat-message { display: flex; align-items: flex-start; gap: 9px; max-width: 82%; margin-bottom: 17px; }
+    .chat-message.mine { margin-right: 0; margin-left: auto; flex-direction: row-reverse; }
+    .chat-message-body { min-width: 0; }
+    .chat-message-meta { display: flex; align-items: center; gap: 7px; }
+    .chat-message-meta strong { color: #cbdced; font-size: 10px; }
+    .chat-message-meta time { color: var(--dim); font-size: 8px; }
+    .chat-message p { margin-top: 5px; padding: 9px 11px; border: 1px solid rgba(105, 151, 209, .18); border-radius: 3px 11px 11px 11px; color: #d8e5f2; background: rgba(12, 30, 51, .85); font-size: 11px; line-height: 1.55; }
+    .chat-message.mine .chat-message-meta { justify-content: flex-end; }
+    .chat-message.mine .chat-message-meta strong { color: var(--blue); }
+    .chat-message.mine p { border-color: rgba(99, 184, 255, .25); border-radius: 11px 3px 11px 11px; background: rgba(25, 55, 87, .82); }
+    .message-composer { margin: 0; padding: 13px; border-top: 1px solid rgba(105, 151, 209, .18); background: rgba(4, 12, 23, .74); }
+    .message-composer input { padding: 11px 13px; border: 1px solid rgba(105, 151, 209, .22); border-radius: 9px; color: var(--white); background: rgba(3, 9, 17, .78); outline: 0; }
+    .message-composer .primary-button { min-height: 38px; border-radius: 8px; padding: 0 15px; }
+    .chat-locked { padding: 15px; border-top: 1px solid rgba(105, 151, 209, .18); color: var(--muted); font-size: 10px; }
+    .chat-aside { display: grid; align-content: start; gap: 13px; }
+    .empty-state { min-height: 150px; display: grid; place-content: center; }
+    @media (max-width: 900px) {
+      .app-shell { grid-template-columns: 70px minmax(0, 1fr); }
+      .sidebar { padding-right: 8px; padding-left: 8px; }
+      .community-grid, .people-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .featured-community { grid-template-columns: 190px minmax(0, 1fr); }
+      .chat-layout { grid-template-columns: 1fr; }
+      .chat-aside { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .portal-content { padding: 30px 8px; text-align: center; }
+      .portal-content::before { left: 0; top: -3rem; }
+      .portal-actions { justify-content: center; }
+      .feature-strip { grid-template-columns: 1fr; gap: 12px; }
+      .flow-intro { min-height: 0; padding: 20px; }
+      .flow-mark { display: none; }
+      .metric-strip { grid-template-columns: repeat(2, 1fr); }
+      .metric:nth-child(2) { border-right: 0; }
+      .metric:nth-child(-n+2) { border-bottom: 1px solid rgba(105, 151, 209, .16); }
+      .metric strong { font-size: 20px; }
+      .profile-chip { padding-right: 4px; }
+      .profile-chip #top-user-name { display: none; }
+      .community-heading, .section-heading { align-items: flex-start; flex-direction: column; }
+      .featured-community { grid-template-columns: 1fr; }
+      .featured-community-visual { min-height: 170px; border-right: 0; border-bottom: 1px solid rgba(105, 151, 209, .18); }
+      .featured-community-copy { padding: 22px; }
+      .community-grid, .people-grid { grid-template-columns: 1fr; }
+      .discover-count { position: static; justify-items: start; margin-top: 18px; }
+      .chat-layout, .chat-panel { min-height: 520px; }
+      .chat-aside { display: none; }
+      .chat-message { max-width: 94%; }
+    }
+    /* Advanced functionality uses the approved visual system. */
+    .avatar.has-image { overflow: hidden; background: #102944; }
+    .avatar.has-image img { width: 100%; height: 100%; display: block; object-fit: cover; }
+    .profile-banner.has-cover { background-size: cover; background-position: center; }
+    .profile-banner.has-cover::before { background: linear-gradient(90deg, rgba(2, 8, 16, .84), rgba(2, 8, 16, .22)); }
+    .profile-header-actions { position: relative; z-index: 2; display: flex; gap: 8px; margin-left: auto; align-self: flex-start; }
+    .profile-info { width: 100%; align-items: flex-end; }
+    .profile-info-copy { min-width: 0; }
+    .profile-bio { max-width: 530px; margin-top: 7px; color: #c1d0e4; font-size: 11px; line-height: 1.55; }
+    .profile-meta-line { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; color: #91a9c5; font-size: 10px; }
+    .profile-tabs { display: flex; gap: 22px; padding: 0 2px 10px; border-bottom: 1px solid var(--line); }
+    .profile-tab { position: relative; border: 0; color: var(--muted); background: transparent; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .13em; }
+    .profile-tab.active { color: var(--blue); }
+    .profile-tab.active::after { content: ""; position: absolute; right: 0; bottom: -11px; left: 0; height: 2px; background: var(--blue); box-shadow: 0 0 10px rgba(108, 215, 255, .7); }
+    .profile-columns { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(230px, .65fr); gap: 15px; }
+    .profile-side { display: grid; align-content: start; gap: 13px; }
+    .profile-counts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; }
+    .profile-count { padding: 13px; border: 1px solid var(--line); border-radius: 11px; background: rgba(6, 15, 28, .55); }
+    button.profile-count { width: 100%; color: inherit; text-align: center; cursor: pointer; }
+    button.profile-count:hover { border-color: var(--line-bright); background: rgba(70, 156, 241, .09); }
+    .profile-count strong { display: block; color: var(--white); font: 700 20px "Space Grotesk", sans-serif; }
+    .profile-count span { display: block; margin-top: 3px; color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: .1em; }
+    .presence-dot { display: inline-block; width: 7px; height: 7px; margin-right: 5px; border: 1px solid rgba(255,255,255,.42); border-radius: 50%; background: #42516a; vertical-align: middle; }
+    .presence-dot.online { border-color: #9cf1d5; background: #70e7bd; box-shadow: 0 0 9px rgba(112, 231, 189, .7); }
+    .typing-indicator { min-height: 18px; padding: 0 20px 8px; color: var(--blue); font-size: 10px; font-style: italic; }
+    .read-state { margin-left: 7px; color: var(--dim); font-size: 9px; letter-spacing: -.08em; }
+    .read-state.seen { color: var(--blue); }
+    .notification-row { cursor: pointer; }
+    .notification-row.unread { border-left: 2px solid var(--blue); padding-left: 9px; background: rgba(70, 156, 241, .07); }
+    .notification-row time { display: block; margin-top: 3px; color: var(--dim); font-size: 9px; }
+    .signal-count { display: inline-grid; place-items: center; min-width: 15px; height: 15px; margin-left: 5px; padding: 0 4px; border-radius: 99px; color: #06101b; background: var(--blue); font-size: 8px; font-weight: 800; }
+    .search-results {
+      position: fixed; inset: 70px 28px auto auto; z-index: 18; width: min(520px, calc(100% - 38px)); max-height: min(620px, calc(100vh - 100px));
+      overflow: auto; padding: 14px; border: 1px solid var(--line-bright); border-radius: 14px; background: rgba(5, 13, 25, .98); box-shadow: var(--shadow), 0 0 55px rgba(58, 140, 255, .16); backdrop-filter: blur(18px);
+    }
+    .search-result-section { display: grid; gap: 5px; margin-top: 15px; }
+    .search-result-section:first-child { margin-top: 0; }
+    .search-result-section h4 { color: var(--blue); font-size: 9px; letter-spacing: .15em; text-transform: uppercase; }
+    .search-result { display: flex; align-items: center; gap: 9px; width: 100%; padding: 9px; border: 1px solid transparent; border-radius: 8px; color: var(--white); background: transparent; text-align: left; }
+    .search-result:hover { border-color: var(--line); background: rgba(105, 151, 209, .1); }
+    .search-result-copy { min-width: 0; flex: 1; }
+    .search-result-copy strong, .search-result-copy span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .search-result-copy strong { font-size: 11px; }
+    .search-result-copy span { margin-top: 2px; color: var(--muted); font-size: 9px; }
+    .search-filter-row { display: flex; gap: 5px; margin-top: 10px; }
+    .search-filter { padding: 5px 8px; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); background: transparent; font-size: 9px; }
+    .search-filter.active { color: #06101b; background: var(--blue); }
+    .composer-preview { position: relative; width: 100%; margin-top: 12px; }
+    .composer-preview img { display: block; width: min(240px, 100%); max-height: 170px; object-fit: cover; border: 1px solid var(--line); border-radius: 10px; }
+    .composer-preview button { position: absolute; top: 7px; left: 205px; width: 25px; height: 25px; border: 1px solid var(--line); border-radius: 50%; color: var(--white); background: rgba(3, 9, 17, .82); }
+    .tool-button.has-draft { color: var(--blue); }
+    .draft-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+    .draft-row:last-child { border-bottom: 0; }
+    .draft-row p { min-width: 0; overflow: hidden; color: #c9d7e8; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+    .draft-actions { display: flex; gap: 8px; flex: 0 0 auto; }
+    .collection-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 15px 0; }
+    .collection-chip { padding: 6px 9px; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); background: transparent; font-size: 9px; }
+    .collection-chip.active, .collection-chip:hover { border-color: var(--line-bright); color: var(--blue); }
+    .event-card { display: grid; grid-template-columns: 74px minmax(0, 1fr) auto; gap: 14px; align-items: center; }
+    .event-date-block { display: grid; place-items: center; min-height: 66px; border: 1px solid rgba(108, 215, 255, .3); border-radius: 11px; color: var(--blue); background: rgba(73, 163, 240, .09); }
+    .event-date-block strong { font: 700 22px "Space Grotesk", sans-serif; }
+    .event-date-block span { font-size: 8px; text-transform: uppercase; letter-spacing: .12em; }
+    .event-card h3 { color: #e6f1ff; font-size: 15px; }
+    .event-card p { margin-top: 5px; color: var(--muted); font-size: 10px; }
+    .comment-thread { display: grid; gap: 9px; margin-top: 18px; }
+    .comment-item { padding: 10px; border: 1px solid rgba(105, 151, 209, .15); border-radius: 10px; background: rgba(7, 18, 32, .6); }
+    .comment-item.reply { margin-left: 24px; border-left-color: rgba(108, 215, 255, .46); }
+    .comment-meta { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 9px; }
+    .comment-meta strong { color: #dceafa; font-size: 10px; }
+    .comment-body { margin-top: 5px; color: #c6d4e8; font-size: 11px; line-height: 1.5; }
+    .comment-actions { display: flex; gap: 9px; margin-top: 7px; }
+    .profile-link { color: inherit; text-decoration: none; }
+    .mention-link { color: var(--blue); text-decoration: none; }
+    @media (max-width: 760px) {
+      .profile-columns { grid-template-columns: 1fr; }
+      .profile-header-actions { align-self: flex-end; }
+      .event-card { grid-template-columns: 56px minmax(0, 1fr); }
+      .event-card > .event-action { grid-column: 2; justify-self: start; }
+      .search-results { inset: 65px 10px auto; width: auto; }
+    }
   </style>
 </head>
 <body>
@@ -895,7 +1491,7 @@
       <div class="feature-strip">
         <div class="feature"><i></i><span>Feed · post and follow</span></div>
         <div class="feature"><i></i><span>Portals · join communities</span></div>
-        <div class="feature"><i></i><span>Channels · DM anyone</span></div>
+        <div class="feature"><i></i><span>Signals · stay in sync</span></div>
       </div>
       <div class="portal-status">
         <span><b>LIVE</b> database-backed constellation</span>
@@ -911,19 +1507,29 @@
         <span class="brand-name">7TH DIMENSION</span>
       </a>
       <div>
-        <div class="nav-label">Navigate</div>
+        <div class="nav-label">Explore</div>
         <nav class="nav-list" aria-label="Main navigation">
           <button class="nav-button active" data-view="flow"><span class="nav-icon">◌</span><span>Flow</span></button>
-          <button class="nav-button" data-view="constellation"><span class="nav-icon">✧</span><span>Constellation</span></button>
           <button class="nav-button" data-view="discover"><span class="nav-icon">⌕</span><span>Discover</span></button>
-          <button class="nav-button" data-view="signal"><span class="nav-icon">◈</span><span>Signal <b class="signal-count">3</b></span></button>
-          <button class="nav-button" data-view="archive"><span class="nav-icon">▱</span><span>Archive</span></button>
-          <button class="nav-button" data-view="events"><span class="nav-icon">◷</span><span>Events</span></button>
-          <button class="nav-button" data-view="messages"><span class="nav-icon">⌁</span><span>Messages</span></button>
+          <button class="nav-button" data-view="constellation"><span class="nav-icon">✧</span><span>Communities</span></button>
         </nav>
       </div>
       <div>
-        <div class="nav-label">Identity</div>
+        <div class="nav-label">Connect</div>
+        <nav class="nav-list">
+          <button class="nav-button" data-view="messages"><span class="nav-icon">⌁</span><span>Messages</span></button>
+          <button class="nav-button" data-view="signal"><span class="nav-icon">◈</span><span>Notifications <b class="signal-count"></b></span></button>
+        </nav>
+      </div>
+      <div>
+        <div class="nav-label">Activity</div>
+        <nav class="nav-list">
+          <button class="nav-button" data-view="events"><span class="nav-icon">◷</span><span>Events</span></button>
+          <button class="nav-button" data-view="archive"><span class="nav-icon">▱</span><span>Bookmarks</span></button>
+        </nav>
+      </div>
+      <div>
+        <div class="nav-label">System</div>
         <nav class="nav-list">
           <button class="nav-button" data-view="profile"><span class="nav-icon">◎</span><span>Profile</span></button>
           <button class="nav-button" data-action="settings"><span class="nav-icon">⚙</span><span>Settings</span></button>
@@ -931,8 +1537,8 @@
       </div>
       <div class="sidebar-spacer"></div>
       <button class="mini-profile" data-view="profile" aria-label="Open your profile">
-        <span class="avatar small">JK</span>
-        <span class="mini-profile-copy"><strong id="mini-name">JoonieK</strong><span>ARMY · 240 XP</span></span>
+        <span class="avatar small" id="mini-avatar">AM</span>
+        <span class="mini-profile-copy"><strong id="mini-name">ARMY</strong><span id="mini-handle">Account</span></span>
       </button>
     </aside>
 
@@ -952,6 +1558,7 @@
           </label>
           <button class="icon-button" data-view="signal" aria-label="Open signals">◈</button>
           <button class="icon-button" data-action="settings" aria-label="Open settings">⚙</button>
+          <button class="profile-chip" data-view="profile" aria-label="Open your profile"><span class="avatar small" id="top-avatar">AM</span><span id="top-user-name">ARMY</span></button>
         </div>
       </header>
 
@@ -971,419 +1578,6 @@
   <div id="toast-root" aria-live="polite"></div>
   <div id="tour-root"></div>
   <div id="command-root"></div>
-
-  <script type="text/plain" id="legacy-mvp-code">
-    (() => {
-      "use strict";
-
-      const load = (key, fallback) => {
-        try {
-          const saved = localStorage.getItem(key);
-          return saved ? JSON.parse(saved) : fallback;
-        } catch { return fallback; }
-      };
-      const save = (key, value) => {
-        try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
-      };
-
-      const seedPosts = [
-        {
-          id: "p1",
-          initials: "RM",
-          avatar: "blue",
-          author: "moonchild.archive",
-          role: "FEATURED ARMY",
-          time: "18 min ago",
-          text: "The moon is full tonight and somehow the whole sky feels like a new chapter. Leaving this signal here for whoever needs a little light. <span class=\"tag\">#ARMY</span> <span class=\"tag\">#7THDIMENSION</span>",
-          likes: 287,
-          comments: 34,
-          liked: false,
-          saved: false
-        },
-        {
-          id: "p2",
-          initials: "TH",
-          avatar: "gold",
-          author: "tae_in_the_stars",
-          role: "ARMY",
-          time: "1 hr ago",
-          text: "Our birthday project constellation is open. Seven small acts of kindness, one connected orbit. Add your country in the comments so we can watch the points light up.",
-          likes: 164,
-          comments: 19,
-          liked: true,
-          saved: true
-        },
-        {
-          id: "p3",
-          initials: "AG",
-          avatar: "green",
-          author: "purplewave.seoul",
-          role: "ARMY",
-          time: "3 hrs ago",
-          text: "Found a beautiful thread in the archive about the first era. The memories we keep really do become a map.",
-          likes: 92,
-          comments: 11,
-          liked: false,
-          saved: false
-        }
-      ];
-
-      const state = {
-        view: "flow",
-        filter: "Following",
-        query: "",
-        user: { name: "JoonieK", bio: "still with you, across every dimension.", xp: 240 },
-        posts: load("dimension-posts", seedPosts),
-        signals: 3,
-        joined: load("dimension-joined", ["core"]),
-        attending: load("dimension-events", [])
-      };
-
-      const $ = (selector, scope = document) => scope.querySelector(selector);
-      const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
-      const escapeHTML = (value) => String(value).replace(/[&<>"']/g, (char) => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
-      }[char]));
-      const pageMeta = {
-        flow: ["Flow", "Your orbit, in motion."],
-        constellation: ["Constellation", "Find the communities that feel like home."],
-        discover: ["Discover", "Follow the signals worth keeping."],
-        signal: ["Signal", "Nothing important should pass unseen."],
-        archive: ["Archive", "Your saved memories, held in one place."],
-        events: ["Events", "Meet at the next point in the orbit."],
-        messages: ["Messages", "Private channels between stars."],
-        profile: ["Profile", "Your place in the constellation."]
-      };
-
-      function toast(message) {
-        const root = $("#toast-root");
-        root.innerHTML = `<div class="toast">${escapeHTML(message)}</div>`;
-        window.clearTimeout(toast.timer);
-        toast.timer = window.setTimeout(() => { root.innerHTML = ""; }, 3000);
-      }
-
-      function openModal(type) {
-        const isJoin = type === "join";
-        $("#modal-root").innerHTML = `
-          <div class="modal-backdrop" data-close-modal>
-            <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-              <button class="modal-close" data-close-modal aria-label="Close dialog">×</button>
-              <div class="eyebrow">${isJoin ? "Begin your orbit" : "Return to the dimension"}</div>
-              <h2 id="modal-title">${isJoin ? "Join the ARMY constellation" : "Log in to your space"}</h2>
-              <p>${isJoin ? "Create a local MVP identity and make your first signal." : "This prototype keeps your session in this browser only."}</p>
-              <form class="form" id="identity-form">
-                ${isJoin ? `<div class="field"><label for="identity-name">Display name</label><input id="identity-name" name="name" maxlength="24" placeholder="e.g. JoonieK" required /></div>` : ""}
-                <div class="field"><label for="identity-email">Email</label><input id="identity-email" type="email" placeholder="you@example.com" required /></div>
-                <div class="field"><label for="identity-password">Passphrase</label><input id="identity-password" type="password" placeholder="Any local demo passphrase" required /></div>
-                <div class="modal-actions">
-                  <button type="button" class="ghost-button" data-close-modal>Cancel</button>
-                  <button type="submit" class="primary-button">${isJoin ? "Enter the dimension" : "Continue"}</button>
-                </div>
-              </form>
-            </section>
-          </div>`;
-        $("#identity-form").addEventListener("submit", (event) => {
-          event.preventDefault();
-          const name = $("#identity-name")?.value.trim();
-          if (name) {
-            state.user.name = name;
-            save("dimension-user", state.user);
-            $("#mini-name").textContent = name;
-          }
-          $("#modal-root").innerHTML = "";
-          enterDimension();
-          toast(isJoin ? "Your constellation is ready." : "Welcome back to the dimension.");
-        });
-      }
-
-      function enterDimension() {
-        $("#portal").classList.add("hidden");
-        $("#app").classList.remove("hidden");
-        render();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-
-      function render() {
-        const [title, subtitle] = pageMeta[state.view];
-        $("#page-title").textContent = title;
-        $("#page-subtitle").textContent = subtitle;
-        $$(".nav-button, .mobile-nav button").forEach((button) => {
-          button.classList.toggle("active", button.dataset.view === state.view);
-        });
-        const renderer = renderers[state.view] || renderFlow;
-        $("#view-container").innerHTML = renderer();
-        $("#view-container").classList.remove("view");
-        requestAnimationFrame(() => $("#view-container").classList.add("view"));
-        bindViewEvents();
-      }
-
-      function postTemplate(post) {
-        return `
-          <article class="card post-card" data-post="${post.id}">
-            <div class="post-meta">
-              <span class="avatar ${post.avatar || ""}">${escapeHTML(post.initials)}</span>
-              <div class="post-author"><strong>${escapeHTML(post.author)}</strong><span>${escapeHTML(post.role)} · ${escapeHTML(post.time)}</span></div>
-              <button class="more-button" aria-label="More post actions">···</button>
-            </div>
-            <div class="post-body"><p>${post.text}</p></div>
-            ${post.image ? `<img class="post-image" src="${escapeHTML(post.image)}" alt="Attached image from ${escapeHTML(post.author)}" />` : ""}
-            <div class="post-actions">
-              <button class="action-button ${post.liked ? "active" : ""}" data-post-action="like">♡ ${post.likes}</button>
-              <button class="action-button" data-post-action="comment">◌ ${post.comments}</button>
-              <button class="action-button" data-post-action="share">↗ Share</button>
-              <button class="action-button save ${post.saved ? "active" : ""}" data-post-action="save">${post.saved ? "▣ Saved" : "▱ Save"}</button>
-            </div>
-          </article>`;
-      }
-
-      function renderFlow() {
-        const visible = state.posts.filter((post) => {
-          const haystack = `${post.author} ${post.text}`.toLowerCase();
-          return !state.query || haystack.includes(state.query.toLowerCase());
-        });
-        return `
-          <div class="content-grid">
-            <section class="stack">
-              <div class="card composer">
-                <div class="composer-head"><span class="avatar">JK</span><input class="composer-input" id="composer-input" maxlength="320" placeholder="Send a signal to the ARMY..." /></div>
-                <div class="composer-tools">
-                  <button class="tool-button" id="add-image">▧ Image</button>
-                  <button class="tool-button" id="add-tag"># Tag</button>
-                  <button class="primary-button post-button" id="post-button">Transmit</button>
-                </div>
-              </div>
-              <div class="section-tabs">${["Following", "Recommended", "Latest"].map((tab) => `<button class="section-tab ${state.filter === tab ? "active" : ""}" data-filter="${tab}">${tab}</button>`).join("")}</div>
-              <div class="stack" id="post-list">${visible.length ? visible.map(postTemplate).join("") : `<div class="card empty-state"><strong>No signals found.</strong><p>Try a different search through the dimension.</p></div>`}</div>
-            </section>
-            <aside class="side-column">
-              <section class="card side-card">
-                <div class="card-heading"><div><div class="eyebrow">Live pulse</div><h3 style="margin-top:6px">Trending signals</h3></div><button class="card-link" data-view="discover">View all</button></div>
-                <div class="signal-line"></div>
-                <div class="trend-list">
-                  <div class="trend-row"><div><strong>#PROOF_OF_SOUND</strong><span>2.4k signals</span></div><b class="rank">01</b></div>
-                  <div class="trend-row"><div><strong>#ARMY_PROJECTS</strong><span>1.8k signals</span></div><b class="rank">02</b></div>
-                  <div class="trend-row"><div><strong>#SEVEN_STARS</strong><span>946 signals</span></div><b class="rank">03</b></div>
-                </div>
-              </section>
-              <section class="card side-card">
-                <div class="card-heading"><div><div class="eyebrow">Next orbit</div><h3 style="margin-top:6px">Upcoming events</h3></div><button class="card-link" data-view="events">All events</button></div>
-                <div class="event-list">
-                  <div class="event-row"><div class="event-date">SEP<br>12</div><div><strong>Letters across the sky</strong><span>Global project · <span class="online-dot">● online</span></span></div></div>
-                  <div class="event-row"><div class="event-date">SEP<br>21</div><div><strong>Archive night: chapter one</strong><span>Core community · 8:00 PM</span></div></div>
-                </div>
-              </section>
-            </aside>
-          </div>`;
-      }
-
-      function renderConstellation() {
-        const communities = [
-          ["core", "7TH DIMENSION", "The central chamber for announcements, projects, and shared orbit.", "12.4k ARMYs", "violet"],
-          ["stream", "STREAMING CONSTELLATION", "Coordinate listening parties and keep every signal moving.", "4.8k ARMYs", "blue"],
-          ["creative", "CREATIVE ARMY", "A quiet corner for art, writing, edits, and beautiful things.", "2.1k ARMYs", "pink"],
-          ["global", "GLOBAL PROJECTS", "Many countries. One intention. Find the next mission.", "7.6k ARMYs", "green"]
-        ];
-        return `
-          <div class="stack">
-            <section class="hero-card card"><div class="eyebrow">Community universe</div><h1>Find your constellation.</h1><p>Every community is a point of light. Join the conversations that pull you closer.</p></section>
-            <div class="cards-grid">${communities.map(([id, name, description, count]) => `
-              <article class="card community-card">
-                <div class="eyebrow">✧ active constellation</div><h3>${name}</h3><p>${description}</p>
-                <div class="community-foot"><span>${count}</span><button class="card-link" data-community="${id}">${state.joined.includes(id) ? "Joined ✓" : "Join orbit →"}</button></div>
-              </article>`).join("")}</div>
-          </div>`;
-      }
-
-      function renderDiscover() {
-        return `
-          <div class="stack">
-            <section class="hero-card card"><div class="eyebrow">Curated for your orbit</div><h1>There is more beyond the horizon.</h1><p>Explore the people, projects, and conversations lighting up 7th Dimension today.</p></section>
-            <div class="content-grid">
-              <section class="card side-card"><div class="card-heading"><div><div class="eyebrow">Now resonating</div><h3 style="margin-top:6px">Active ARMYs</h3></div></div><div class="member-list">
-                ${[["SL","seoul.light","blue","1.2k"],["PJ","purple.journey","pink","860"],["OT","orbitingtae","gold","644"]].map(([initials, name, color, followers]) => `<div class="trend-row"><div style="display:flex;align-items:center;gap:9px"><span class="avatar small ${color}">${initials}</span><div><strong>${name}</strong><span>${followers} signals shared</span></div></div><button class="card-link" data-follow="${name}">Follow</button></div>`).join("")}
-              </div></section>
-              <section class="card side-card"><div class="card-heading"><div><div class="eyebrow">Shared intention</div><h3 style="margin-top:6px">Featured mission</h3></div><span class="eyebrow">+120 XP</span></div><div class="signal-line"></div><h3>Letters across the sky</h3><p class="muted" style="margin-top:7px;font-size:12px;line-height:1.65">Write one sentence to a fellow ARMY and help fill the global archive with light.</p><button class="primary-button" style="margin-top:18px;padding:0 16px" data-action="mission">Join mission</button></section>
-            </div>
-          </div>`;
-      }
-
-      function renderEvents() {
-        const events = [
-          ["SEP", "12", "Letters across the sky", "Global project · 8:00 PM", "1,247"],
-          ["SEP", "21", "Archive night: chapter one", "7TH DIMENSION · 8:00 PM", "742"],
-          ["OCT", "03", "Purple planet listening room", "Streaming constellation · 6:30 PM", "389"]
-        ];
-        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">Save the date</div><h1>Meet at the next point.</h1><p>Small gatherings become memories when we arrive together.</p></section><section class="card side-card"><div class="event-list" style="margin-top:0">${events.map(([month, day, title, details, people], index) => `<div class="event-row" style="padding:16px 0;border-bottom:1px solid var(--line)"><div class="event-date">${month}<br>${day}</div><div style="flex:1"><strong style="font-size:13px">${title}</strong><span>${details} · ${people} attending</span></div><button class="${state.attending.includes(index) ? "ghost-button" : "primary-button"}" style="min-height:34px;padding:0 13px" data-event="${index}">${state.attending.includes(index) ? "Going ✓" : "Join"}</button></div>`).join("")}</div></section></div>`;
-      }
-
-      function renderSignal() {
-        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">Central notification array</div><h1>Signals received.</h1><p>Three new moments are waiting in your orbit. Everything else is already archived.</p></section><section class="card side-card"><div class="trend-list" style="margin-top:0">
-          <div class="event-row"><span class="avatar small blue">PJ</span><div><strong>purple.journey reacted to your signal</strong><span>8 minutes ago · “♡”</span></div></div>
-          <div class="event-row"><span class="avatar small gold">TA</span><div><strong>tae_in_the_stars invited you to a project</strong><span>31 minutes ago · Letters across the sky</span></div></div>
-          <div class="event-row"><span class="avatar small green">7D</span><div><strong>7TH DIMENSION published a new announcement</strong><span>1 hour ago · Core community</span></div></div>
-        </div><button class="ghost-button" style="margin-top:20px;padding:0 16px" data-action="read-signals">Mark all as read</button></section></div>`;
-      }
-
-      function renderArchive() {
-        const savedPosts = state.posts.filter((post) => post.saved);
-        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">Personal vault</div><h1>Keep what moves you.</h1><p>Your saved posts and moments stay close, ready whenever you want to return.</p></section><div class="stack">${savedPosts.length ? savedPosts.map(postTemplate).join("") : `<section class="card empty-state"><strong>Your archive is waiting.</strong><p>Save a signal from Flow and it will appear here.</p></section>`}</div></div>`;
-      }
-
-      function renderMessages() {
-        return `<div class="content-grid"><section class="card side-card"><div class="card-heading"><div><div class="eyebrow">Private channels</div><h3 style="margin-top:6px">Messages</h3></div><button class="icon-button" aria-label="New message">+</button></div><div class="member-list">
-          ${[["SL","seoul.light","blue","You: see you in the next orbit","2m"],["PJ","purple.journey","pink","The archive idea is beautiful","1h"],["OT","orbitingtae","gold","Project update attached","3h"]].map(([i,n,c,m,t]) => `<button class="trend-row" style="width:100%;border:0;background:transparent;text-align:left"><div style="display:flex;align-items:center;gap:9px"><span class="avatar small ${c}">${i}</span><div><strong>${n}</strong><span>${m}</span></div></div><span>${t}</span></button>`).join("")}
-        </div></section><section class="card empty-state"><strong>Choose a channel.</strong><p>Private conversations will appear here.</p></section></div>`;
-      }
-
-      function renderProfile() {
-        return `<div class="profile-view"><section class="profile-banner"><div class="profile-info"><span class="avatar">JK</span><div><h1>${escapeHTML(state.user.name)}</h1><p>@${escapeHTML(state.user.name.toLowerCase())} · ARMY since 2026</p></div></div></section><section class="card stats-card"><div class="stat"><strong>${state.posts.filter((post) => post.author === state.user.name).length}</strong><span>Signals</span></div><div class="stat"><strong>7</strong><span>Constellations</span></div><div class="stat"><strong>${state.user.xp}</strong><span>XP earned</span></div></section><section class="card side-card"><div class="eyebrow">Your transmission</div><h3 style="margin-top:8px">${escapeHTML(state.user.bio)}</h3><p class="muted" style="margin-top:8px;font-size:12px">Your constellation is beginning to take shape. Keep showing up with intention.</p><button class="ghost-button" style="margin-top:18px;padding:0 16px" data-action="edit-profile">Edit profile</button></section></div>`;
-      }
-
-      const renderers = { flow: renderFlow, constellation: renderConstellation, discover: renderDiscover, signal: renderSignal, archive: renderArchive, events: renderEvents, messages: renderMessages, profile: renderProfile };
-
-      function setView(view) {
-        if (!renderers[view]) return;
-        state.view = view;
-        render();
-      }
-
-      function bindViewEvents() {
-        $$(".section-tab").forEach((button) => button.addEventListener("click", () => {
-          state.filter = button.dataset.filter;
-          render();
-        }));
-        $("#post-button")?.addEventListener("click", createPost);
-        $("#composer-input")?.addEventListener("keydown", (event) => {
-          if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) createPost();
-        });
-        $("#add-tag")?.addEventListener("click", () => {
-          const input = $("#composer-input");
-          input.value = `${input.value}${input.value ? " " : ""}#ARMY `;
-          input.focus();
-        });
-        $("#add-image")?.addEventListener("click", () => toast("Image uploads are queued for the full build. Your signal can still be transmitted."));
-        $$("[data-post-action]").forEach((button) => button.addEventListener("click", () => handlePostAction(button)));
-        $$("[data-community]").forEach((button) => button.addEventListener("click", () => {
-          const id = button.dataset.community;
-          state.joined = state.joined.includes(id) ? state.joined.filter((item) => item !== id) : [...state.joined, id];
-          save("dimension-joined", state.joined);
-          toast(state.joined.includes(id) ? "You joined the constellation." : "You left the constellation.");
-          render();
-        }));
-        $$("[data-event]").forEach((button) => button.addEventListener("click", () => {
-          const id = Number(button.dataset.event);
-          state.attending = state.attending.includes(id) ? state.attending.filter((item) => item !== id) : [...state.attending, id];
-          save("dimension-events", state.attending);
-          toast(state.attending.includes(id) ? "Event added to your orbit." : "Event removed from your orbit.");
-          render();
-        }));
-        $$("[data-follow]").forEach((button) => button.addEventListener("click", () => {
-          button.textContent = button.textContent === "Following" ? "Follow" : "Following";
-          toast(button.textContent === "Following" ? `Following ${button.dataset.follow}.` : `Muted ${button.dataset.follow}.`);
-        }));
-        $("[data-action='mission']")?.addEventListener("click", () => { state.user.xp += 120; save("dimension-user", state.user); toast("Mission accepted · +120 XP"); });
-        $("[data-action='read-signals']")?.addEventListener("click", () => { state.signals = 0; $$(".signal-count").forEach((el) => el.textContent = ""); toast("All signals marked as read."); });
-        $("[data-action='edit-profile']")?.addEventListener("click", () => openProfileEditor());
-      }
-
-      function createPost() {
-        const input = $("#composer-input");
-        const text = input?.value.trim();
-        if (!text) { toast("Write a signal before transmitting."); input?.focus(); return; }
-        state.posts.unshift({
-          id: `p-${Date.now()}`,
-          initials: state.user.name.slice(0, 2).toUpperCase(),
-          author: state.user.name,
-          role: "ARMY",
-          time: "just now",
-          text: escapeHTML(text).replace(/(#\w+)/g, '<span class="tag">$1</span>'),
-          likes: 0,
-          comments: 0,
-          liked: false,
-          saved: false
-        });
-        state.user.xp += 10;
-        save("dimension-posts", state.posts);
-        save("dimension-user", state.user);
-        toast("Signal transmitted · +10 XP");
-        render();
-      }
-
-      function handlePostAction(button) {
-        const card = button.closest("[data-post]");
-        const post = state.posts.find((item) => item.id === card.dataset.post);
-        if (!post) return;
-        const action = button.dataset.postAction;
-        if (action === "like") {
-          post.liked = !post.liked;
-          post.likes += post.liked ? 1 : -1;
-          toast(post.liked ? "Signal amplified." : "Reaction removed.");
-        } else if (action === "save") {
-          post.saved = !post.saved;
-          toast(post.saved ? "Saved to your archive." : "Removed from archive.");
-        } else if (action === "comment") {
-          toast("Threaded replies are next on the roadmap.");
-        } else if (action === "share") {
-          const shareText = `7TH DIMENSION · ${post.author}: ${post.text.replace(/<[^>]+>/g, "")}`;
-          if (navigator.clipboard?.writeText) navigator.clipboard.writeText(shareText).catch(() => {});
-          toast("Signal link copied.");
-        }
-        save("dimension-posts", state.posts);
-        render();
-      }
-
-      function openProfileEditor() {
-        $("#modal-root").innerHTML = `<div class="modal-backdrop" data-close-modal><section class="modal" role="dialog" aria-modal="true"><button class="modal-close" data-close-modal aria-label="Close dialog">×</button><div class="eyebrow">Identity settings</div><h2>Edit your profile</h2><p>Shape how your constellation appears to the ARMY.</p><form class="form" id="profile-form"><div class="field"><label for="profile-name">Display name</label><input id="profile-name" maxlength="24" value="${escapeHTML(state.user.name)}" required /></div><div class="field"><label for="profile-bio">Bio</label><textarea id="profile-bio" maxlength="120">${escapeHTML(state.user.bio)}</textarea></div><div class="modal-actions"><button type="button" class="ghost-button" data-close-modal>Cancel</button><button type="submit" class="primary-button">Save profile</button></div></form></section></div>`;
-        $("#profile-form").addEventListener("submit", (event) => {
-          event.preventDefault();
-          state.user.name = $("#profile-name").value.trim() || state.user.name;
-          state.user.bio = $("#profile-bio").value.trim() || state.user.bio;
-          save("dimension-user", state.user);
-          $("#mini-name").textContent = state.user.name;
-          $("#modal-root").innerHTML = "";
-          toast("Profile updated.");
-          render();
-        });
-      }
-
-      document.addEventListener("click", (event) => {
-        const viewButton = event.target.closest("[data-view]");
-        if (viewButton) {
-          event.preventDefault();
-          setView(viewButton.dataset.view);
-          return;
-        }
-        const modalButton = event.target.closest("[data-modal]");
-        if (modalButton) { openModal(modalButton.dataset.modal); return; }
-        if (event.target.closest("[data-close-modal]")) { $("#modal-root").innerHTML = ""; return; }
-        const actionButton = event.target.closest("[data-action='settings']");
-        if (actionButton) toast("Settings are coming with the full account layer.");
-        if (event.target.closest("[data-action='toggle-nav']")) {
-          toast("Use the bottom navigation to move through the dimension.");
-        }
-      });
-
-      $("#enter-button").addEventListener("click", enterDimension);
-      $("#explore-button").addEventListener("click", () => {
-        enterDimension();
-        setView("discover");
-      });
-      $("#search-input").addEventListener("input", (event) => {
-        state.query = event.target.value.trim();
-        if (state.view !== "flow") setView("flow");
-        else render();
-      });
-      window.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") $("#modal-root").innerHTML = "";
-      });
-
-      const rememberedUser = load("dimension-user", null);
-      if (rememberedUser) {
-        state.user = { ...state.user, ...rememberedUser };
-        $("#mini-name").textContent = state.user.name;
-      }
-    })();
-  </script>
 
   <!-- Live MVP layer: Supabase is the source of truth. No entity is seeded in this file. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1424,8 +1618,20 @@
         notifications: [],
         follows: [],
         bookmarks: [],
+        collections: [],
+        drafts: [],
+        blocks: [],
+        events: [],
+        eventMembers: [],
         reports: [],
         selectedCommunityId: null,
+        profileTargetId: null,
+        profileTab: "posts",
+        searchFilter: "all",
+        searchOpen: false,
+        composerFile: null,
+        typingUsers: {},
+        presence: {},
         capabilities: {},
         realtimeChannel: null,
         loading: false
@@ -1501,6 +1707,24 @@
         return state.profile?.avatar_color || "gold";
       }
 
+      function avatarMarkup(profile, size = "", fallback = "ARMY") {
+        const image = profile?.avatar_url || profile?.avatar || profile?.profile_image_url || profile?.photo_url;
+        const classes = `avatar ${size} ${escapeHTML(profile?.avatar_color || "blue")}${image ? " has-image" : ""}`;
+        return `<span class="${classes}">${image ? `<img src="${escapeHTML(image)}" alt="" />` : escapeHTML(initials(displayName(profile, fallback)))}</span>`;
+      }
+
+      function currentAvatarMarkup(size = "") {
+        return avatarMarkup(state.profile, size, currentName());
+      }
+
+      function isOnline(id) {
+        return Boolean(id && state.presence?.[id]);
+      }
+
+      function presenceMarkup(id) {
+        return `<span class="presence-dot ${isOnline(id) ? "online" : ""}" title="${isOnline(id) ? "Online" : "Offline"}"></span>`;
+      }
+
       function isAdmin() {
         return state.profile?.role === "admin";
       }
@@ -1523,6 +1747,10 @@
         const liked = postReactions.some((reaction) => String(reaction.user_id) === String(state.user?.id) && (!reaction.type || reaction.type === "like" || reaction.reaction_type === "like"));
         const saved = state.bookmarks.some((bookmark) => String(bookmark.post_id || bookmark.target_id || bookmark.content_id) === String(row.id));
         const comments = state.comments.filter((comment) => String(comment.post_id || comment.target_id) === String(row.id)).length;
+        const linkedText = escapeHTML(text).replace(/(^|\s)(@[\w.-]+)/g, (match, prefix, mention) => {
+          const mentioned = state.profiles.find((profile) => String(profile.username || "").toLowerCase() === mention.slice(1).toLowerCase());
+          return mentioned ? `${prefix}<a class="mention-link" href="#profile-${escapeHTML(mentioned.id)}" data-profile="${escapeHTML(mentioned.id)}">${escapeHTML(mention)}</a>` : match;
+        }).replace(/(#[-\w]+)/g, '<span class="tag">$1</span>');
         return {
           id: row.id,
           authorId,
@@ -1531,12 +1759,14 @@
           initials: initials(displayName(author, row.author_name || "ARMY")),
           avatar: author?.avatar_color || "blue",
           time: formatTime(row.created_at || row.updated_at),
-          text: escapeHTML(text).replace(/(#[-\w]+)/g, '<span class="tag">$1</span>'),
+          text: linkedText,
           likes,
           comments,
           liked,
           saved,
-          image: row.image_url || row.media_url || row.cover_url || ""
+          image: row.image_url || row.media_url || row.cover_url || "",
+          pinned: row.is_pinned === true || row.pinned === true,
+          raw: row
         };
       }
 
@@ -1553,9 +1783,25 @@
           readTable("messages", { order: "created_at", ascending: true, limit: 100 }),
           readTable("notifications", { order: "created_at", ascending: false, limit: 100 }),
           readTable("user_follows", { limit: 500 }),
-          readTable("bookmarks", { limit: 500 })
+          readTable("bookmarks", { limit: 500 }),
+          readTable("bookmark_collections", { limit: 100 }),
+          readTable("drafts", { limit: 100 }),
+          readTable("blocks", { limit: 500 }),
+          readTable("events", { limit: 100 }),
+          readTable("event_members", { limit: 500 })
         ]);
-        [state.profiles, state.communities, state.communityMembers, state.posts, state.comments, state.reactions, state.messages, state.notifications, state.follows, state.bookmarks] = results;
+        [state.profiles, state.communities, state.communityMembers, state.posts, state.comments, state.reactions, state.messages, state.notifications, state.follows, state.bookmarks, state.collections, state.drafts, state.blocks, state.events, state.eventMembers] = results;
+        state.notifications = state.notifications.filter((notification) => {
+          const recipient = notification.user_id || notification.recipient_id || notification.to_user_id;
+          return !recipient || String(recipient) === String(state.user.id);
+        });
+        state.drafts = state.drafts.filter((draft) => !draft.user_id || String(draft.user_id) === String(state.user.id));
+        state.blocks = state.blocks.filter((block) => String(block.blocker_id || block.user_id || block.owner_id) === String(state.user.id));
+        state.reports = isAdmin() ? await readTable("reports", { limit: 100 }) : [];
+        state.posts = state.posts.filter((post) => {
+          const authorId = post.author_id || post.user_id || post.owner_id || post.profile_id;
+          return !state.blocks.some((block) => String(block.blocked_id || block.target_user_id || block.blocked_user_id) === String(authorId));
+        });
         state.profile = profileFor(state.user.id) || state.profile;
         state.loading = false;
         render();
@@ -1563,12 +1809,24 @@
 
       function connectRealtime() {
         if (!db || state.realtimeChannel) return;
-        const tables = ["profiles", "communities", "community_members", "posts", "comments", "reactions", "messages", "notifications", "user_follows"];
-        state.realtimeChannel = db.channel("7th-dimension-live");
+        const tables = ["profiles", "communities", "community_members", "posts", "comments", "reactions", "messages", "notifications", "user_follows", "drafts", "events", "event_members", "blocks", "reports"];
+        state.realtimeChannel = db.channel("7th-dimension-live", { config: { presence: { key: state.user.id }, broadcast: { self: false } } });
         tables.forEach((table) => {
           state.realtimeChannel.on("postgres_changes", { event: "*", schema: "public", table }, () => loadLiveData());
         });
+        state.realtimeChannel.on("presence", { event: "sync" }, () => {
+          const presence = state.realtimeChannel.presenceState();
+          state.presence = Object.fromEntries(Object.keys(presence).map((key) => [key, true]));
+          if (state.view === "profile" || state.view === "discover" || state.view === "messages") render();
+        });
+        state.realtimeChannel.on("broadcast", { event: "typing" }, ({ payload }) => {
+          if (!payload?.user_id || String(payload.user_id) === String(state.user.id)) return;
+          if (payload.typing) state.typingUsers[payload.user_id] = payload.username || "Someone";
+          else delete state.typingUsers[payload.user_id];
+          if (state.view === "messages") render();
+        });
         state.realtimeChannel.subscribe((status) => {
+          if (status === "SUBSCRIBED") state.realtimeChannel.track({ user_id: state.user.id, username: currentName(), online_at: new Date().toISOString() });
           if (status === "CHANNEL_ERROR") toast("Realtime is unavailable for the current Supabase table publication.", true);
         });
       }
@@ -1716,14 +1974,63 @@
         $("#page-subtitle").textContent = subtitle;
         $$(".nav-button, .mobile-nav button").forEach((button) => button.classList.toggle("active", button.dataset.view === state.view));
         $("#mini-name").textContent = currentName();
+        $("#mini-handle").textContent = `@${state.profile?.username || "army"} · ${state.profile?.role || "member"}`;
+        const updateAvatar = (selector, profile, fallback) => {
+          const element = $(selector);
+          if (!element) return;
+          const image = profile?.avatar_url || profile?.avatar || profile?.profile_image_url || profile?.photo_url;
+          element.className = `avatar small ${escapeHTML(profile?.avatar_color || currentAvatar())}${image ? " has-image" : ""}`;
+          element.innerHTML = image ? `<img src="${escapeHTML(image)}" alt="" />` : escapeHTML(initials(displayName(profile, fallback)));
+        };
+        updateAvatar("#mini-avatar", state.profile, currentName());
+        $("#top-user-name").textContent = currentName();
+        updateAvatar("#top-avatar", state.profile, currentName());
+        const unreadCount = state.notifications.filter((item) => item.read !== true && item.is_read !== true && item.read_at == null).length;
+        $$(".signal-count").forEach((element) => {
+          element.textContent = unreadCount ? unreadCount : "";
+          element.classList.toggle("hidden", !unreadCount);
+        });
         const renderer = renderers[state.view] || renderFlow;
         $("#view-container").innerHTML = renderer();
         bindViewEvents();
+        renderSearchOverlay();
+      }
+
+      function renderSearchOverlay() {
+        const root = $("#search-results-root") || (() => {
+          const element = document.createElement("div");
+          element.id = "search-results-root";
+          document.body.appendChild(element);
+          return element;
+        })();
+        if (!state.searchOpen || state.query.length < 2) { root.innerHTML = ""; return; }
+        const query = state.query.toLowerCase();
+        const filter = state.searchFilter;
+        const people = (filter === "all" || filter === "people") ? state.profiles.filter((profile) => `${profile.username} ${profile.display_name} ${profile.bio}`.toLowerCase().includes(query)).slice(0, 8) : [];
+        const communities = (filter === "all" || filter === "communities") ? state.communities.filter((community) => `${community.name} ${community.description} ${community.category}`.toLowerCase().includes(query)).slice(0, 8) : [];
+        const posts = (filter === "all" || filter === "posts") ? state.posts.filter((post) => `${post.content || post.body || post.text}`.toLowerCase().includes(query)).slice(0, 8) : [];
+        const events = (filter === "all" || filter === "events") ? state.events.filter((event) => `${event.name} ${event.title} ${event.description}`.toLowerCase().includes(query)).slice(0, 8) : [];
+        const section = (title, rows) => rows.length ? `<section class="search-result-section"><h4>${title}</h4>${rows.map((row) => {
+          if (title === "People") return `<button class="search-result" data-profile="${escapeHTML(row.id)}">${avatarMarkup(row, "small", "ARMY")}<span class="search-result-copy"><strong>${escapeHTML(displayName(row))}</strong><span>@${escapeHTML(row.username || "army")} · ${escapeHTML(row.bio || "No bio")}</span></span></button>`;
+          if (title === "Communities") return `<button class="search-result" data-search-community="${escapeHTML(row.id)}"><span class="community-avatar" style="width:30px;height:30px;border-radius:9px">${escapeHTML(initials(row.name || "C"))}</span><span class="search-result-copy"><strong>${escapeHTML(row.name || "Unnamed community")}</strong><span>${escapeHTML(row.description || "No description")}</span></span></button>`;
+          if (title === "Events") return `<button class="search-result" data-search-event="${escapeHTML(row.id)}"><span class="chat-channel-icon" style="width:30px;height:30px;border-radius:9px">◷</span><span class="search-result-copy"><strong>${escapeHTML(row.title || row.name || "Event")}</strong><span>${escapeHTML(formatTime(row.starts_at || row.start_at || row.date))}</span></span></button>`;
+          return `<button class="search-result" data-search-post="${escapeHTML(row.id)}">${avatarMarkup(profileFor(row.author_id || row.user_id), "small", "ARMY")}<span class="search-result-copy"><strong>${escapeHTML(displayName(profileFor(row.author_id || row.user_id), "ARMY"))}</strong><span>${escapeHTML(row.content || row.body || row.text || "")}</span></span></button>`;
+        }).join("")}</section>` : "";
+        root.innerHTML = `<div class="search-results"><div class="eyebrow">Live search · ${escapeHTML(state.query)}</div><div class="search-filter-row">${["all", "people", "communities", "posts", "events"].map((item) => `<button class="search-filter ${filter === item ? "active" : ""}" data-search-filter="${item}">${item}</button>`).join("")}</div>${section("People", people)}${section("Communities", communities)}${section("Posts", posts)}${section("Events", events)}${!people.length && !communities.length && !posts.length && !events.length ? empty("No live matches.", "Search only covers records currently returned by Supabase.") : ""}</div>`;
+        $$("[data-search-filter]", root).forEach((button) => button.addEventListener("click", () => { state.searchFilter = button.dataset.searchFilter; renderSearchOverlay(); }));
+        $$("[data-profile]", root).forEach((button) => button.addEventListener("click", () => { state.profileTargetId = button.dataset.profile; state.searchOpen = false; state.profileTab = "posts"; setView("profile"); }));
+        $$("[data-search-community]", root).forEach((button) => button.addEventListener("click", () => { state.selectedCommunityId = button.dataset.searchCommunity; state.searchOpen = false; setView("messages"); }));
+        $$("[data-search-post]", root).forEach((button) => button.addEventListener("click", () => { state.searchOpen = false; state.view = "flow"; render(); }));
+        $$("[data-search-event]", root).forEach((button) => button.addEventListener("click", () => { state.searchOpen = false; setView("events"); }));
       }
 
       function postTemplate(post) {
+        const communityId = post.raw?.community_id;
+        const community = state.communities.find((item) => String(item.id) === String(communityId));
+        const communityOwner = community?.created_by || community?.owner_id || community?.creator_id;
+        const canPin = isAdmin() || String(communityOwner) === String(state.user.id);
         return `<article class="card post-card" data-post="${escapeHTML(post.id)}">
-          <div class="post-meta"><span class="avatar ${escapeHTML(post.avatar)}">${escapeHTML(post.initials)}</span><div class="post-author"><strong>${escapeHTML(post.author)}</strong><span>${escapeHTML(post.role)} · ${escapeHTML(post.time)}</span></div><button class="more-button" aria-label="More post actions">···</button></div>
+          <div class="post-meta"><button class="text-button" data-profile="${escapeHTML(post.authorId || "")}" aria-label="Open ${escapeHTML(post.author)} profile">${avatarMarkup(profileFor(post.authorId), "", post.author)}</button><div class="post-author"><strong>${presenceMarkup(post.authorId)}${escapeHTML(post.author)}</strong><span>${escapeHTML(post.role)} · ${escapeHTML(post.time)}${post.pinned ? ` · <b class="featured-mark">PINNED</b>` : ""}</span></div><div style="display:flex;gap:8px;align-items:center"><button class="more-button" data-post-report="${escapeHTML(post.id)}" aria-label="Report post">···</button>${canPin ? `<button class="card-link" data-post-pin="${escapeHTML(post.id)}">${post.pinned ? "Unpin" : "Pin"}</button>` : ""}</div></div>
           <div class="post-body"><p>${post.text || "<span class=\"muted\">Empty signal</span>"}</p></div>
           ${post.image ? `<img class="post-image" src="${escapeHTML(post.image)}" alt="Image attached by ${escapeHTML(post.author)}" />` : ""}
           <div class="post-actions"><button class="action-button ${post.liked ? "active" : ""}" data-post-action="like">♡ ${post.likes}</button><button class="action-button" data-post-action="comment">◌ ${post.comments}</button><button class="action-button" data-post-action="share">↗ Share</button><button class="action-button save ${post.saved ? "active" : ""}" data-post-action="save">${post.saved ? "▣ Saved" : "▱ Save"}</button></div>
@@ -1735,84 +2042,199 @@
       }
 
       function renderFlow() {
-        const hydrated = state.posts.map(hydratePost).filter((post) => !state.query || `${post.author} ${post.text}`.toLowerCase().includes(state.query.toLowerCase()));
+        const hydrated = state.posts.map(hydratePost).sort((a, b) => Number(b.pinned) - Number(a.pinned)).filter((post) => !state.query || `${post.author} ${post.text}`.toLowerCase().includes(state.query.toLowerCase()));
         const postList = hydrated.length ? hydrated.map(postTemplate).join("") : empty("No live signals yet.", "When someone posts to the connected database, it will appear here.");
         const liveCommunity = state.communities[0];
-        return `<div class="content-grid"><section class="stack">
-          <div class="card composer"><div class="composer-head"><span class="avatar ${escapeHTML(currentAvatar())}">${escapeHTML(initials(currentName()))}</span><input class="composer-input" id="composer-input" maxlength="320" placeholder="Send a signal to the ARMY..." /></div><div class="composer-tools"><button class="tool-button" id="add-image">▧ Image</button><button class="tool-button" id="add-tag"># Tag</button><button class="primary-button post-button" id="post-button">Transmit</button></div></div>
-          <div class="section-tabs">${["Following", "Recommended", "Latest"].map((tab) => `<button class="section-tab ${state.filter === tab ? "active" : ""}" data-filter="${tab}">${tab}</button>`).join("")}</div>
-          <div class="stack" id="post-list">${postList}</div>
-        </section><aside class="side-column">
-          <section class="card side-card"><div class="card-heading"><div><div class="eyebrow">Live database</div><h3 style="margin-top:6px">Current pulse</h3></div><button class="card-link" data-view="discover">Discover</button></div><div class="signal-line"></div>${state.posts.length ? `<div class="trend-list"><div class="trend-row"><div><strong>${state.posts.length} stored signals</strong><span>Loaded from public.posts</span></div><b class="rank">LIVE</b></div><div class="trend-row"><div><strong>${state.profiles.length} visible profiles</strong><span>Loaded from public.profiles</span></div><b class="rank">ARMY</b></div></div>` : empty("No activity yet.", "The pulse will appear when the database has records.")}</section>
-          <section class="card side-card"><div class="card-heading"><div><div class="eyebrow">Connected orbit</div><h3 style="margin-top:6px">Community</h3></div><button class="card-link" data-view="constellation">All</button></div><div class="event-list">${liveCommunity ? `<div class="event-row"><div class="event-date">✧</div><div><strong>${escapeHTML(liveCommunity.name || "Unnamed community")}</strong><span>${escapeHTML(liveCommunity.description || "No description in database.")}</span></div></div>` : `<div class="empty-state">No communities exist in the connected database.</div>`}</div></section>
-        </aside></div>`;
+        const unread = state.notifications.filter((notification) => notification.read !== true && notification.is_read !== true && !notification.read_at).length;
+        const communityPreview = state.communities.slice(0, 3).map((community) => {
+          const memberCount = state.communityMembers.filter((member) => String(member.community_id) === String(community.id)).length;
+          return `<div class="orbit-row"><span class="orbit-glyph">✦</span><div><strong>${escapeHTML(community.name || "Unnamed community")}</strong><span>${memberCount} visible member${memberCount === 1 ? "" : "s"}</span></div><button class="card-link" data-view="constellation">Open</button></div>`;
+        }).join("");
+        const notificationPreview = state.notifications.slice(0, 3).map((notification) => {
+          const actor = profileFor(notification.actor_id || notification.user_id || notification.sender_id);
+          return `<div class="orbit-row"><span class="avatar small ${escapeHTML(actor?.avatar_color || "blue")}">${escapeHTML(initials(displayName(actor, "SIGNAL")))}</span><div><strong>${escapeHTML(notification.title || notification.message || notification.content || "New signal")}</strong><span>${escapeHTML(formatTime(notification.created_at))}</span></div></div>`;
+        }).join("");
+        return `<div class="flow-dashboard">
+          <section class="flow-intro card">
+            <div><div class="eyebrow">Dimension pulse · live</div><h1>Welcome back, ${escapeHTML(currentName())}.</h1><p>Your orbit is assembled from the records currently visible to your account.</p></div>
+            <div class="flow-mark" aria-hidden="true"><span>7</span><i></i></div>
+          </section>
+          <div class="metric-strip">
+            <div class="metric"><span>Stored signals</span><strong>${state.posts.length}</strong><small>public.posts</small></div>
+            <div class="metric"><span>Visible ARMYs</span><strong>${state.profiles.length}</strong><small>public.profiles</small></div>
+            <div class="metric"><span>Communities</span><strong>${state.communities.length}</strong><small>connected orbit</small></div>
+            <div class="metric"><span>Unread signal</span><strong>${unread}</strong><small>notifications</small></div>
+          </div>
+          <div class="content-grid"><section class="stack">
+             <div class="card composer"><div class="composer-head">${currentAvatarMarkup()}<input class="composer-input" id="composer-input" maxlength="320" placeholder="Send a signal to the ARMY..." /></div><div id="composer-preview"></div><div class="composer-tools"><button class="tool-button" id="add-tag"># Tag</button><button class="tool-button" id="add-image">▧ Image</button><button class="tool-button" id="save-draft">Save draft</button><input id="post-image-input" type="file" accept="image/*" hidden /><button class="primary-button post-button" id="post-button">Transmit</button></div></div>
+            <div class="section-tabs">${["Following", "Recommended", "Latest"].map((tab) => `<button class="section-tab ${state.filter === tab ? "active" : ""}" data-filter="${tab}">${tab}</button>`).join("")}</div>
+            <div class="stack" id="post-list">${postList}</div>
+          </section><aside class="side-column">
+            <section class="card side-card"><div class="card-heading"><div><div class="eyebrow">Connected orbit</div><h3 style="margin-top:6px">Communities</h3></div><button class="card-link" data-view="constellation">All</button></div><div class="signal-line"></div>${communityPreview || empty("No communities yet.", "The connected database has no community records.")}</section>
+            <section class="card side-card"><div class="card-heading"><div><div class="eyebrow">Attention layer</div><h3 style="margin-top:6px">Recent signals</h3></div><button class="card-link" data-view="signal">Open</button></div><div class="signal-line"></div>${notificationPreview || empty("No signals detected.", "Your notification stream is empty.")}</section>
+            <section class="card side-card"><div class="card-heading"><div><div class="eyebrow">Current pulse</div><h3 style="margin-top:6px">Live database</h3></div><b class="rank">SYNC</b></div><div class="signal-line"></div>${liveCommunity ? `<div class="event-row"><div class="event-date">✧</div><div><strong>${escapeHTML(liveCommunity.name || "Unnamed community")}</strong><span>${escapeHTML(liveCommunity.description || "No description in database.")}</span></div></div>` : empty("No activity yet.", "The pulse will appear when the database has records.")}</section>
+          </aside></div>
+        </div>`;
       }
 
       function renderConstellation() {
-        const cards = state.communities.map((community) => {
+        const main = state.communities.find((community) => community.is_main === true || community.is_main === "true" || /main\s*stage/i.test(community.name || ""));
+        const cards = state.communities.filter((community) => String(community.id) !== String(main?.id)).map((community) => {
           const count = state.communityMembers.filter((member) => String(member.community_id) === String(community.id)).length;
           const joined = state.communityMembers.some((member) => String(member.community_id) === String(community.id) && String(member.user_id) === String(state.user.id));
-          const isMain = community.is_main === true || community.is_main === "true" || /main\s*stage/i.test(community.name || "");
-          return `<article class="card community-card">${isMain ? `<span class="community-open-badge">Main Stage · Open to all</span>` : `<div class="eyebrow">${escapeHTML(community.category || "community")}</div>`}<h3>${escapeHTML(community.name || "Unnamed community")}</h3><p>${escapeHTML(community.description || "No description in database.")}</p><div class="community-foot"><span>${isMain ? "Unlimited public membership" : `${count} member${count === 1 ? "" : "s"}`}</span>${isMain ? `<button class="card-link" data-open-main-stage="${escapeHTML(community.id)}">Enter stage →</button>` : `<button class="card-link" data-community="${escapeHTML(community.id)}">${joined ? "Joined ✓" : "Join orbit →"}</button>`}</div></article>`;
+          const creator = profileFor(community.created_by || community.owner_id || community.creator_id);
+          const owner = community.created_by || community.owner_id || community.creator_id;
+          return `<article class="community-tile card"><div class="community-tile-visual"><span class="community-avatar">${escapeHTML(initials(community.name || "C"))}</span><span class="community-status">${joined ? "MEMBER" : "OPEN"}</span></div><div class="community-tile-body"><div class="eyebrow">${escapeHTML(community.category || "community")}</div><h3>${escapeHTML(community.name || "Unnamed community")}</h3><p>${escapeHTML(community.description || "No description in database.")}</p><div class="community-tile-meta"><span>${count} member${count === 1 ? "" : "s"}</span><span>${creator ? `by ${escapeHTML(displayName(creator))}` : "creator unavailable"}</span></div><button class="community-action card-link" data-community="${escapeHTML(community.id)}">${joined ? "Enter community →" : "Join orbit →"}</button><div class="person-actions">${(isAdmin() || String(owner) === String(state.user.id)) ? `<button class="card-link" data-edit-community="${escapeHTML(community.id)}">Manage</button>` : ""}<button class="card-link" data-report-community="${escapeHTML(community.id)}">Report</button></div></div></article>`;
         }).join("");
-        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">Live community universe</div><h1>Find your constellation.</h1><p>Only communities returned by Supabase are shown here. Main Stage is the open community; membership and messaging still come from the connected database.</p>${canCreateCommunity() ? `<button class="primary-button" style="margin-top:18px" data-action="create-community">＋ Create community</button>` : ""}</section><div class="cards-grid">${cards || empty("No communities yet.", "Create the first community in the connected database.")}</div></div>`;
+        const mainCount = main ? state.communityMembers.filter((member) => String(member.community_id) === String(main.id)).length : 0;
+        const mainCreator = main ? profileFor(main.created_by || main.owner_id || main.creator_id) : null;
+        const featured = main ? `<section class="featured-community card"><div class="featured-community-visual"><span class="community-orbit-ring ring-one"></span><span class="community-orbit-ring ring-two"></span><span class="community-avatar large">${escapeHTML(initials(main.name || "MS"))}</span><span class="community-open-badge">● open to all</span></div><div class="featured-community-copy"><div class="eyebrow">Central hub · Main Stage</div><h1>${escapeHTML(main.name || "Main Stage")}</h1><p>${escapeHTML(main.description || "The central community for the connected ARMY constellation.")}</p><div class="featured-community-meta"><span>${mainCount} visible member${mainCount === 1 ? "" : "s"}</span>${mainCreator ? `<span>created by ${escapeHTML(displayName(mainCreator))}</span>` : ""}</div><button class="primary-button" data-open-main-stage="${escapeHTML(main.id)}">Enter stage <span>→</span></button></div></section>` : empty("No Main Stage configured.", "The connected database does not contain a main community.");
+        const ranked = state.communities.filter((community) => String(community.id) !== String(main?.id)).map((community) => ({ community, members: state.communityMembers.filter((member) => String(member.community_id) === String(community.id)).length, posts: state.posts.filter((post) => String(post.community_id) === String(community.id)).length })).sort((a, b) => b.members + b.posts - a.members - a.posts);
+        const trendCards = ranked.slice(0, 3).map(({ community, members, posts }) => `<div class="orbit-row"><span class="orbit-glyph">✦</span><div><strong>${escapeHTML(community.name || "Unnamed community")}</strong><span>${members} members · ${posts} posts returned</span></div><button class="card-link" data-community="${escapeHTML(community.id)}">Open</button></div>`).join("");
+        const newest = state.communities.filter((community) => String(community.id) !== String(main?.id)).slice().sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0)).slice(0, 3).map((community) => `<div class="orbit-row"><span class="orbit-glyph">◇</span><div><strong>${escapeHTML(community.name || "Unnamed community")}</strong><span>Created ${escapeHTML(formatTime(community.created_at))}</span></div></div>`).join("");
+        return `<div class="community-dashboard"><section class="community-heading"><div><div class="eyebrow">Live community universe</div><h1>Find your constellation.</h1><p>Explore the communities returned by your connected database.</p></div>${canCreateCommunity() ? `<button class="ghost-button" data-action="create-community">＋ Create community</button>` : ""}</section>${featured}<div class="content-grid"><section class="card side-card"><div class="eyebrow">Calculated from live rows</div><h3 style="margin-top:6px">Trending orbit</h3><div class="signal-line"></div>${trendCards || empty("Not enough activity yet.", "Trending sections appear only when real member or post records exist.")}</section><section class="card side-card"><div class="eyebrow">Fresh coordinates</div><h3 style="margin-top:6px">New communities</h3><div class="signal-line"></div>${newest || empty("No new communities.", "New records will appear here when the database has them.")}</section></div><section class="community-section"><div class="section-heading"><div><div class="eyebrow">Connected spaces</div><h2>Community network</h2></div><span class="section-count">${state.communities.length} total</span></div><div class="community-grid">${cards || empty("No communities yet.", "Create the first community in the connected database.")}</div></section></div>`;
       }
 
       function renderDiscover() {
-        const profiles = state.profiles.filter((profile) => String(profile.id) !== String(state.user.id));
+        const profiles = state.profiles.filter((profile) => String(profile.id) !== String(state.user.id) && !state.blocks.some((block) => String(block.blocked_id || block.target_user_id || block.blocked_user_id) === String(profile.id)));
         const profileRows = profiles.map((profile) => {
           const follows = state.follows.some((follow) => String(follow.follower_id || follow.user_id) === String(state.user.id) && String(follow.following_id || follow.target_user_id) === String(profile.id));
           const featured = profile.is_featured === true;
           const adminTools = isAdmin() ? `<span class="admin-tools">${featured ? `<span class="featured-mark">Featured ARMY</span>` : ""}<button class="card-link" data-feature-profile="${escapeHTML(profile.id)}">${featured ? "Unfeature" : "Feature"}</button></span>` : "";
-          return `<div class="trend-row"><div style="display:flex;align-items:center;gap:9px"><span class="avatar small ${escapeHTML(profile.avatar_color || "blue")}">${escapeHTML(initials(displayName(profile)))}</span><div><strong>${escapeHTML(displayName(profile))}</strong><span>@${escapeHTML(profile.username || "army")} · ${escapeHTML(profile.role || "user")}</span></div></div><div>${adminTools}<button class="card-link" data-follow="${escapeHTML(profile.id)}">${follows ? "Following" : "Follow"}</button></div></div>`;
+          return `<article class="person-card card ${featured ? "is-featured" : ""}"><div class="person-card-top"><button class="text-button" data-profile="${escapeHTML(profile.id)}" aria-label="Open ${escapeHTML(displayName(profile))} profile">${avatarMarkup(profile, "", displayName(profile))}</button>${featured ? `<span class="featured-mark">✦ Featured</span>` : ""}</div><strong>${presenceMarkup(profile.id)}${escapeHTML(displayName(profile))}</strong><span class="person-handle">@${escapeHTML(profile.username || "army")}</span><p>${escapeHTML(profile.bio || "No bio in database.")}</p><div class="person-actions">${adminTools}<button class="card-link" data-follow="${escapeHTML(profile.id)}">${follows ? "Following" : "Follow"}</button><button class="card-link" data-report-user="${escapeHTML(profile.id)}">Report</button></div></article>`;
         }).join("");
-        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">${isAdmin() ? "Admin discovery" : "Database discovery"}</div><h1>There is more beyond the horizon.</h1><p>Profiles shown here are read directly from public.profiles. ${isAdmin() ? "As admin, you can feature real ARMYs; the change is written to Supabase." : "If the table is empty, this space stays empty."}</p></section><section class="card side-card"><div class="card-heading"><div><div class="eyebrow">Visible accounts</div><h3 style="margin-top:6px">ARMY directory</h3></div><span class="eyebrow">${profiles.length} found</span></div><div class="member-list">${profileRows || empty("No other profiles are visible.", "Invite someone through Supabase Auth to see a real member here.")}</div></section></div>`;
+        return `<div class="discover-dashboard"><section class="discover-heading hero-card card"><div class="eyebrow">${isAdmin() ? "Admin discovery" : "Database discovery"}</div><h1>Find the people lighting up the dimension.</h1><p>Every profile below is read directly from public.profiles. ${isAdmin() ? "Feature real ARMYs from this view; permission checks remain enforced by Supabase." : "If the table is empty, this space stays empty."}</p><div class="discover-count"><strong>${profiles.length}</strong><span>visible accounts</span></div></section><section class="people-section"><div class="section-heading"><div><div class="eyebrow">Real accounts</div><h2>ARMY directory</h2></div><span class="section-count">${profiles.length} found</span></div><div class="people-grid">${profileRows || empty("No other profiles are visible.", "Invite someone through Supabase Auth to see a real member here.")}</div></section></div>`;
       }
 
       function renderEvents() {
-        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">Database events</div><h1>Meet at the next point.</h1><p>This view never fabricates dates. Add an events table to Supabase to populate it with real records.</p></section>${empty("No events configured.", "The connected database does not currently expose an events table.")}</div>`;
+        const cards = state.events.map((event) => {
+          const start = event.starts_at || event.start_at || event.date || event.created_at;
+          const date = start ? new Date(start) : null;
+          const joined = state.eventMembers.some((member) => String(member.event_id) === String(event.id) && String(member.user_id || member.profile_id) === String(state.user.id));
+          const attendees = state.eventMembers.filter((member) => String(member.event_id) === String(event.id)).length;
+          return `<article class="event-card card side-card"><div class="event-date-block"><strong>${date && !Number.isNaN(date.getTime()) ? date.getDate() : "—"}</strong><span>${date && !Number.isNaN(date.getTime()) ? date.toLocaleDateString(undefined, { month: "short" }) : "date"}</span></div><div><h3>${escapeHTML(event.title || event.name || "Untitled event")}</h3><p>${escapeHTML(event.description || "No description in database.")}</p><span class="section-count">${attendees} attendee${attendees === 1 ? "" : "s"}</span></div><button class="ghost-button event-action" data-event-rsvp="${escapeHTML(event.id)}">${joined ? "Leave RSVP" : "Join event"}</button></article>`;
+        }).join("");
+        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">Database events · live RSVPs</div><h1>Meet at the next point.</h1><p>Dates and attendee counts are calculated from the connected events and event_members records.</p></section>${state.capabilities.events === false ? empty("No events configured.", "The connected database does not currently expose an events table.") : cards || empty("No upcoming events.", "Create a real event record to place it on the constellation.")}</div>`;
       }
 
       function renderSignal() {
         const rows = state.notifications.map((notification) => {
           const actor = profileFor(notification.actor_id || notification.user_id || notification.sender_id);
-          return `<div class="event-row"><span class="avatar small ${escapeHTML(actor?.avatar_color || "blue")}">${escapeHTML(initials(displayName(actor, "SIGNAL")))}</span><div><strong>${escapeHTML(notification.title || notification.message || notification.content || "New signal")}</strong><span>${escapeHTML(formatTime(notification.created_at))}</span></div></div>`;
+          const unread = notification.read !== true && notification.is_read !== true && notification.read_at == null;
+          return `<div class="event-row notification-row ${unread ? "unread" : ""}" data-notification="${escapeHTML(notification.id || "")}">${avatarMarkup(actor, "small", "SIGNAL")}<div><strong>${escapeHTML(notification.title || notification.message || notification.content || "New signal")}</strong><time>${escapeHTML(formatTime(notification.created_at))}</time></div></div>`;
         }).join("");
-        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">Central notification array</div><h1>Signals received.</h1><p>These are notifications returned by public.notifications for your signed-in account.</p></section><section class="card side-card"><div class="trend-list" style="margin-top:0">${rows || empty("No signals detected.", "Your notification stream is empty.")}</div>${state.notifications.length ? `<button class="ghost-button" style="margin-top:20px;padding:0 16px" data-action="read-signals">Mark all as read</button>` : ""}</section></div>`;
+        const unread = state.notifications.filter((notification) => notification.read !== true && notification.is_read !== true && notification.read_at == null).length;
+        const reports = isAdmin() && state.reports.length ? `<section class="card side-card"><div class="eyebrow">Admin review queue</div><h3 style="margin-top:7px">${state.reports.length} report${state.reports.length === 1 ? "" : "s"} awaiting review</h3>${state.reports.slice(0, 8).map((report) => `<div class="event-row" style="margin-top:12px"><div class="event-date">!</div><div><strong>${escapeHTML(report.reason || "Report")}</strong><span>${escapeHTML(report.target_type || "content")} · ${escapeHTML(formatTime(report.created_at))}</span></div></div>`).join("")}</section>` : "";
+        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">Central notification array · ${unread} unread</div><h1>Signals received.</h1><p>Follow, reaction, comment, message, and community activity appear here only when written to Supabase.</p></section><section class="card side-card"><div class="trend-list" style="margin-top:0">${rows || empty("No signals detected.", "Your notification stream is empty.")}</div>${state.notifications.length ? `<button class="ghost-button" style="margin-top:20px;padding:0 16px" data-action="read-signals">Mark all as read</button>` : ""}</section>${reports}</div>`;
       }
 
       function renderArchive() {
         const saved = state.posts.map(hydratePost).filter((post) => post.saved);
-        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">Personal vault</div><h1>Keep what moves you.</h1><p>Only records linked to your account through public.bookmarks appear here.</p></section>${state.capabilities.bookmarks === false ? empty("Archive is not configured.", "The connected database does not expose a bookmarks table.") : saved.length ? `<div class="stack">${saved.map(postTemplate).join("")}</div>` : empty("Your archive is empty.", "Save a live signal from Flow to place it here.")}</div>`;
+        const collections = state.collections.filter((collection) => !collection.user_id || String(collection.user_id) === String(state.user.id));
+        const drafts = state.drafts;
+        const collectionBar = `<div class="collection-bar"><button class="collection-chip active" data-collection="all">All saved</button>${collections.map((collection) => `<button class="collection-chip" data-collection="${escapeHTML(collection.id)}">${escapeHTML(collection.name || "Collection")}</button>`).join("")}<button class="ghost-button" style="min-height:29px;padding:0 10px" data-action="create-collection">＋ Collection</button></div>`;
+        const draftPanel = `<section class="card side-card"><div class="card-heading"><div><div class="eyebrow">Private workspace</div><h3 style="margin-top:6px">Draft signals</h3></div><span class="section-count">${drafts.length}</span></div>${drafts.length ? drafts.map((draft) => `<div class="draft-row"><p>${escapeHTML(draft.content || draft.body || "Untitled draft")}</p><div class="draft-actions"><button class="card-link" data-draft-edit="${escapeHTML(draft.id)}">Edit</button><button class="card-link" data-draft-delete="${escapeHTML(draft.id)}">Delete</button></div></div>`).join("") : empty("No saved drafts.", "Save an unfinished signal from Flow and continue later.")}</section>`;
+        return `<div class="stack"><section class="hero-card card"><div class="eyebrow">Personal vault</div><h1>Keep what moves you.</h1><p>Bookmarks and drafts are scoped to your authenticated account.</p></section>${state.capabilities.bookmarks === false ? empty("Archive is not configured.", "The connected database does not expose a bookmarks table.") : `<section class="card side-card">${collectionBar}${saved.length ? `<div class="stack" id="archive-list">${saved.map((post) => `<div>${postTemplate(post)}<button class="card-link" style="margin:8px 0 0 5px" data-move-bookmark="${escapeHTML(post.id)}">Move to collection</button></div>`).join("")}</div>` : empty("Your archive is empty.", "Save a live signal from Flow to place it here.")}</section>`}${state.capabilities.drafts === false ? empty("Drafts are not configured.", "Add a drafts table with user ownership to enable private drafts.") : draftPanel}</div>`;
       }
 
       function renderMessages() {
-        const stage = mainStage();
+        const stage = state.communities.find((community) => String(community.id) === String(state.selectedCommunityId)) || mainStage();
         const hasChannelIds = state.messages.some((message) => message.community_id);
         const messages = stage && hasChannelIds ? state.messages.filter((message) => String(message.community_id) === String(stage.id)) : state.messages;
         const rows = messages.map((message) => {
           const author = profileFor(message.user_id || message.author_id || message.sender_id);
-          return `<div class="event-row"><span class="avatar small ${escapeHTML(author?.avatar_color || "blue")}">${escapeHTML(initials(displayName(author, "ARMY")))}</span><div><strong>${escapeHTML(displayName(author, message.author_name || "ARMY"))}</strong><span>${escapeHTML(message.content || message.body || message.message || "")} · ${escapeHTML(formatTime(message.created_at))}</span></div></div>`;
+          const authorId = message.user_id || message.author_id || message.sender_id;
+          const mine = String(authorId) === String(state.user.id);
+          const admin = author?.role === "admin";
+          const read = message.read_at || message.seen_at || message.status === "seen";
+          const delivered = read || message.delivered_at || message.status === "delivered";
+          return `<article class="chat-message ${mine ? "mine" : ""}">${avatarMarkup(author, "small", message.author_name || "ARMY")}<div class="chat-message-body"><div class="chat-message-meta"><strong>${presenceMarkup(authorId)}${escapeHTML(displayName(author, message.author_name || "ARMY"))}</strong>${admin ? `<span class="admin-badge">ADMIN</span>` : ""}<time>${escapeHTML(formatTime(message.created_at))}</time></div><p>${escapeHTML(message.content || message.body || message.message || "")}${mine ? `<span class="read-state ${read ? "seen" : ""}" title="${read ? "Seen" : delivered ? "Delivered" : "Sent"}">${read ? "✓✓" : delivered ? "✓✓" : "✓"}</span>` : ""}</p></div></article>`;
         }).join("");
-        const composer = stage ? `<div class="message-composer"><input id="main-stage-message" maxlength="500" placeholder="Message everyone in Main Stage..." /><button class="primary-button" id="send-main-stage-message">Send</button></div>` : "";
-        return `<div class="content-grid"><section class="card side-card"><div class="card-heading"><div><div class="eyebrow">${stage ? "Main Stage · Open channel" : "Live records"}</div><h3 style="margin-top:6px">${stage ? escapeHTML(stage.name || "Main Stage") : "Messages"}</h3></div>${isAdmin() ? `<span class="admin-badge">ADMIN</span>` : ""}</div><p class="muted" style="margin-top:8px;font-size:12px">${stage ? "Everyone can join and send messages here. No private invitation is required." : "Messages are read from the connected database."}</p>${composer}<div class="member-list" style="margin-top:16px">${rows || empty("No messages yet.", stage ? "Be the first person to send a message in Main Stage." : "No message records are visible in the connected database.")}</div></section>${stage ? empty("Public channel", "Main Stage messages are visible to members of the open community.") : empty("Choose a channel.", "Private messaging needs a real conversation record before it can be displayed.")}</div>`;
+        const composer = stage ? `<div class="message-composer"><input id="main-stage-message" maxlength="500" placeholder="Write to ${escapeHTML(stage.name || "Main Stage")}..." /><button class="primary-button" id="send-main-stage-message">Send</button></div>` : "";
+        const typers = Object.values(state.typingUsers);
+        return `<div class="chat-layout"><section class="chat-panel card"><header class="chat-header"><div class="chat-channel-icon">⌁</div><div><div class="eyebrow">${stage ? `${escapeHTML(stage.name || "Community")} · open channel` : "Live records"}</div><h2>${stage ? escapeHTML(stage.name || "Main Stage") : "Messages"}</h2><span>${stage ? "● live · everyone can join" : "Connected database"}</span></div>${isAdmin() ? `<span class="admin-badge">ADMIN</span>` : ""}</header><div class="chat-messages">${rows || empty("No messages yet.", stage ? "Be the first person to send a message in this channel." : "No message records are visible in the connected database.")}</div><div class="typing-indicator">${typers.length ? `${escapeHTML(typers.slice(0, 2).join(", "))} ${typers.length > 1 ? "are" : "is"} typing...` : ""}</div>${composer || `<div class="chat-locked">A live channel will appear when a community message record is available.</div>`}</section><aside class="chat-aside">${stage ? `<div class="card side-card"><div class="eyebrow">Channel context</div><h3 style="margin-top:7px">${escapeHTML(stage.name || "Main Stage")}</h3><p class="muted" style="margin-top:8px;font-size:11px">${escapeHTML(stage.description || "Open community channel.")}</p></div>` : empty("No channel selected.", "Choose a community with a connected message record.")}</aside></div>`;
       }
 
       function renderProfile() {
-        const ownPosts = state.posts.filter((post) => String(post.author_id || post.user_id || post.owner_id) === String(state.user.id)).length;
-        const ownCommunities = state.communityMembers.filter((member) => String(member.user_id) === String(state.user.id)).length;
-        return `<div class="profile-view"><section class="profile-banner"><div class="profile-info"><span class="avatar ${escapeHTML(currentAvatar())}">${escapeHTML(initials(currentName()))}</span><div><h1>${escapeHTML(currentName())}</h1><p>@${escapeHTML(state.profile?.username || "army")} · ${escapeHTML(state.profile?.role || "user")}</p></div></div></section><section class="card stats-card"><div class="stat"><strong>${ownPosts}</strong><span>Signals</span></div><div class="stat"><strong>${ownCommunities}</strong><span>Communities</span></div><div class="stat"><strong>${state.notifications.length}</strong><span>Signals received</span></div></section><section class="card side-card"><div class="eyebrow">ARMY ORBIT</div><h3 style="margin-top:8px">Your constellation is ${ownCommunities ? "taking shape." : "waiting for its first point."}</h3><p class="muted" style="margin-top:8px;font-size:12px">The orbit is based on your real memberships, posts, follows, and notifications.</p><div style="position:relative;height:58px;margin-top:17px;overflow:hidden;border:1px solid var(--line);border-radius:13px;background:radial-gradient(circle at 50% 50%,rgba(168,140,255,.2),transparent 35%),rgba(255,255,255,.02)"><span class="orbit-dot dot-a"></span><span class="orbit-dot dot-b"></span><span class="orbit-dot dot-c"></span><span class="orbit-dot dot-d"></span><span class="orbit-dot dot-e"></span><span class="orbit-dot dot-f"></span><span class="orbit-dot dot-g"></span></div><div style="display:flex;gap:8px;margin-top:18px;flex-wrap:wrap"><button class="ghost-button" style="padding:0 16px" data-action="edit-profile">Edit profile</button><button class="ghost-button" style="padding:0 16px" data-action="replay-tour">Replay tour</button><button class="ghost-button" style="padding:0 16px" data-action="logout">Log out</button></div></section></div>`;
+        const target = profileFor(state.profileTargetId) || state.profile;
+        const targetId = target?.id || state.user.id;
+        const own = String(targetId) === String(state.user.id);
+        const posts = state.posts.filter((post) => String(post.author_id || post.user_id || post.owner_id || post.profile_id) === String(targetId)).map(hydratePost);
+        const memberships = state.communityMembers.filter((member) => String(member.user_id) === String(targetId));
+        const followerCount = state.follows.filter((follow) => String(follow.following_id || follow.target_user_id) === String(targetId)).length;
+        const followingCount = state.follows.filter((follow) => String(follow.follower_id || follow.user_id) === String(targetId)).length;
+        const cover = target?.banner_url || target?.cover_url || target?.banner_image_url;
+        const joined = target?.created_at ? formatTime(target.created_at) : "Joined date unavailable";
+        const followsTarget = state.follows.some((follow) => String(follow.follower_id || follow.user_id) === String(state.user.id) && String(follow.following_id || follow.target_user_id) === String(targetId));
+        const tabContent = state.profileTab === "posts"
+          ? (posts.length ? `<div class="stack">${posts.map(postTemplate).join("")}</div>` : empty("No posts yet.", own ? "Your published signals will appear here." : "This ARMY has not published a signal."))
+          : state.profileTab === "communities"
+            ? (memberships.length ? `<div class="community-grid">${memberships.map((member) => state.communities.find((community) => String(community.id) === String(member.community_id))).filter(Boolean).map((community) => `<article class="community-tile card"><div class="community-tile-visual"><span class="community-avatar">${escapeHTML(initials(community.name || "C"))}</span><span class="community-status">MEMBER</span></div><div class="community-tile-body"><h3>${escapeHTML(community.name || "Unnamed community")}</h3><p>${escapeHTML(community.description || "No description in database.")}</p></div></article>`).join("")}</div>` : empty("No communities yet.", own ? "Join a community to place it in your orbit." : "No memberships are visible for this profile."))
+            : (posts.length || memberships.length ? `<div class="card side-card"><div class="eyebrow">Live activity</div>${posts.slice(0, 5).map((post) => `<div class="event-row" style="margin-top:12px">${avatarMarkup(target, "small", displayName(target))}<div><strong>Published a signal</strong><span>${escapeHTML(post.time)}</span></div></div>`).join("")}${memberships.slice(0, 5).map((member) => `<div class="event-row" style="margin-top:12px"><div class="event-date">✧</div><div><strong>Joined a community</strong><span>${escapeHTML(formatTime(member.created_at))}</span></div></div>`).join("")}</div>` : empty("No activity yet.", "Real activity will appear here when this profile creates or joins something."));
+        return `<div class="profile-view"><section class="profile-banner ${cover ? "has-cover" : ""}" ${cover ? `style="background-image:linear-gradient(90deg,rgba(2,8,16,.82),rgba(2,8,16,.2)),url('${escapeHTML(cover)}')"` : ""}><div class="profile-info">${avatarMarkup(target, "", displayName(target))}<div class="profile-info-copy"><h1>${escapeHTML(displayName(target))}</h1><p>@${escapeHTML(target?.username || "army")} · ${escapeHTML(target?.role || "user")} ${presenceMarkup(targetId)}${isOnline(targetId) ? "Online" : "Offline"}</p><p class="profile-bio">${escapeHTML(target?.bio || "No bio in database.")}</p><div class="profile-meta-line"><span>Joined ${escapeHTML(joined)}</span><span>${memberships.length} communities</span></div></div><div class="profile-header-actions">${own ? `<button class="ghost-button" style="padding:0 13px" data-action="edit-profile">Edit profile</button>` : `<button class="ghost-button" style="padding:0 13px" data-follow="${escapeHTML(targetId)}">${followsTarget ? "Following" : "Follow"}</button><button class="ghost-button" style="padding:0 13px" data-block="${escapeHTML(targetId)}">${state.blocks.some((block) => String(block.blocked_id || block.target_user_id || block.blocked_user_id) === String(targetId)) ? "Unblock" : "Block"}</button>`}</div></div></section><section class="profile-counts"><div class="profile-count"><strong>${posts.length}</strong><span>Signals</span></div><div class="profile-count"><strong>${memberships.length}</strong><span>Communities</span></div><button class="profile-count" data-network="followers"><strong>${followerCount}</strong><span>Followers</span></button><button class="profile-count" data-network="following"><strong>${followingCount}</strong><span>Following</span></button></section><div class="profile-tabs">${["posts", "communities", "activity"].map((tab) => `<button class="profile-tab ${state.profileTab === tab ? "active" : ""}" data-profile-tab="${tab}">${tab}</button>`).join("")}</div><div class="profile-columns"><section>${tabContent}</section><aside class="profile-side">${own ? `<div class="card side-card"><div class="eyebrow">Account controls</div><h3 style="margin-top:7px">Your identity is live.</h3><p class="muted" style="margin-top:7px;font-size:11px">Profile edits, uploads, follows, and activity are written to Supabase when the corresponding table or storage bucket exists.</p><div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap"><button class="ghost-button" style="padding:0 12px" data-action="edit-profile">Edit profile</button><button class="ghost-button" style="padding:0 12px" data-action="replay-tour">Replay tour</button></div></div>` : `<div class="card side-card"><div class="eyebrow">ARMY orbit</div><h3 style="margin-top:7px">${escapeHTML(displayName(target))} in the dimension.</h3><p class="muted" style="margin-top:7px;font-size:11px">Only records returned by the connected database are shown.</p></div>`}${own ? `<button class="ghost-button" style="padding:0 15px" data-action="logout">Log out</button>` : ""}</aside></div></div>`;
       }
 
       const renderers = { flow: renderFlow, constellation: renderConstellation, discover: renderDiscover, signal: renderSignal, archive: renderArchive, events: renderEvents, messages: renderMessages, profile: renderProfile };
+
+      async function uploadToStorage(file, kind) {
+        if (!file || !db) return null;
+        const buckets = kind === "post" ? ["post-media", "media", "uploads"] : ["profile-media", "avatars", "uploads"];
+        const path = `${state.user.id}/${kind}-${Date.now()}-${slug(file.name)}`;
+        for (const bucket of buckets) {
+          const upload = await db.storage.from(bucket).upload(path, file, { upsert: true, contentType: file.type || "application/octet-stream" });
+          if (!upload.error) {
+            const publicUrl = db.storage.from(bucket).getPublicUrl(path);
+            return publicUrl.data?.publicUrl || null;
+          }
+        }
+        return null;
+      }
+
+      async function insertNotification(payload) {
+        if (!db) return;
+        const candidates = [
+          { user_id: payload.user_id, actor_id: state.user.id, type: payload.type, title: payload.title, message: payload.message, entity_id: payload.entity_id, read: false },
+          { user_id: payload.user_id, from_user_id: state.user.id, kind: payload.type, content: payload.message, target_id: payload.entity_id, is_read: false }
+        ];
+        for (const candidate of candidates) {
+          const result = await db.from("notifications").insert(candidate);
+          if (!result.error) return;
+          if (!/column|schema cache/i.test(result.error.message || "")) return;
+        }
+      }
+
+      async function markNotificationRead(id) {
+        const notification = state.notifications.find((item) => String(item.id) === String(id));
+        if (!notification || !id || notification.read === true || notification.is_read === true || notification.read_at) return;
+        let result = await db.from("notifications").update({ read: true, read_at: new Date().toISOString() }).eq("id", id).eq("user_id", state.user.id);
+        if (result.error && /column|schema cache/i.test(result.error.message || "")) result = await db.from("notifications").update({ is_read: true }).eq("id", id).eq("user_id", state.user.id);
+        if (result.error) return toast(result.error.message, true);
+        await loadLiveData();
+      }
+
+      async function updateProfile(payload) {
+        const payloads = [
+          payload,
+          Object.fromEntries(Object.entries(payload).filter(([key]) => !["avatar_url", "banner_url", "cover_url"].includes(key))),
+          Object.fromEntries(Object.entries(payload).filter(([key]) => !["username"].includes(key)))
+        ];
+        for (const candidate of payloads) {
+          const result = await db.from("profiles").update(candidate).eq("id", state.user.id).select("*").single();
+          if (!result.error) return result;
+          if (!/column|schema cache/i.test(result.error.message || "")) return result;
+        }
+        return { error: new Error("Profile schema did not accept the requested fields.") };
+      }
 
       async function createPost() {
         const input = $("#composer-input");
         const content = input?.value.trim();
         if (!content) return toast("Write a signal before transmitting.", true);
+        const imageUrl = state.composerFile ? await uploadToStorage(state.composerFile, "post") : null;
+        if (state.composerFile && !imageUrl) return toast("Image upload failed. Check that a Supabase Storage bucket is configured.", true);
         const candidates = [
-          { author_id: state.user.id, content },
-          { user_id: state.user.id, content },
+          { author_id: state.user.id, content, image_url: imageUrl },
+          { user_id: state.user.id, content, media_url: imageUrl },
           { author_id: state.user.id, body: content }
         ];
         let result = null;
@@ -1822,7 +2244,12 @@
           if (!/column|schema cache|null value/i.test(result.error.message || "")) break;
         }
         if (result?.error) return toast(`Post failed: ${result.error.message}`, true);
+        const mentions = [...content.matchAll(/@([a-z0-9_.-]+)/gi)].map((match) => match[1].toLowerCase());
+        for (const profile of state.profiles.filter((item) => mentions.includes(String(item.username || "").toLowerCase()) && String(item.id) !== String(state.user.id))) {
+          await insertNotification({ user_id: profile.id, type: "mention", title: `${currentName()} mentioned you in a signal.`, message: `${currentName()} mentioned you in a signal.` });
+        }
         await loadLiveData();
+        state.composerFile = null;
         toast("Signal transmitted to Supabase.");
       }
 
@@ -1838,18 +2265,59 @@
           let result = await db.from("reactions").insert({ post_id: post.id, user_id: state.user.id, type: "like" });
           if (result.error && /column|schema cache/i.test(result.error.message || "")) result = await db.from("reactions").insert({ post_id: post.id, user_id: state.user.id, reaction_type: "like" });
           if (result.error) return toast(result.error.message, true);
+          if (post.authorId && String(post.authorId) !== String(state.user.id)) await insertNotification({ user_id: post.authorId, type: "like", entity_id: post.id, title: `${currentName()} liked your signal.`, message: `${currentName()} liked your signal.` });
         }
         await loadLiveData();
       }
 
       async function addComment(post) {
-        const content = window.prompt("Reply to this signal");
-        if (!content?.trim()) return;
-        let result = await db.from("comments").insert({ post_id: post.id, user_id: state.user.id, content: content.trim() });
-        if (result.error && /column|schema cache/i.test(result.error.message || "")) result = await db.from("comments").insert({ post_id: post.id, author_id: state.user.id, body: content.trim() });
+        return openComments(post);
+      }
+
+      async function submitComment(postId, parentId = null) {
+        const input = $("#comment-input");
+        const content = input?.value.trim();
+        if (!content) return;
+        const payloads = [
+          { post_id: postId, user_id: state.user.id, content, parent_id: parentId },
+          { post_id: postId, author_id: state.user.id, body: content, parent_comment_id: parentId },
+          { post_id: postId, user_id: state.user.id, content }
+        ];
+        let result = null;
+        for (const payload of payloads) {
+          result = await db.from("comments").insert(payload);
+          if (!result.error) break;
+          if (!/column|schema cache/i.test(result.error.message || "")) break;
+        }
+        if (result.error) return toast(result.error.message, true);
+        const post = state.posts.find((item) => String(item.id) === String(postId));
+        const authorId = post?.author_id || post?.user_id || post?.owner_id;
+        if (authorId && String(authorId) !== String(state.user.id)) await insertNotification({ user_id: authorId, type: parentId ? "reply" : "comment", entity_id: postId, title: `${currentName()} ${parentId ? "replied to" : "commented on"} your signal.`, message: `${currentName()} ${parentId ? "replied to" : "commented on"} your signal.` });
+        await loadLiveData();
+        openComments(hydratePost(post || { id: postId }));
+        toast(parentId ? "Reply added to the thread." : "Comment added to the live thread.");
+      }
+
+      function openComments(post) {
+        const comments = state.comments.filter((comment) => String(comment.post_id || comment.target_id) === String(post.id));
+        const commentRows = comments.filter((comment) => !comment.parent_id && !comment.parent_comment_id).map((comment) => {
+          const author = profileFor(comment.user_id || comment.author_id);
+          const replies = comments.filter((reply) => String(reply.parent_id || reply.parent_comment_id) === String(comment.id));
+          return `<article class="comment-item">${avatarMarkup(author, "small", "ARMY")}<div class="comment-meta"><strong>${escapeHTML(displayName(author, comment.author_name || "ARMY"))}</strong><span>${escapeHTML(formatTime(comment.created_at))}</span></div><p class="comment-body">${escapeHTML(comment.content || comment.body || "")}</p><div class="comment-actions"><button class="card-link" data-comment-reply="${escapeHTML(comment.id)}">Reply</button><button class="card-link" data-comment-report="${escapeHTML(comment.id)}">Report</button>${String(comment.user_id || comment.author_id) === String(state.user.id) ? `<button class="card-link" data-comment-delete="${escapeHTML(comment.id)}">Delete</button>` : ""}</div>${replies.map((reply) => { const replyAuthor = profileFor(reply.user_id || reply.author_id); return `<div class="comment-item reply">${avatarMarkup(replyAuthor, "small", "ARMY")}<div class="comment-meta"><strong>${escapeHTML(displayName(replyAuthor, "ARMY"))}</strong><span>${escapeHTML(formatTime(reply.created_at))}</span></div><p class="comment-body">${escapeHTML(reply.content || reply.body || "")}</p></div>`; }).join("")}</article>`;
+        }).join("");
+        $("#modal-root").innerHTML = `<div class="modal-backdrop" data-close-modal><section class="modal" role="dialog" aria-modal="true"><button class="modal-close" data-close-modal aria-label="Close dialog">×</button><div class="eyebrow">Live thread · ${post.comments || comments.length} comments</div><h2>Join the signal.</h2><p>${escapeHTML(post.text?.replace(/<[^>]+>/g, "") || "Conversation")}</p><div class="comment-thread">${commentRows || empty("No comments yet.", "Start the real thread below.")}</div><form class="form" id="comment-form"><div class="field"><label for="comment-input">Comment</label><textarea id="comment-input" maxlength="500" placeholder="Add a thoughtful reply..." required></textarea></div><input type="hidden" id="comment-parent" value="" /><div class="modal-actions"><button type="button" class="ghost-button" data-close-modal>Close</button><button class="primary-button" type="submit">Publish comment</button></div></form></section></div>`;
+        $("#comment-form").addEventListener("submit", (event) => { event.preventDefault(); submitComment(post.id, $("#comment-parent").value || null); });
+        $$("[data-comment-reply]").forEach((button) => button.addEventListener("click", () => { $("#comment-parent").value = button.dataset.commentReply; $("#comment-input").focus(); }));
+        $$("[data-comment-delete]").forEach((button) => button.addEventListener("click", () => deleteComment(button.dataset.commentDelete, post)));
+        $$("[data-comment-report]").forEach((button) => button.addEventListener("click", () => reportRecord("comment", button.dataset.commentReport)));
+      }
+
+      async function deleteComment(id, post) {
+        let result = await db.from("comments").delete().eq("id", id).eq("user_id", state.user.id);
+        if (result.error && /column|schema cache/i.test(result.error.message || "")) result = await db.from("comments").delete().eq("id", id).eq("author_id", state.user.id);
         if (result.error) return toast(result.error.message, true);
         await loadLiveData();
-        toast("Reply added to the live thread.");
+        openComments(hydratePost(post));
       }
 
       async function toggleBookmark(post) {
@@ -1862,11 +2330,120 @@
         await loadLiveData();
       }
 
+      async function togglePin(postId) {
+        const row = state.posts.find((item) => String(item.id) === String(postId));
+        const community = state.communities.find((item) => String(item.id) === String(row?.community_id));
+        const owner = community?.created_by || community?.owner_id || community?.creator_id;
+        if (!row || (!isAdmin() && String(owner) !== String(state.user.id))) return toast("Only an admin or community owner can pin a signal.", true);
+        const next = !(row.is_pinned === true || row.pinned === true);
+        let result = await db.from("posts").update({ is_pinned: next }).eq("id", postId);
+        if (result.error && /column|schema cache/i.test(result.error.message || "")) result = await db.from("posts").update({ pinned: next }).eq("id", postId);
+        if (result.error) return toast(`Pin update failed: ${result.error.message}`, true);
+        await loadLiveData();
+        toast(next ? "Signal pinned to the community." : "Signal unpinned.");
+      }
+
+      async function reportRecord(type, id) {
+        const reason = window.prompt("Report reason: Spam, Harassment, Inappropriate content, or Other", "Other")?.trim();
+        if (!reason) return;
+        const result = await db.from("reports").insert({ reporter_id: state.user.id, target_type: type, target_id: id, reason });
+        if (result.error) return toast(`Report failed: ${result.error.message}`, true);
+        toast("Report sent to the admin review queue.");
+      }
+
+      async function toggleBlock(profileId) {
+        if (String(profileId) === String(state.user.id)) return;
+        const existing = state.blocks.find((block) => String(block.blocked_id || block.target_user_id || block.blocked_user_id) === String(profileId));
+        const result = existing
+          ? await db.from("blocks").delete().eq("id", existing.id)
+          : await db.from("blocks").insert({ blocker_id: state.user.id, blocked_id: profileId });
+        if (result.error) return toast(`Block update failed: ${result.error.message}`, true);
+        await loadLiveData();
+        if (existing) toast("User unblocked.");
+        else { toast("User blocked. Their content is hidden from your feed."); setView("flow"); }
+      }
+
+      function openNetwork(kind, profileId) {
+        const ids = state.follows.filter((follow) => {
+          const follower = follow.follower_id || follow.user_id;
+          const following = follow.following_id || follow.target_user_id;
+          return kind === "followers" ? String(following) === String(profileId) : String(follower) === String(profileId);
+        }).map((follow) => kind === "followers" ? (follow.follower_id || follow.user_id) : (follow.following_id || follow.target_user_id));
+        const people = ids.map((id) => profileFor(id)).filter(Boolean);
+        $("#modal-root").innerHTML = `<div class="modal-backdrop" data-close-modal><section class="modal" role="dialog" aria-modal="true"><button class="modal-close" data-close-modal>×</button><div class="eyebrow">Live network</div><h2>${kind === "followers" ? "Followers" : "Following"}</h2><p>Relationships are read from the connected follow table.</p><div class="comment-thread">${people.length ? people.map((person) => `<div class="event-row">${avatarMarkup(person, "small", "ARMY")}<div><strong>${escapeHTML(displayName(person))}</strong><span>@${escapeHTML(person.username || "army")}</span></div></div>`).join("") : empty(kind === "followers" ? "No followers yet." : "Following nobody yet.", "This network will populate from real follow relationships.")}</div></section></div>`;
+      }
+
+      async function toggleEventRsvp(eventId) {
+        const existing = state.eventMembers.find((member) => String(member.event_id) === String(eventId) && String(member.user_id || member.profile_id) === String(state.user.id));
+        const result = existing
+          ? await db.from("event_members").delete().eq("event_id", eventId).eq("user_id", state.user.id)
+          : await db.from("event_members").insert({ event_id: eventId, user_id: state.user.id });
+        if (result.error) return toast(`RSVP failed: ${result.error.message}`, true);
+        await loadLiveData();
+        toast(existing ? "RSVP removed." : "You are attending this event.");
+      }
+
+      async function saveDraft() {
+        const content = $("#composer-input")?.value.trim();
+        if (!content) return toast("Write something before saving a draft.", true);
+        const result = await db.from("drafts").insert({ user_id: state.user.id, content });
+        if (result.error) return toast(`Draft failed: ${result.error.message}`, true);
+        await loadLiveData();
+        toast("Draft saved privately.");
+      }
+
+      async function deleteDraft(id) {
+        const result = await db.from("drafts").delete().eq("id", id).eq("user_id", state.user.id);
+        if (result.error) return toast(result.error.message, true);
+        await loadLiveData();
+      }
+
+      function editDraft(id) {
+        const draft = state.drafts.find((item) => String(item.id) === String(id));
+        if (!draft) return;
+        state.view = "flow";
+        render();
+        const input = $("#composer-input");
+        if (input) { input.value = draft.content || draft.body || ""; input.focus(); }
+      }
+
+      async function createCollection() {
+        const name = window.prompt("Collection name");
+        if (!name?.trim()) return;
+        const result = await db.from("bookmark_collections").insert({ user_id: state.user.id, name: name.trim() });
+        if (result.error) return toast(`Collection failed: ${result.error.message}`, true);
+        await loadLiveData();
+        toast("Bookmark collection created.");
+      }
+
+      async function moveBookmark(postId) {
+        if (!state.collections.length) return toast("Create a collection first.", true);
+        const choices = state.collections.map((collection, index) => `${index + 1}. ${collection.name}`).join("\n");
+        const selected = Number(window.prompt(`Choose a collection:\n${choices}`, "1")) - 1;
+        const collection = state.collections[selected];
+        if (!collection) return;
+        const bookmark = state.bookmarks.find((item) => String(item.post_id || item.target_id || item.content_id) === String(postId));
+        const result = await db.from("bookmark_collection_items").insert({ collection_id: collection.id, bookmark_id: bookmark?.id, post_id: postId, user_id: state.user.id });
+        if (result.error) return toast(`Move failed: ${result.error.message}`, true);
+        toast(`Moved to ${collection.name}.`);
+      }
+
+      async function startTyping() {
+        if (!state.realtimeChannel || !state.user) return;
+        await state.realtimeChannel.send({ type: "broadcast", event: "typing", payload: { user_id: state.user.id, username: currentName(), typing: true } });
+        clearTimeout(startTyping.timer);
+        startTyping.timer = setTimeout(() => state.realtimeChannel?.send({ type: "broadcast", event: "typing", payload: { user_id: state.user.id, username: currentName(), typing: false } }), 1200);
+      }
+
       async function followProfile(profileId) {
+        if (String(profileId) === String(state.user.id)) return toast("You cannot follow yourself.", true);
         const existing = state.follows.find((follow) => String(follow.follower_id || follow.user_id) === String(state.user.id) && String(follow.following_id || follow.target_user_id) === String(profileId));
         let result;
         if (existing) result = await db.from("user_follows").delete().eq("follower_id", state.user.id).eq("following_id", profileId);
-        else result = await db.from("user_follows").insert({ follower_id: state.user.id, following_id: profileId });
+        else {
+          result = await db.from("user_follows").insert({ follower_id: state.user.id, following_id: profileId });
+          if (!result.error) await insertNotification({ user_id: profileId, type: "follow", title: `${currentName()} started following you.`, message: `${currentName()} started following you.` });
+        }
         if (result.error) return toast(result.error.message, true);
         await loadLiveData();
       }
@@ -1892,7 +2469,7 @@
       async function sendMainStageMessage() {
         const input = $("#main-stage-message");
         const content = input?.value.trim();
-        const stage = mainStage();
+        const stage = state.communities.find((community) => String(community.id) === String(state.selectedCommunityId)) || mainStage();
         if (!stage || !content) return;
         const payloads = [
           { community_id: stage.id, user_id: state.user.id, content },
@@ -1909,7 +2486,7 @@
         if (result?.error) return toast(`Message failed: ${result.error.message}`, true);
         input.value = "";
         await loadLiveData();
-        toast("Message sent to Main Stage.");
+        toast(`Message sent to ${stage.name || "the channel"}.`);
       }
 
       async function toggleFeaturedProfile(profileId) {
@@ -1955,14 +2532,58 @@
         toast("Community created in Supabase.");
       }
 
+      function openCommunityEditor(id) {
+        const community = state.communities.find((item) => String(item.id) === String(id));
+        if (!community) return;
+        const owner = community.created_by || community.owner_id || community.creator_id;
+        if (!isAdmin() && String(owner) !== String(state.user.id)) return toast("Only the community owner or an admin can manage this space.", true);
+        const members = state.communityMembers.filter((member) => String(member.community_id) === String(id));
+        $("#modal-root").innerHTML = `<div class="modal-backdrop" data-close-modal><section class="modal" role="dialog" aria-modal="true"><button class="modal-close" data-close-modal>×</button><div class="eyebrow">Community control</div><h2>Edit ${escapeHTML(community.name || "community")}</h2><p>Changes are written to the existing communities table.</p><form class="form" id="community-edit-form"><div class="field"><label for="edit-community-name">Name</label><input id="edit-community-name" maxlength="60" value="${escapeHTML(community.name || "")}" required /></div><div class="field"><label for="edit-community-description">Description</label><textarea id="edit-community-description" maxlength="240">${escapeHTML(community.description || "")}</textarea></div><div class="field"><label for="edit-community-image">Community image</label><input id="edit-community-image" type="file" accept="image/*" /></div><div class="field"><label>Members · ${members.length}</label>${members.length ? members.slice(0, 20).map((member) => { const person = profileFor(member.user_id); return `<div class="event-row" style="margin-top:7px">${avatarMarkup(person, "small", "ARMY")}<div><strong>${escapeHTML(displayName(person, "ARMY"))}</strong><span>${escapeHTML(member.role || "member")}</span></div>${String(member.user_id) !== String(state.user.id) ? `<button type="button" class="card-link" data-remove-member="${escapeHTML(member.id || member.user_id)}" data-remove-member-user="${escapeHTML(member.user_id)}">Remove</button>` : ""}</div>`; }).join("") : `<span class="muted">No members are visible.</span>`}</div><p id="community-edit-error" class="muted" style="min-height:18px"></p><div class="modal-actions"><button type="button" class="ghost-button" data-close-modal>Cancel</button><button class="primary-button" type="submit">Save community</button></div></form></section></div>`;
+        $("#community-edit-form").addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const name = $("#edit-community-name").value.trim();
+          const description = $("#edit-community-description").value.trim();
+          const imageFile = $("#edit-community-image").files[0];
+          const image_url = imageFile ? await uploadToStorage(imageFile, "community") : community.image_url;
+          let result = await db.from("communities").update({ name, description, image_url }).eq("id", id);
+          if (result.error && /column|schema cache/i.test(result.error.message || "")) result = await db.from("communities").update({ name, description }).eq("id", id);
+          if (result.error) return ($("#community-edit-error").textContent = result.error.message);
+          $("#modal-root").innerHTML = "";
+          await loadLiveData();
+          toast("Community updated.");
+        });
+        $$("[data-remove-member]").forEach((button) => button.addEventListener("click", () => removeCommunityMember(id, button.dataset.removeMember, button.dataset.removeMemberUser)));
+      }
+
+      async function removeCommunityMember(communityId, memberId, userId) {
+        let result = await db.from("community_members").delete().eq("id", memberId);
+        if (result.error && /column|schema cache/i.test(result.error.message || "")) result = await db.from("community_members").delete().eq("community_id", communityId).eq("user_id", userId);
+        if (result.error) return toast(`Member removal failed: ${result.error.message}`, true);
+        await loadLiveData();
+        $("#modal-root").innerHTML = "";
+        toast("Member removed from the community.");
+      }
+
       function openProfileEditor() {
-        $("#modal-root").innerHTML = `<div class="modal-backdrop" data-close-modal><section class="modal" role="dialog" aria-modal="true"><button class="modal-close" data-close-modal aria-label="Close dialog">×</button><div class="eyebrow">Live identity</div><h2>Edit your profile</h2><p>Changes are written to public.profiles.</p><form class="form" id="profile-form"><div class="field"><label for="profile-name">Display name</label><input id="profile-name" maxlength="32" value="${escapeHTML(state.profile?.display_name || state.profile?.username || "")}" required /></div><div class="field"><label for="profile-bio">Bio</label><textarea id="profile-bio" maxlength="160">${escapeHTML(state.profile?.bio || "")}</textarea></div><div class="modal-actions"><button type="button" class="ghost-button" data-close-modal>Cancel</button><button type="submit" class="primary-button">Save profile</button></div></form></section></div>`;
+        $("#modal-root").innerHTML = `<div class="modal-backdrop" data-close-modal><section class="modal" role="dialog" aria-modal="true"><button class="modal-close" data-close-modal aria-label="Close dialog">×</button><div class="eyebrow">Live identity · Supabase profile</div><h2>Edit your profile</h2><p>Text fields save to public.profiles. Images upload to Supabase Storage before their public URL is saved.</p><form class="form" id="profile-form"><div class="field"><label for="profile-username">Username</label><input id="profile-username" maxlength="24" pattern="[A-Za-z0-9_.-]{3,24}" value="${escapeHTML(state.profile?.username || "")}" required /><small class="muted">3–24 characters: letters, numbers, dot, underscore, hyphen.</small></div><div class="field"><label for="profile-name">Display name</label><input id="profile-name" maxlength="32" value="${escapeHTML(state.profile?.display_name || state.profile?.username || "")}" required /></div><div class="field"><label for="profile-bio">Bio</label><textarea id="profile-bio" maxlength="160">${escapeHTML(state.profile?.bio || "")}</textarea></div><div class="field"><label for="profile-avatar-file">Profile picture</label><input id="profile-avatar-file" type="file" accept="image/*" /></div><div class="field"><label for="profile-banner-file">Profile banner</label><input id="profile-banner-file" type="file" accept="image/*" /></div><p id="profile-error" class="muted" style="min-height:18px"></p><div class="modal-actions"><button type="button" class="ghost-button" data-close-modal>Cancel</button><button type="submit" class="primary-button">Save profile</button></div></form></section></div>`;
         $("#profile-form").addEventListener("submit", async (event) => {
           event.preventDefault();
+          const submit = event.submitter;
+          submit.disabled = true;
+          const username = $("#profile-username").value.trim().toLowerCase();
           const display_name = $("#profile-name").value.trim();
           const bio = $("#profile-bio").value.trim();
-          const result = await db.from("profiles").update({ display_name, bio }).eq("id", state.user.id).select("*").single();
-          if (result.error) return toast(result.error.message, true);
+          if (!/^[a-z0-9_.-]{3,24}$/.test(username)) { $("#profile-error").textContent = "Username must be 3–24 characters using letters, numbers, dot, underscore, or hyphen."; submit.disabled = false; return; }
+          const duplicate = await db.from("profiles").select("id").eq("username", username).neq("id", state.user.id).maybeSingle();
+          if (duplicate.data) { $("#profile-error").textContent = "That username is already in use."; submit.disabled = false; return; }
+          const avatarFile = $("#profile-avatar-file").files[0];
+          const bannerFile = $("#profile-banner-file").files[0];
+          const avatar_url = avatarFile ? await uploadToStorage(avatarFile, "avatar") : state.profile?.avatar_url;
+          const banner_url = bannerFile ? await uploadToStorage(bannerFile, "banner") : state.profile?.banner_url;
+          if (avatarFile && !avatar_url || bannerFile && !banner_url) { $("#profile-error").textContent = "The selected image could not be uploaded. Check that a Supabase Storage bucket is available."; submit.disabled = false; return; }
+          const result = await updateProfile({ username, display_name, bio, avatar_url, banner_url });
+          submit.disabled = false;
+          if (result.error) { $("#profile-error").textContent = result.error.message; return; }
           state.profile = result.data;
           $("#modal-root").innerHTML = "";
           await loadLiveData();
@@ -1974,6 +2595,15 @@
         $$(".section-tab").forEach((button) => button.addEventListener("click", () => { state.filter = button.dataset.filter; render(); }));
         $("#post-button")?.addEventListener("click", createPost);
         $("#add-tag")?.addEventListener("click", () => { const input = $("#composer-input"); input.value = `${input.value}${input.value ? " " : ""}#ARMY `; input.focus(); });
+        $("#add-image")?.addEventListener("click", () => $("#post-image-input").click());
+        $("#post-image-input")?.addEventListener("change", (event) => {
+          state.composerFile = event.target.files[0] || null;
+          const preview = $("#composer-preview");
+          preview.innerHTML = state.composerFile ? `<div class="composer-preview"><img src="${URL.createObjectURL(state.composerFile)}" alt="Selected post preview" /><button type="button" id="remove-post-image">×</button></div>` : "";
+          $("#remove-post-image")?.addEventListener("click", () => { state.composerFile = null; $("#post-image-input").value = ""; preview.innerHTML = ""; });
+        });
+        $("#save-draft")?.addEventListener("click", saveDraft);
+        $("#composer-input")?.addEventListener("input", startTyping);
         $$("[data-post-action]").forEach((button) => button.addEventListener("click", async () => {
           const post = hydratePost(state.posts.find((item) => String(item.id) === String(button.closest("[data-post]").dataset.post)));
           if (button.dataset.postAction === "like") await toggleLike(post);
@@ -1985,7 +2615,14 @@
             toast("Live signal link copied.");
           }
         }));
-        $$("[data-community]").forEach((button) => button.addEventListener("click", () => joinCommunity(button.dataset.community)));
+        $$("[data-community]").forEach((button) => button.addEventListener("click", async () => {
+          const id = button.dataset.community;
+          const joined = await joinCommunity(id);
+          if (joined) {
+            state.selectedCommunityId = id;
+            setView("messages");
+          }
+        }));
         $$("[data-open-main-stage]").forEach((button) => button.addEventListener("click", async () => {
           const joined = await joinCommunity(button.dataset.openMainStage);
           if (!joined) return;
@@ -1993,7 +2630,30 @@
           setView("messages");
         }));
         $$("[data-follow]").forEach((button) => button.addEventListener("click", () => followProfile(button.dataset.follow)));
+        $$("[data-profile]").forEach((button) => button.addEventListener("click", (event) => {
+          event.preventDefault();
+          state.profileTargetId = button.dataset.profile || state.user.id;
+          state.profileTab = "posts";
+          setView("profile");
+        }));
+        $$("[data-profile-tab]").forEach((button) => button.addEventListener("click", () => { state.profileTab = button.dataset.profileTab; render(); }));
+        $$("[data-network]").forEach((button) => button.addEventListener("click", () => openNetwork(button.dataset.network, state.profileTargetId || state.user.id)));
         $$("[data-feature-profile]").forEach((button) => button.addEventListener("click", () => toggleFeaturedProfile(button.dataset.featureProfile)));
+        $$("[data-post-report]").forEach((button) => button.addEventListener("click", () => reportRecord("post", button.dataset.postReport)));
+        $$("[data-post-pin]").forEach((button) => button.addEventListener("click", () => togglePin(button.dataset.postPin)));
+        $$("[data-report-user]").forEach((button) => button.addEventListener("click", () => reportRecord("user", button.dataset.reportUser)));
+        $$("[data-block]").forEach((button) => button.addEventListener("click", () => toggleBlock(button.dataset.block)));
+        $$("[data-event-rsvp]").forEach((button) => button.addEventListener("click", () => toggleEventRsvp(button.dataset.eventRsvp)));
+        $$("[data-edit-community]").forEach((button) => button.addEventListener("click", () => openCommunityEditor(button.dataset.editCommunity)));
+        $$("[data-report-community]").forEach((button) => button.addEventListener("click", () => reportRecord("community", button.dataset.reportCommunity)));
+        $$("[data-draft-delete]").forEach((button) => button.addEventListener("click", () => deleteDraft(button.dataset.draftDelete)));
+        $$("[data-draft-edit]").forEach((button) => button.addEventListener("click", () => editDraft(button.dataset.draftEdit)));
+        $("[data-action='create-collection']")?.addEventListener("click", createCollection);
+        $$("[data-move-bookmark]").forEach((button) => button.addEventListener("click", () => moveBookmark(button.dataset.moveBookmark)));
+        $$("[data-notification]").forEach((row) => row.addEventListener("click", () => markNotificationRead(row.dataset.notification)));
+        $$("[data-search-filter]").forEach((button) => button.addEventListener("click", () => { state.searchFilter = button.dataset.searchFilter; renderSearchOverlay(); }));
+        $$("[data-search-community]").forEach((button) => button.addEventListener("click", () => { state.selectedCommunityId = button.dataset.searchCommunity; state.searchOpen = false; state.view = "messages"; render(); }));
+        $$("[data-search-post]").forEach((button) => button.addEventListener("click", () => { state.searchOpen = false; state.view = "flow"; render(); setTimeout(() => $(`[data-post="${CSS.escape(button.dataset.searchPost)}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" }), 0); }));
         $("#send-main-stage-message")?.addEventListener("click", sendMainStageMessage);
         $("#main-stage-message")?.addEventListener("keydown", (event) => {
           if (event.key === "Enter") sendMainStageMessage();
@@ -2003,8 +2663,11 @@
         $("[data-action='replay-tour']")?.addEventListener("click", () => openTour(0));
         $("[data-action='logout']")?.addEventListener("click", logout);
         $("[data-action='read-signals']")?.addEventListener("click", async () => {
-          const unread = state.notifications.filter((item) => item.id && item.read !== true && item.user_id === state.user.id);
-          for (const item of unread) await db.from("notifications").update({ read: true, read_at: new Date().toISOString() }).eq("id", item.id);
+          const unread = state.notifications.filter((item) => item.id && item.read !== true && item.is_read !== true && !item.read_at);
+          for (const item of unread) {
+            let result = await db.from("notifications").update({ read: true, read_at: new Date().toISOString() }).eq("id", item.id);
+            if (result.error && /column|schema cache/i.test(result.error.message || "")) await db.from("notifications").update({ is_read: true }).eq("id", item.id);
+          }
           await loadLiveData();
         });
       }
@@ -2023,7 +2686,7 @@
 
       document.addEventListener("click", (event) => {
         const view = event.target.closest("[data-view]");
-        if (view) { event.preventDefault(); setView(view.dataset.view); return; }
+        if (view) { event.preventDefault(); if (view.dataset.view === "profile") state.profileTargetId = state.user?.id || null; setView(view.dataset.view); return; }
         const commandView = event.target.closest("[data-command-view]");
         if (commandView) {
           $("#command-root").innerHTML = "";
@@ -2042,7 +2705,8 @@
       });
       $("#enter-button").addEventListener("click", () => state.user ? enterWithUser(state.user) : openAuthModal("login"));
       $("#explore-button").addEventListener("click", () => state.user ? setView("discover") : openAuthModal("login"));
-      $("#search-input").addEventListener("input", (event) => { state.query = event.target.value.trim(); if (state.user) { state.view = "flow"; render(); } });
+      $("#search-input").addEventListener("input", (event) => { state.query = event.target.value.trim(); state.searchOpen = Boolean(state.query); if (state.user) render(); });
+      $("#search-input").addEventListener("focus", () => { if (state.query.length >= 2) { state.searchOpen = true; renderSearchOverlay(); } });
       window.addEventListener("keydown", (event) => {
         if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
           event.preventDefault();
